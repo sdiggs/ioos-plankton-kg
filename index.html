@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>IOOS Plankton Community KG — v0.7</title>
+<title>IOOS Plankton Community KG — v0.8</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -478,7 +478,7 @@ footer.foot {
 
   <header class="head">
     <div class="title">IOOS Plankton Community <em>Knowledge Graph</em></div>
-    <div class="version">v0.7 · operational</div>
+    <div class="version">v0.8 · focus</div>
     <div class="stats">
       <div><b id="stat-nodes">—</b>nodes</div>
       <div><b id="stat-edges">—</b>edges</div>
@@ -571,6 +571,8 @@ footer.foot {
 <!--   [S15] OPO Best Practices v1.0.0 summary (10 pages) + author list       -->
 <!--   [S16] IOOS Plankton Workshop — RA Input deck (8 RAs reporting)         -->
 <!--        AOOS, CeNCOOS, GCOOS, GLOS, NANOOS, MARACOOS, NERACOOS, PacIOOS, SCCOOS -->
+<!--   [S17] Nicole J. Poulton full record (supplied JSON)                    -->
+<!--   [S18] Christian S. Reiss NOAA SWFSC record (supplied JSON)             -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <script id="kg-data" type="application/json">
 {
@@ -585,7 +587,7 @@ footer.foot {
     { "id": "person_aimee_neeley", "label": "Aimee Neeley", "type": "Person", "subtype": "Ocean optics / phytoplankton", "affiliation": "NASA GSFC / SSAI", "description": "Co-PI on the OCB Phytoplankton Taxonomy WG; co-lead author of the OPO Best Practices (Clayton, Neeley, Poulton et al. 2026).", "privacy": "public", "sources": ["S6", "S7"] },
     { "id": "person_ivona_cetinic", "label": "Ivona Cetinić", "type": "Person", "subtype": "Ocean biogeochemistry", "affiliation": "NASA GSFC / USRA", "description": "Co-PI on the OCB Phytoplankton Taxonomy WG; phytoplankton biogeochemistry in support of NASA PACE and related ocean color missions.", "privacy": "public", "sources": ["S6"] },
     { "id": "person_sophie_clayton", "label": "Sophie Clayton", "type": "Person", "subtype": "Biological oceanographer", "affiliation": "National Oceanography Centre, Southampton (UK)", "description": "Co-lead author (with Neeley and Poulton) of the OPO Best Practices (Clayton, Neeley, Poulton et al. 2026).", "privacy": "public", "sources": ["S7", "S15"] },
-    { "id": "person_nicole_poulton", "label": "Nicole Poulton", "type": "Person", "subtype": "Phytoplankton taxonomy", "affiliation": "Bigelow Laboratory", "description": "Co-lead author of the OPO Best Practices; flow cytometry and phytoplankton taxonomy expertise at Bigelow Laboratory.", "privacy": "public", "sources": ["S7"] },
+    { "id": "person_nicole_poulton", "label": "Nicole Poulton", "type": "Person", "subtype": "Senior Research Scientist / flow cytometry", "affiliation": "Bigelow Laboratory for Ocean Sciences", "role": "Senior Research Scientist; Director, Bigelow Center for Aquatic Cytometry", "orcid": "0000-0003-3020-4509", "description": "Senior Research Scientist at Bigelow Laboratory; Director of the Bigelow Center for Aquatic Cytometry. Expertise spans phytoplankton ecology, marine microbiology, aquatic flow cytometry, imaging flow cytometry, and single-cell genomics. Co-lead author (with Clayton and Neeley) of the OPO Best Practices (2026). Co-organizer of the OCB Working Group on Standards and Best Practices for Operational Phytoplankton Observations. Co-Chair of the ICES Working Group on Phytoplankton and Microbial Ecology (WGPME). Councilor of the International Society for the Advancement of Cytometry. Leads the multiyear Boothbay Harbor plankton and microbial time series.", "privacy": "public", "sources": ["S7", "S15", "S17"] },
     { "id": "person_clarissa_anderson", "label": "Clarissa Anderson", "type": "Person", "subtype": "SCCOOS Executive Director / GlobalHAB Chair", "affiliation": "SCCOOS / Scripps (SIO)", "role": "Executive Director, SCCOOS · Director, NOAA CIMEAS · Chair, GlobalHAB SSC", "orcid": "0000-0001-5970-0253", "description": "Executive Director of SCCOOS at Scripps since 2016; Director of NOAA CIMEAS. Chairs the UNESCO IOC-SCOR GlobalHAB Scientific Steering Committee; NHABON Steering Committee Co-chair (2023–2025); member of the UN SCOR WG on Observing Air-Sea Interaction Strategy; California OPC Science Advisory Team. PI of the California IFCB Network (largest IFCB array in the world, co-PIs Kudela, Barton, Kenitz, Send, Chavez, H. Ruhl) and PI of HABDAC (HAB Data Assembly Center, funded by NOAA NCCOS PCMHAB). Leads the California HAB Bulletin co-produced with CeNCOOS. Education: B.A. Integrative Biology & Art History, UC Berkeley 1999; Ph.D. Marine Science, UC Santa Barbara 2007; NRC + NSF postdoc 2007–2016. 25+ years in biological oceanography, plankton ecology, HAB forecasting.", "privacy": "public", "sources": ["S3", "S4", "S8"] },
     { "id": "person_quay_dortch", "label": "Quay Dortch", "type": "Person", "subtype": "HAB program management", "affiliation": "NOAA NCCOS", "description": "NHABON Steering Committee Co-chair (ex officio) for NOAA NCCOS; longtime federal lead for competitive HAB programs.", "privacy": "public", "sources": ["S4"] },
     { "id": "person_frank_muller_karger", "label": "Frank Muller-Karger", "type": "Person", "subtype": "Biological oceanography / remote sensing", "affiliation": "University of South Florida (IMaRS)", "description": "PI of the Southeast US MBON. Long-standing MBON and biodiversity remote sensing leader at USF IMaRS.", "privacy": "public", "sources": ["S5"] },
@@ -625,61 +627,61 @@ footer.foot {
     { "id": "person_shelly_tomlinson", "label": "Shelly Tomlinson", "type": "Person", "subtype": "HAB forecasting", "affiliation": "NOAA NCCOS", "description": "NOAA NCCOS; NHABON Steering Committee ex officio.", "privacy": "public", "sources": ["S4"] },
 
     { "id": "org_ioos_association", "label": "IOOS Association", "type": "Organization", "subtype": "Non-profit partner to NOAA IOOS", "description": "Non-profit partner supporting NOAA's U.S. Integrated Ocean Observing System and the 11 Regional Associations.", "privacy": "public", "url": "https://ioosassociation.org" },
-    { "id": "org_noaa_ioos", "label": "NOAA IOOS", "type": "Organization", "subtype": "Federal program office", "description": "NOAA's U.S. Integrated Ocean Observing System, overseeing 11 Regional Associations and the national Marine Life program.", "privacy": "public", "url": "https://ioos.noaa.gov" },
-    { "id": "org_noaa_oar", "label": "NOAA OAR", "type": "Organization", "subtype": "Federal research line office", "description": "NOAA Oceanic and Atmospheric Research. Hosted Gabby's 2024 Knauss placement.", "privacy": "public" },
-    { "id": "org_noaa_nccos", "label": "NOAA NCCOS", "type": "Organization", "subtype": "NOAA line office", "description": "National Centers for Coastal Ocean Science. Runs competitive HAB programs and hosts multiple NHABON ex-officio roles.", "privacy": "public" },
-    { "id": "org_noaa_aoml", "label": "NOAA AOML", "type": "Organization", "subtype": "NOAA laboratory", "description": "Atlantic Oceanographic and Meteorological Laboratory. Home of MBON Pole-to-Pole.", "privacy": "public" },
-    { "id": "org_noaa_nmfs", "label": "NOAA NMFS", "type": "Organization", "subtype": "NOAA line office", "description": "NOAA Fisheries. Runs the Changing Ecosystems and Fisheries Initiative (CEFI).", "privacy": "public" },
-    { "id": "org_nasa_gsfc", "label": "NASA Goddard", "type": "Organization", "subtype": "NASA center", "description": "Goddard Space Flight Center. Home for multiple OPO co-PIs supporting satellite ocean-color missions including PACE.", "privacy": "public" },
-    { "id": "org_whoi", "label": "WHOI", "type": "Organization", "subtype": "Research institution", "description": "Woods Hole Oceanographic Institution. Hosts Heidi Sosik, Stace Beaulieu; long-standing IFCB and plankton-imaging work.", "privacy": "public" },
-    { "id": "org_mbari", "label": "MBARI", "type": "Organization", "subtype": "Research institution", "description": "Monterey Bay Aquarium Research Institute. Hosts Central California MBON and CeNCOOS IFCB work.", "privacy": "public" },
-    { "id": "org_usf_imars", "label": "USF IMaRS", "type": "Organization", "subtype": "Academic research lab", "description": "University of South Florida Institute for Marine Remote Sensing. Hosts Southeast US MBON and H3 indicators work.", "privacy": "public" },
-    { "id": "org_oregon_state_u", "label": "Oregon State University", "type": "Organization", "subtype": "Academic institution", "description": "Home institution of Maria Kavanaugh and Northern California Current MBON.", "privacy": "public" },
-    { "id": "org_uaf", "label": "U. Alaska Fairbanks", "type": "Organization", "subtype": "Academic institution", "description": "Home of Arctic MBON PI Katrin Iken.", "privacy": "public" },
-    { "id": "org_sio_ucsd", "label": "Scripps (SIO / UCSD)", "type": "Organization", "subtype": "Academic research institution", "description": "Scripps Institution of Oceanography at UC San Diego. Hosts SCCOOS and many oceanographic programs.", "privacy": "public" },
-    { "id": "org_sccwrp", "label": "SCCWRP", "type": "Organization", "subtype": "Regional research authority", "description": "Southern California Coastal Water Research Project; NHABON representative Jayme Smith.", "privacy": "public" },
-    { "id": "org_serc", "label": "Smithsonian SERC", "type": "Organization", "subtype": "Federal research center", "description": "Smithsonian Environmental Research Center. Home of Mid-Atlantic MBON PI Matt Ogburn.", "privacy": "public" },
-    { "id": "org_lsu", "label": "Louisiana State University", "type": "Organization", "subtype": "Academic institution", "description": "Home of Estuaries MBON PI Cassie Glaspie.", "privacy": "public" },
-    { "id": "org_ucsb", "label": "UC Santa Barbara", "type": "Organization", "subtype": "Academic institution", "description": "Home of Southern California Bight MBON PI Robert Miller. Also Clarissa Anderson's Ph.D. institution (Marine Science, 2007).", "privacy": "public", "sources": ["S5", "S8"] },
-    { "id": "org_bigelow", "label": "Bigelow Laboratory", "type": "Organization", "subtype": "Research institution", "description": "Bigelow Laboratory for Ocean Sciences; home of Nicole Poulton.", "privacy": "public" },
-    { "id": "org_usgs", "label": "USGS", "type": "Organization", "subtype": "Federal agency", "description": "U.S. Geological Survey. Hosts OBIS-USA.", "privacy": "public" },
-    { "id": "org_maine_sea_grant", "label": "Maine Sea Grant", "type": "Organization", "subtype": "Sea Grant program", "description": "Hosted Gabby's graduate research and Knauss fellowship nomination.", "privacy": "public" },
-    { "id": "org_university_of_maine", "label": "University of Maine", "type": "Organization", "subtype": "Academic institution", "description": "Granted Gabby's Ph.D. in Ecology and Environmental Sciences (2023) and dual M.S. Also home of Gulf of Maine MBON PI Jeffrey Runge.", "privacy": "public" },
+    { "id": "org_noaa_ioos", "label": "NOAA IOOS", "type": "Organization", "subtype": "Federal program office", "description": "NOAA's U.S. Integrated Ocean Observing System, overseeing 11 Regional Associations and the national Marine Life program.", "url": "https://ioos.noaa.gov", "privacy": "public", "url": "https://ioos.noaa.gov" },
+    { "id": "org_noaa_oar", "label": "NOAA OAR", "type": "Organization", "subtype": "Federal research line office", "description": "NOAA Oceanic and Atmospheric Research. Hosted Gabby's 2024 Knauss placement.", "url": "https://research.noaa.gov", "privacy": "public" },
+    { "id": "org_noaa_nccos", "label": "NOAA NCCOS", "type": "Organization", "subtype": "NOAA line office", "description": "National Centers for Coastal Ocean Science. Runs competitive HAB programs and hosts multiple NHABON ex-officio roles.", "url": "https://coastalscience.noaa.gov", "privacy": "public" },
+    { "id": "org_noaa_aoml", "label": "NOAA AOML", "type": "Organization", "subtype": "NOAA laboratory", "description": "Atlantic Oceanographic and Meteorological Laboratory. Home of MBON Pole-to-Pole.", "url": "https://www.aoml.noaa.gov", "privacy": "public" },
+    { "id": "org_noaa_nmfs", "label": "NOAA NMFS", "type": "Organization", "subtype": "NOAA line office", "description": "NOAA Fisheries. Runs the Changing Ecosystems and Fisheries Initiative (CEFI).", "url": "https://www.fisheries.noaa.gov", "privacy": "public" },
+    { "id": "org_nasa_gsfc", "label": "NASA Goddard", "type": "Organization", "subtype": "NASA center", "description": "Goddard Space Flight Center. Home for multiple OPO co-PIs supporting satellite ocean-color missions including PACE.", "url": "https://www.nasa.gov/goddard", "privacy": "public" },
+    { "id": "org_whoi", "label": "WHOI", "type": "Organization", "subtype": "Research institution", "description": "Woods Hole Oceanographic Institution. Hosts Heidi Sosik, Stace Beaulieu; long-standing IFCB and plankton-imaging work.", "url": "https://www.whoi.edu", "privacy": "public" },
+    { "id": "org_mbari", "label": "MBARI", "type": "Organization", "subtype": "Research institution", "description": "Monterey Bay Aquarium Research Institute. Hosts Central California MBON and CeNCOOS IFCB work.", "url": "https://www.mbari.org", "privacy": "public" },
+    { "id": "org_usf_imars", "label": "USF IMaRS", "type": "Organization", "subtype": "Academic research lab", "description": "University of South Florida Institute for Marine Remote Sensing. Hosts Southeast US MBON and H3 indicators work.", "url": "https://imars.marine.usf.edu", "privacy": "public" },
+    { "id": "org_oregon_state_u", "label": "Oregon State University", "type": "Organization", "subtype": "Academic institution", "description": "Home institution of Maria Kavanaugh and Northern California Current MBON.", "url": "https://oregonstate.edu", "privacy": "public" },
+    { "id": "org_uaf", "label": "U. Alaska Fairbanks", "type": "Organization", "subtype": "Academic institution", "description": "Home of Arctic MBON PI Katrin Iken.", "url": "https://www.uaf.edu", "privacy": "public" },
+    { "id": "org_sio_ucsd", "label": "Scripps (SIO / UCSD)", "type": "Organization", "subtype": "Academic research institution", "description": "Scripps Institution of Oceanography at UC San Diego. Hosts SCCOOS and many oceanographic programs.", "url": "https://scripps.ucsd.edu", "privacy": "public" },
+    { "id": "org_sccwrp", "label": "SCCWRP", "type": "Organization", "subtype": "Regional research authority", "description": "Southern California Coastal Water Research Project; NHABON representative Jayme Smith.", "url": "https://www.sccwrp.org", "privacy": "public" },
+    { "id": "org_serc", "label": "Smithsonian SERC", "type": "Organization", "subtype": "Federal research center", "description": "Smithsonian Environmental Research Center. Home of Mid-Atlantic MBON PI Matt Ogburn.", "url": "https://serc.si.edu", "privacy": "public" },
+    { "id": "org_lsu", "label": "Louisiana State University", "type": "Organization", "subtype": "Academic institution", "description": "Home of Estuaries MBON PI Cassie Glaspie.", "url": "https://www.lsu.edu", "privacy": "public" },
+    { "id": "org_ucsb", "label": "UC Santa Barbara", "type": "Organization", "subtype": "Academic institution", "description": "Home of Southern California Bight MBON PI Robert Miller. Also Clarissa Anderson's Ph.D. institution (Marine Science, 2007).", "url": "https://www.ucsb.edu", "privacy": "public", "sources": ["S5", "S8"] },
+    { "id": "org_bigelow", "label": "Bigelow Laboratory", "type": "Organization", "subtype": "Research institution", "description": "Bigelow Laboratory for Ocean Sciences; home of Nicole Poulton.", "url": "https://www.bigelow.org", "privacy": "public" },
+    { "id": "org_usgs", "label": "USGS", "type": "Organization", "subtype": "Federal agency", "description": "U.S. Geological Survey. Hosts OBIS-USA.", "url": "https://www.usgs.gov", "privacy": "public" },
+    { "id": "org_maine_sea_grant", "label": "Maine Sea Grant", "type": "Organization", "subtype": "Sea Grant program", "description": "Hosted Gabby's graduate research and Knauss fellowship nomination.", "url": "https://seagrant.umaine.edu", "privacy": "public" },
+    { "id": "org_university_of_maine", "label": "University of Maine", "type": "Organization", "subtype": "Academic institution", "description": "Granted Gabby's Ph.D. in Ecology and Environmental Sciences (2023) and dual M.S. Also home of Gulf of Maine MBON PI Jeffrey Runge.", "url": "https://umaine.edu", "privacy": "public" },
 
-    { "id": "org_noaa_cimeas", "label": "NOAA CIMEAS", "type": "Organization", "subtype": "NOAA cooperative institute", "description": "NOAA Cooperative Institute for Marine, Earth, and Atmospheric Systems. Clarissa Anderson is current Director. Joint partnership between NOAA and Scripps Institution of Oceanography.", "privacy": "public", "sources": ["S8"] },
-    { "id": "org_ca_opc", "label": "California OPC", "type": "Organization", "subtype": "State agency / funder", "description": "California Ocean Protection Council. Funds the California IFCB Network (award P01-3-03). Anderson serves on the OPC Science Advisory Team.", "privacy": "public", "sources": ["S8"] },
-    { "id": "org_ucsc", "label": "UC Santa Cruz", "type": "Organization", "subtype": "Academic institution", "description": "Home of Raphael Kudela (NHABON SC, CA IFCB co-PI). Formerly hosted Clarissa Anderson as a research scientist prior to her 2016 SCCOOS appointment.", "privacy": "public", "sources": ["S8"] },
-    { "id": "org_nw_indian_college", "label": "Northwest Indian College", "type": "Organization", "subtype": "Tribal college", "description": "Home of Misty Peacock (NHABON SC voting member, 2023–2025).", "privacy": "public", "sources": ["S4"] },
-    { "id": "org_cal_epa", "label": "California EPA", "type": "Organization", "subtype": "State environmental agency", "description": "California Environmental Protection Agency. Home of Beckye Stanton (NHABON SC voting member, 2023–2025).", "privacy": "public", "sources": ["S4"] },
-    { "id": "org_fl_fwri", "label": "FL FWRI", "type": "Organization", "subtype": "State research institute", "description": "Florida Fish and Wildlife Research Institute. Home of Matt Garrett (NHABON SC voting member, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "org_noaa_cimeas", "label": "NOAA CIMEAS", "type": "Organization", "subtype": "NOAA cooperative institute", "description": "NOAA Cooperative Institute for Marine, Earth, and Atmospheric Systems. Clarissa Anderson is current Director. Joint partnership between NOAA and Scripps Institution of Oceanography.", "url": "https://cimeas.ucsd.edu", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_ca_opc", "label": "California OPC", "type": "Organization", "subtype": "State agency / funder", "description": "California Ocean Protection Council. Funds the California IFCB Network (award P01-3-03). Anderson serves on the OPC Science Advisory Team.", "url": "https://opc.ca.gov", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_ucsc", "label": "UC Santa Cruz", "type": "Organization", "subtype": "Academic institution", "description": "Home of Raphael Kudela (NHABON SC, CA IFCB co-PI). Formerly hosted Clarissa Anderson as a research scientist prior to her 2016 SCCOOS appointment.", "url": "https://www.ucsc.edu", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_nw_indian_college", "label": "Northwest Indian College", "type": "Organization", "subtype": "Tribal college", "description": "Home of Misty Peacock (NHABON SC voting member, 2023–2025).", "url": "https://www.nwic.edu", "privacy": "public", "sources": ["S4"] },
+    { "id": "org_cal_epa", "label": "California EPA", "type": "Organization", "subtype": "State environmental agency", "description": "California Environmental Protection Agency. Home of Beckye Stanton (NHABON SC voting member, 2023–2025).", "url": "https://calepa.ca.gov", "privacy": "public", "sources": ["S4"] },
+    { "id": "org_fl_fwri", "label": "FL FWRI", "type": "Organization", "subtype": "State research institute", "description": "Florida Fish and Wildlife Research Institute. Home of Matt Garrett (NHABON SC voting member, 2023–2025).", "url": "https://myfwc.com/research", "privacy": "public", "sources": ["S4"] },
     { "id": "org_esip", "label": "ESIP", "type": "Organization", "subtype": "Partnership / data standards federation", "description": "Earth Science Information Partners. Federation of partner organizations sponsored by NASA, NOAA, and USGS. Hosts multiple collaboration areas including the Biological Data Standards Cluster and the BRIDGE initiative (formerly EDIJ).", "privacy": "public", "url": "https://www.esipfed.org", "sources": ["S3", "S9"] },
 
-    { "id": "ra_aoos", "label": "AOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Alaska Ocean Observing System. Hosts AHAB (Alaska HAB program) and Arctic MBON linkage. Plankton observing: IFCB deployments on vessel and on-shore since 2024; community sampling with many partners; hyperspectral imagery from satellite and plane/drone platforms with NOAA PMEL and Bigelow. Modeling: hyperspectral processing to develop dinoflagellate index (Bigelow). Data highlight: real-time IFCB monitoring in partnership with WHOI and the IFCB Dashboard.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_nanoos", "label": "NANOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Northwest Association of Networked Ocean Observing Systems (Pacific Northwest). Plankton observing: NHABON sampling by tribes (Makah/Quinault/Quileute area) and state on beach and offshore for PNW HAB Bulletin (Chaʼba & CB-06 buoys); Community Fisheries Research using IFCB analysis from fisher water-grab sampling (OR, spreading to WA); Lightfish toxin sampling; SoundToxins network in WA; IFCB monitoring OR and WA. Modeling: LiveOcean 72-hour forecasting; J-SCOPE seasonal forecasting. Data highlight: Pacific Northwest HAB Bulletin synthesizing shore + buoy + ESP + HFR + IFCB + Lightfish data for state and tribal health officials.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_cencoos", "label": "CeNCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Central and Northern California Ocean Observing System. Home of the IFCB → OBIS prototype workflow (Bahr / Beaulieu). Plankton observing (jointly with SCCOOS): IFCB HAB/phytoplankton, HABMAP net sampling, ADCP backscatter for zooplankton, eDNA from vessels and shore, Planktivore/LRAUV evaluation in the Synchro project. Modeling: West Coast ROMS NEMURO NPZ/BGC outputs with large/small phytoplankton and zooplankton classes; C-HARM (set up with SCCOOS). Data highlight: HABDAC and companion Streamlit dashboards.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_sccoos", "label": "SCCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Southern California Coastal Ocean Observing System, hosted at Scripps. Executive Director: Clarissa Anderson (also NHABON SC co-chair). Plankton observing: CalHABMAP weekly HAB & toxin monitoring at 9 shore stations (jointly with CeNCOOS); CA IFCB Network real-time automated plankton monitoring with 6 coastal + 2 offshore IFCBs plus cruise deployments with CalCOFI, Plumes & Blooms, and SF Bay; eDNA sampling at Scripps Pier and Cal Poly. Modeling: C-HARM integrating satellite + WCOFS for Pseudo-nitzschia / domoic acid forecasts; hyperspectral satellite modelling for dinoflagellate blooms. Data highlights: Streamlit-powered HAB Manager Dashboard, HAB alerts in development, HABDAC, California HAB Bulletin, zooplankton abundance index from glider ADCP + CalCOFI net + acoustic data.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_pacioos", "label": "PacIOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Pacific Islands Ocean Observing System. Distinct from mainland HAB focus: this region's public-health issue is ciguatera fish poisoning. Plankton observing: collection of Gambierdiscus spp. (epiphytic dinoflagellates) from benthic algae in Hawaiʻi, American Samoa, and the Marshall Islands; microscopy (distribution & abundance) and metabarcoding (diversity); expanding molecular tools. Modeling: beginning to examine environmental drivers of Gambierdiscus. Community-engaged data collection; new post-bac fellowship piloting ciguatera monitoring integration as a model for other Pacific Islands.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_gcoos", "label": "GCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Gulf of Mexico Coastal Ocean Observing System (also branded Gulf of America). Plankton observing: funding 2 groups with IFCBs at 3 Texas locations — Port Aransas (since 2012), Surfside Beach (since 2017), Galveston (pending deployment); pending new award for 4 more instruments at Corpus Christi; remote sensing of red tides (K. brevis blooms). Data highlight: cell counts for 100+ species on ERDDAP (gcoos4.geos.tamu.edu); automated HAB warning emails to state health officials; Sargassum Watch.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_secoora", "label": "SECOORA", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Southeast Coastal Ocean Observing Regional Association.", "privacy": "public" },
-    { "id": "ra_maracoos", "label": "MARACOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Mid-Atlantic Regional Association Coastal Ocean Observing System. Plankton observing: MERHAB IFCB and Planktoscope Network for Monitoring HABs in Chesapeake Bay; glider deployments for phytoplankton biomass + biogeochemistry. Modeling: Chesapeake Bay Environmental Forecast System (CBEFS) HAB-risk nowcasts and forecasts, expanding to Doppio region + coastal shelf. Data highlight: Chesapeake Bay HABs data portal on OceansMap integrating satellite imagery, in-situ sampling, community science data, and forecasts; Mid-Atlantic Phytoplankton Imaging Libraries; OceansMap Insights for Charter Captains & Anglers.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_neracoos", "label": "NERACOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Northeastern Regional Association of Coastal Ocean Observing Systems. Plankton observing: multitrophic plankton time series (ichthyoplankton + zooplankton + pico-/nano-/microplankton) via microscopy, eDNA, and imaging; trial of Wirewalker x Shadowgraph in-situ imaging moored profiler; NEFSC Continuous Plankton Recorder monthly transect; 3 IFCBs (1 on SeaTrac USV, 2 coastal). Modeling: coupled hydrodynamic models with Lagrangian experiments; foraging habitat suitability; lipidscape and seascape analysis. Data highlight: Western Gulf of Maine Zooplankton Sentinel Indicators — climatologies from time-series stations.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_glos", "label": "GLOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Great Lakes Observing System. Plankton observing: plankton-pigment fluorescence time series (fixed and mobile); related biogeochemical monitoring; near real-time microcystin measurements; hyperspectral flyovers for phycocyanin detection; lightweight microscopy with HABs AI; mesocosm for detection algorithm development. Modeling: data provision for the Lake Erie HABs Operational Forecast Model. Data highlight: real-time customized alerting through Seagull for water-treatment plant managers.", "privacy": "public", "sources": ["S16"] },
-    { "id": "ra_caricoos", "label": "CARICOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Caribbean Coastal Ocean Observing System.", "privacy": "public" },
+    { "id": "ra_aoos", "label": "AOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Alaska Ocean Observing System. Hosts AHAB (Alaska HAB program) and Arctic MBON linkage. Plankton observing: IFCB deployments on vessel and on-shore since 2024; community sampling with many partners; hyperspectral imagery from satellite and plane/drone platforms with NOAA PMEL and Bigelow. Modeling: hyperspectral processing to develop dinoflagellate index (Bigelow). Data highlight: real-time IFCB monitoring in partnership with WHOI and the IFCB Dashboard.", "url": "https://aoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_nanoos", "label": "NANOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Northwest Association of Networked Ocean Observing Systems (Pacific Northwest). Plankton observing: NHABON sampling by tribes (Makah/Quinault/Quileute area) and state on beach and offshore for PNW HAB Bulletin (Chaʼba & CB-06 buoys); Community Fisheries Research using IFCB analysis from fisher water-grab sampling (OR, spreading to WA); Lightfish toxin sampling; SoundToxins network in WA; IFCB monitoring OR and WA. Modeling: LiveOcean 72-hour forecasting; J-SCOPE seasonal forecasting. Data highlight: Pacific Northwest HAB Bulletin synthesizing shore + buoy + ESP + HFR + IFCB + Lightfish data for state and tribal health officials.", "url": "https://www.nanoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_cencoos", "label": "CeNCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Central and Northern California Ocean Observing System. Home of the IFCB → OBIS prototype workflow (Bahr / Beaulieu). Plankton observing (jointly with SCCOOS): IFCB HAB/phytoplankton, HABMAP net sampling, ADCP backscatter for zooplankton, eDNA from vessels and shore, Planktivore/LRAUV evaluation in the Synchro project. Modeling: West Coast ROMS NEMURO NPZ/BGC outputs with large/small phytoplankton and zooplankton classes; C-HARM (set up with SCCOOS). Data highlight: HABDAC and companion Streamlit dashboards.", "url": "https://www.cencoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_sccoos", "label": "SCCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Southern California Coastal Ocean Observing System, hosted at Scripps. Executive Director: Clarissa Anderson (also NHABON SC co-chair). Plankton observing: CalHABMAP weekly HAB & toxin monitoring at 9 shore stations (jointly with CeNCOOS); CA IFCB Network real-time automated plankton monitoring with 6 coastal + 2 offshore IFCBs plus cruise deployments with CalCOFI, Plumes & Blooms, and SF Bay; eDNA sampling at Scripps Pier and Cal Poly. Modeling: C-HARM integrating satellite + WCOFS for Pseudo-nitzschia / domoic acid forecasts; hyperspectral satellite modelling for dinoflagellate blooms. Data highlights: Streamlit-powered HAB Manager Dashboard, HAB alerts in development, HABDAC, California HAB Bulletin, zooplankton abundance index from glider ADCP + CalCOFI net + acoustic data.", "url": "https://sccoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_pacioos", "label": "PacIOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Pacific Islands Ocean Observing System. Distinct from mainland HAB focus: this region's public-health issue is ciguatera fish poisoning. Plankton observing: collection of Gambierdiscus spp. (epiphytic dinoflagellates) from benthic algae in Hawaiʻi, American Samoa, and the Marshall Islands; microscopy (distribution & abundance) and metabarcoding (diversity); expanding molecular tools. Modeling: beginning to examine environmental drivers of Gambierdiscus. Community-engaged data collection; new post-bac fellowship piloting ciguatera monitoring integration as a model for other Pacific Islands.", "url": "https://www.pacioos.hawaii.edu", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_gcoos", "label": "GCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Gulf of Mexico Coastal Ocean Observing System (also branded Gulf of America). Plankton observing: funding 2 groups with IFCBs at 3 Texas locations — Port Aransas (since 2012), Surfside Beach (since 2017), Galveston (pending deployment); pending new award for 4 more instruments at Corpus Christi; remote sensing of red tides (K. brevis blooms). Data highlight: cell counts for 100+ species on ERDDAP (gcoos4.geos.tamu.edu); automated HAB warning emails to state health officials; Sargassum Watch.", "url": "https://gcoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_secoora", "label": "SECOORA", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Southeast Coastal Ocean Observing Regional Association.", "url": "https://secoora.org", "privacy": "public" },
+    { "id": "ra_maracoos", "label": "MARACOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Mid-Atlantic Regional Association Coastal Ocean Observing System. Plankton observing: MERHAB IFCB and Planktoscope Network for Monitoring HABs in Chesapeake Bay; glider deployments for phytoplankton biomass + biogeochemistry. Modeling: Chesapeake Bay Environmental Forecast System (CBEFS) HAB-risk nowcasts and forecasts, expanding to Doppio region + coastal shelf. Data highlight: Chesapeake Bay HABs data portal on OceansMap integrating satellite imagery, in-situ sampling, community science data, and forecasts; Mid-Atlantic Phytoplankton Imaging Libraries; OceansMap Insights for Charter Captains & Anglers.", "url": "https://maracoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_neracoos", "label": "NERACOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Northeastern Regional Association of Coastal Ocean Observing Systems. Plankton observing: multitrophic plankton time series (ichthyoplankton + zooplankton + pico-/nano-/microplankton) via microscopy, eDNA, and imaging; trial of Wirewalker x Shadowgraph in-situ imaging moored profiler; NEFSC Continuous Plankton Recorder monthly transect; 3 IFCBs (1 on SeaTrac USV, 2 coastal). Modeling: coupled hydrodynamic models with Lagrangian experiments; foraging habitat suitability; lipidscape and seascape analysis. Data highlight: Western Gulf of Maine Zooplankton Sentinel Indicators — climatologies from time-series stations.", "url": "https://neracoos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_glos", "label": "GLOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Great Lakes Observing System. Plankton observing: plankton-pigment fluorescence time series (fixed and mobile); related biogeochemical monitoring; near real-time microcystin measurements; hyperspectral flyovers for phycocyanin detection; lightweight microscopy with HABs AI; mesocosm for detection algorithm development. Modeling: data provision for the Lake Erie HABs Operational Forecast Model. Data highlight: real-time customized alerting through Seagull for water-treatment plant managers.", "url": "https://glos.org", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_caricoos", "label": "CARICOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Caribbean Coastal Ocean Observing System.", "url": "https://www.caricoos.org", "privacy": "public" },
 
     { "id": "repo_obis", "label": "OBIS", "type": "Organization", "subtype": "Data repository", "description": "Ocean Biodiversity Information System. IOC-UNESCO-coordinated global marine biodiversity data network. Terminal sink for marine life observations after Darwin Core alignment.", "privacy": "public", "url": "https://obis.org" },
-    { "id": "repo_obis_usa", "label": "OBIS-USA", "type": "Organization", "subtype": "Data repository", "description": "U.S. node of OBIS, hosted by USGS. Uses the Integrated Publishing Toolkit (IPT) for publishing that then feeds OBIS and GBIF.", "privacy": "public" },
+    { "id": "repo_obis_usa", "label": "OBIS-USA", "type": "Organization", "subtype": "Data repository", "description": "U.S. node of OBIS, hosted by USGS. Uses the Integrated Publishing Toolkit (IPT) for publishing that then feeds OBIS and GBIF.", "url": "https://obis.org/node/45ab09e9-8fbe-46dc-aa01-feeb1f26ce34", "privacy": "public" },
     { "id": "repo_gbif", "label": "GBIF", "type": "Organization", "subtype": "Data repository", "description": "Global Biodiversity Information Facility. Terminal discovery layer for biodiversity observations; 41 MBON dataset DOIs; 3,120+ citations tracked.", "privacy": "public", "url": "https://www.gbif.org" },
-    { "id": "repo_ncei", "label": "NOAA NCEI", "type": "Organization", "subtype": "Federal data archive", "description": "National Centers for Environmental Information. Authoritative archive for PAM, ATN satellite telemetry, and other marine life data products.", "privacy": "public" },
-    { "id": "repo_ioos_data_catalog", "label": "IOOS Data Catalog", "type": "Organization", "subtype": "Metadata catalog", "description": "data.ioos.us. Metadata-only catalog of IOOS-network datasets.", "privacy": "public" },
+    { "id": "repo_ncei", "label": "NOAA NCEI", "type": "Organization", "subtype": "Federal data archive", "description": "National Centers for Environmental Information. Authoritative archive for PAM, ATN satellite telemetry, and other marine life data products.", "url": "https://www.ncei.noaa.gov", "privacy": "public" },
+    { "id": "repo_ioos_data_catalog", "label": "IOOS Data Catalog", "type": "Organization", "subtype": "Metadata catalog", "description": "data.ioos.us. Metadata-only catalog of IOOS-network datasets.", "url": "https://data.ioos.us", "privacy": "public" },
 
-    { "id": "community_ioos_plankton", "label": "IOOS Plankton Observation Community", "type": "Community", "subtype": "Nested CoP", "description": "The plankton-focused subset of the broader IOOS Marine Life Data Network. Anchored by the DMAC Tech Webinar 'Identifying Challenges and Solutions for Advancing IOOS Plankton Observation Data' and intersecting OPO, NHABON, and MBON.", "privacy": "public", "sources": ["S2", "S3"] },
+    { "id": "community_ioos_plankton", "label": "IOOS Plankton Observation Community", "type": "Community", "subtype": "Nested CoP", "description": "The plankton-focused subset of the broader IOOS Marine Life Data Network. Anchored by the DMAC Tech Webinar 'Identifying Challenges and Solutions for Advancing IOOS Plankton Observation Data' and intersecting OPO, NHABON, and MBON.", "url": "https://ioos.noaa.gov/project/plankton", "privacy": "public", "sources": ["S2", "S3"] },
     { "id": "community_mldn", "label": "IOOS Marine Life Data Network", "type": "Community", "subtype": "IOOS DMAC-anchored data community", "description": "MLDN. IOOS-wide community of practice for marine life data spanning plankton, fish, marine mammals, habitat-formers, telemetry, PAM, and eDNA.", "privacy": "public", "url": "https://ioos.github.io/marine_life_data_network/", "sources": ["S2"] },
     { "id": "community_mbon", "label": "MBON (national)", "type": "Community", "subtype": "Observation network", "description": "Marine Biodiversity Observation Network. 10+ regional MBON projects, 9 Sanctuaries, many additional efforts. More than 1.62M occurrence records aggregated to OBIS.", "privacy": "public", "url": "http://marinebon.org", "sources": ["S2", "S5"] },
-    { "id": "community_nhabon", "label": "NHABON", "type": "Community", "subtype": "Observation network", "description": "National Harmful Algal Bloom Observing Network. Community of HAB observing experts, system operators, manufacturers, data managers, and stakeholders.", "privacy": "public", "sources": ["S3", "S4"] },
-    { "id": "community_obon", "label": "OBON", "type": "Community", "subtype": "Biomolecular network", "description": "Ocean Biomolecular Observing Network.", "privacy": "public", "sources": ["S3"] },
-    { "id": "community_globalhab", "label": "GlobalHAB", "type": "Community", "subtype": "International program", "description": "International program on harmful algal blooms. Scientific Steering Committee developed a ten-year Science and Implementation Plan (2026–2036).", "privacy": "public", "sources": ["S3"] },
-    { "id": "community_goos", "label": "GOOS", "type": "Community", "subtype": "International observing system", "description": "Global Ocean Observing System. Defines Essential Ocean Variables (EOVs) and Essential Biological Variables (EBVs) relevant to plankton observing.", "privacy": "public", "sources": ["S3"] },
-    { "id": "community_ocb", "label": "OCB", "type": "Community", "subtype": "U.S. research coordination", "description": "Ocean Carbon & Biogeochemistry. Hosts the Operational Phytoplankton Observations / Phytoplankton Taxonomy Working Group.", "privacy": "public", "sources": ["S3", "S6"] },
+    { "id": "community_nhabon", "label": "NHABON", "type": "Community", "subtype": "Observation network", "description": "National Harmful Algal Bloom Observing Network. Community of HAB observing experts, system operators, manufacturers, data managers, and stakeholders.", "url": "https://ioosassociation.org/nhabon/", "privacy": "public", "sources": ["S3", "S4"] },
+    { "id": "community_obon", "label": "OBON", "type": "Community", "subtype": "Biomolecular network", "description": "Ocean Biomolecular Observing Network.", "url": "https://obon-ocean.org", "privacy": "public", "sources": ["S3"] },
+    { "id": "community_globalhab", "label": "GlobalHAB", "type": "Community", "subtype": "International program", "description": "International program on harmful algal blooms. Scientific Steering Committee developed a ten-year Science and Implementation Plan (2026–2036).", "url": "https://www.globalhab.info", "privacy": "public", "sources": ["S3"] },
+    { "id": "community_goos", "label": "GOOS", "type": "Community", "subtype": "International observing system", "description": "Global Ocean Observing System. Defines Essential Ocean Variables (EOVs) and Essential Biological Variables (EBVs) relevant to plankton observing.", "url": "https://goosocean.org", "privacy": "public", "sources": ["S3"] },
+    { "id": "community_ocb", "label": "OCB", "type": "Community", "subtype": "U.S. research coordination", "description": "Ocean Carbon & Biogeochemistry. Hosts the Operational Phytoplankton Observations / Phytoplankton Taxonomy Working Group.", "url": "https://www.us-ocb.org", "privacy": "public", "sources": ["S3", "S6"] },
     { "id": "community_esip_bds", "label": "ESIP BDS Cluster", "type": "Community", "subtype": "Data standards community", "description": "ESIP Biological Data Standards Cluster. Active ESIP collaboration area, established 2020. Builds community, guidance, and documentation for the U.S. biological data community; engages with TDWG to align U.S. approaches with the global Biodiversity Information Standards community. Produces the Biological Data Standards Primer and primer guidelines. Meets first Thursday of each month, 2pm ET. Listed in the Connecting the Plankton People review as a relevant CoP for biological data standards alignment.", "privacy": "public", "url": "https://www.esipfed.org/collaboration-areas/biological-data-standards/", "sources": ["S3"] },
     { "id": "community_esip_bridge", "label": "ESIP BRIDGE", "type": "Community", "subtype": "Equity / inclusion initiative", "description": "ESIP BRIDGE (rebranded from EDIJ — Equity, Diversity, Inclusion, and Justice). Collaboration area chaired by Stephen Diggs. Distinct from the Biological Data Standards Cluster. Included for completeness of SC's ESIP context; not a plankton-community CoP per se.", "privacy": "public", "sources": ["S9"] },
     { "id": "community_atn", "label": "ATN", "type": "Community", "subtype": "IOOS Data Assembly Center", "description": "Animal Telemetry Network. Satellite telemetry data flow via ATN to NCEI, OBIS-USA, NDBC, and the IOOS Data Catalog.", "privacy": "public", "url": "https://atn.ioos.us", "sources": ["S2"] },
@@ -771,7 +773,7 @@ footer.foot {
     { "id": "org_uh_manoa_soest", "label": "U. Hawaii Manoa (SOEST)", "type": "Organization", "subtype": "Academic institution", "description": "School of Ocean and Earth Science and Technology. Home of Angelicque White.", "privacy": "public", "sources": ["S15"] },
     { "id": "org_u_oldenburg_icbm", "label": "U. Oldenburg (ICBM)", "type": "Organization", "subtype": "Academic institution (Germany)", "description": "Institute for Chemistry and Biology of the Marine Environment. Home of Jochen Wollschläger.", "privacy": "public", "sources": ["S15"] },
     { "id": "org_ucar", "label": "UCAR", "type": "Organization", "subtype": "Research consortium / federal contractor", "description": "University Corporation for Atmospheric Research, Boulder CO. Employs Liza Wright-Fairbanks on contract to NOAA OAP.", "privacy": "public", "sources": ["S15"] },
-    { "id": "org_noaa_oap", "label": "NOAA OAP", "type": "Organization", "subtype": "NOAA program", "description": "NOAA Ocean Acidification Program, Silver Spring MD. Contracting agency for Liza Wright-Fairbanks via UCAR.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_noaa_oap", "label": "NOAA OAP", "type": "Organization", "subtype": "NOAA program", "description": "NOAA Ocean Acidification Program, Silver Spring MD. Contracting agency for Liza Wright-Fairbanks via UCAR.", "url": "https://oceanacidification.noaa.gov", "privacy": "public", "sources": ["S15"] },
     { "id": "org_seabass", "label": "SeaBASS", "type": "Organization", "subtype": "Data repository (NASA ocean bio-optics)", "description": "SeaWiFS Bio-optical Archive and Storage System. NASA Ocean Biology Processing Group repository; canonical archive for ocean bio-optics and ocean color validation data. Referenced in OPO Best Practices as a recommended repository.", "privacy": "public", "url": "https://seabass.gsfc.nasa.gov", "sources": ["S7", "S15"] },
     { "id": "org_bco_dmo", "label": "BCO-DMO", "type": "Organization", "subtype": "Data repository (NSF OCE)", "description": "Biological and Chemical Oceanography Data Management Office, hosted at WHOI. Canonical repository for NSF-funded biological and chemical oceanographic data. Referenced in OPO Best Practices.", "privacy": "public", "url": "https://www.bco-dmo.org", "sources": ["S7", "S15"] },
 
@@ -841,6 +843,22 @@ footer.foot {
     { "id": "org_noaa_pmel", "label": "NOAA PMEL", "type": "Organization", "subtype": "NOAA research laboratory", "description": "NOAA Pacific Marine Environmental Laboratory, Seattle. Partner with AOOS and Bigelow on hyperspectral imagery for HAB detection in Alaska. PMEL has lost substantial staff through retirements and RIFs in recent years.", "privacy": "public", "url": "https://www.pmel.noaa.gov", "sources": ["S16"] },
     { "id": "org_cal_poly", "label": "Cal Poly", "type": "Organization", "subtype": "Academic institution", "description": "California Polytechnic State University (San Luis Obispo context). Site of SCCOOS eDNA sampling program.", "privacy": "public", "sources": ["S16"] },
     { "id": "org_nefsc", "label": "NOAA NEFSC", "type": "Organization", "subtype": "NOAA Fisheries science center", "description": "NOAA Northeast Fisheries Science Center. Operates the Continuous Plankton Recorder (CPR) monthly transect in the NERACOOS region.", "privacy": "public", "url": "https://www.fisheries.noaa.gov/about/northeast-fisheries-science-center", "sources": ["S16"] },
+
+    { "id": "person_christian_reiss", "label": "Christian Reiss", "type": "Person", "subtype": "Research Fishery Biologist / AMLR Program Lead", "affiliation": "NOAA SWFSC (Antarctic Ecosystem Research Division)", "role": "Program Lead, Antarctic Ecosystem Research Division; U.S. AMLR Program lead scientist", "description": "Internationally recognized leader in Antarctic krill research and ecosystem management. Leads the U.S. Antarctic Marine Living Resources (AMLR) Program at NOAA SWFSC. Expertise in krill population dynamics, ecosystem modeling, field-based and autonomous ocean observing, and fisheries management. 20+ years. Key bridge between the krill/zooplankton end of the plankton community and international Antarctic governance under CCAMLR. Contact: christian.reiss@noaa.gov.", "privacy": "public", "sources": ["S18"] },
+
+    { "id": "org_noaa_swfsc", "label": "NOAA SWFSC", "type": "Organization", "subtype": "NOAA Fisheries science center", "description": "NOAA Southwest Fisheries Science Center, La Jolla CA. Home of the Antarctic Ecosystem Research Division and the U.S. AMLR Program. ROR 03zn2y647.", "privacy": "public", "url": "https://www.fisheries.noaa.gov/about/southwest-fisheries-science-center", "sources": ["S18"] },
+
+    { "id": "org_ccamlr", "label": "CCAMLR", "type": "Organization", "subtype": "International convention / fisheries body", "description": "Commission for the Conservation of Antarctic Marine Living Resources. International body coordinating Antarctic marine living-resources research, data exchange, and policy. Provides project funding to AMLR collaborators.", "privacy": "public", "url": "https://www.ccamlr.org", "sources": ["S18"] },
+
+    { "id": "dataset_amlr_krill", "label": "AMLR Krill & Ecosystem", "type": "Dataset", "subtype": "Antarctic ecosystem observing portfolio", "description": "U.S. Antarctic Marine Living Resources krill and ecosystem data portfolio. Comprises krill abundance/distribution, acoustic surveys, oceanographic profiles, predator (seal, penguin) monitoring, and ecosystem modeling datasets. 1986–present. Spatial coverage: −65° to −58° latitude, −64° to −43° longitude. NetCDF / CSV. DOI 10.25921/amlr-krill-2025. Steward: Christian Reiss.", "privacy": "public", "url": "https://doi.org/10.25921/amlr-krill-2025", "sources": ["S18"] },
+
+    { "id": "dataset_bigelow_aquatic_cytometry", "label": "Bigelow Aquatic Cytometry", "type": "Dataset", "subtype": "Cytometry observation portfolio", "description": "Aquatic cytometry observation and analysis portfolio from Bigelow Laboratory's Center for Aquatic Cytometry — phytoplankton, microbial, particle, and single-cell datasets from flow + imaging cytometry. Directed by Nicole Poulton.", "privacy": "public", "sources": ["S17"] },
+
+    { "id": "dataset_boothbay_plankton_ts", "label": "Boothbay Plankton Time Series", "type": "Dataset", "subtype": "Multiyear time series", "description": "Multiyear Boothbay Harbor, Maine observations of plankton and microbial community patterns via flow + imaging cytometry. Led by Nicole Poulton at Bigelow.", "privacy": "public", "sources": ["S17"] },
+
+    { "id": "committee_ices_wgpme", "label": "ICES WGPME", "type": "Committee", "subtype": "International working group", "description": "ICES Working Group on Phytoplankton and Microbial Ecology. Nicole Poulton is Co-Chair.", "privacy": "public", "url": "https://www.ices.dk/community/groups/Pages/WGPME.aspx", "sources": ["S17"] },
+
+    { "id": "committee_isac", "label": "ISAC Board", "type": "Committee", "subtype": "Professional society board", "description": "International Society for the Advancement of Cytometry, Board of Directors. Nicole Poulton is a Councilor.", "privacy": "public", "url": "https://isac-net.org", "sources": ["S17"] },
 
     { "id": "award_brookie", "label": "Brookie Award", "type": "Award", "subtype": "Community research recognition", "description": "Recognition for community-based coastal research leadership. Awarded to Gabby.", "privacy": "public", "sources": ["S1"] }
   ],
@@ -1307,7 +1325,23 @@ footer.foot {
 
     { "source": "project_wc_roms_nemuro", "target": "project_c_harm", "type": "feeds", "label": "WCOFS physics input" },
     { "source": "project_ca_ifcb_network", "target": "project_c_harm", "type": "feeds", "label": "via CalHABMAP validation" },
-    { "source": "project_cal_habmap", "target": "project_c_harm", "type": "validates" }
+    { "source": "project_cal_habmap", "target": "project_c_harm", "type": "validates" },
+
+    { "source": "person_christian_reiss", "target": "org_noaa_swfsc", "type": "employed_by", "label": "Program Lead, Antarctic Ecosystem Research" },
+    { "source": "person_christian_reiss", "target": "dataset_amlr_krill", "type": "steward" },
+    { "source": "dataset_amlr_krill", "target": "org_noaa_swfsc", "type": "hosted_by" },
+    { "source": "dataset_amlr_krill", "target": "repo_ncei", "type": "archived_at" },
+    { "source": "dataset_amlr_krill", "target": "org_ccamlr", "type": "supports", "label": "krill fishery management under the Convention" },
+    { "source": "dataset_amlr_krill", "target": "org_noaa_nmfs", "type": "funded_by", "label": "U.S. AMLR Program core" },
+    { "source": "org_noaa_swfsc", "target": "org_noaa_nmfs", "type": "part_of" },
+
+    { "source": "person_nicole_poulton", "target": "dataset_bigelow_aquatic_cytometry", "type": "directs", "label": "Director, Bigelow Center for Aquatic Cytometry" },
+    { "source": "person_nicole_poulton", "target": "dataset_boothbay_plankton_ts", "type": "leads" },
+    { "source": "dataset_bigelow_aquatic_cytometry", "target": "org_bigelow", "type": "hosted_by" },
+    { "source": "dataset_boothbay_plankton_ts", "target": "org_bigelow", "type": "hosted_by" },
+    { "source": "person_nicole_poulton", "target": "committee_ices_wgpme", "type": "co_chairs" },
+    { "source": "person_nicole_poulton", "target": "committee_isac", "type": "member", "label": "Councilor" },
+    { "source": "person_nicole_poulton", "target": "wg_opo", "type": "co_chairs", "label": "co-organizer" }
   ]
 }
 </script>
@@ -1707,6 +1741,140 @@ setTimeout(() => {
 // This fires after the initial bounce settles (typically 3-6 seconds).
 network.once("stabilized", () => {
   network.fit({ animation: { duration: 800, easingFunction: "easeInOutQuad" } });
+});
+
+// ─── Hover focus: dim non-incident nodes/edges on hover ──────────────────
+// When the mouse hovers a node, compute its immediate neighborhood (itself
+// plus all directly connected nodes) and dim everything else. The "dimmed"
+// state uses low-opacity node colors and very faint edge colors so the area
+// of interest clearly pops out. On blur we restore the current color scheme
+// via applyColors(), which naturally respects Louvain/type mode + hidden types.
+
+// Build an adjacency index once — O(E) — so hover handling is O(1) lookup.
+const adjacency = {};
+nodes.forEach(n => { adjacency[n.id] = new Set([n.id]); });
+edgeData.forEach(e => {
+  if (adjacency[e.from]) adjacency[e.from].add(e.to);
+  if (adjacency[e.to])   adjacency[e.to].add(e.from);
+});
+
+// Helper: turn a hex color "#abcdef" into "rgba(r,g,b,a)"
+function hexToRgba(hex, alpha) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+const DIM_NODE_OPACITY  = 0.12;  // dimmed nodes fade way down
+const DIM_EDGE_OPACITY  = 0.04;  // dimmed edges nearly disappear
+const FOCUS_EDGE_OPACITY = 0.9;  // focused edges pop
+
+let hoverActive = false;
+
+function enterHoverFocus(hoveredId) {
+  hoverActive = true;
+  const keep = adjacency[hoveredId] || new Set([hoveredId]);
+
+  const nodeUpdates = [];
+  nodes.forEach(n => {
+    if (hiddenTypes.has(n._type)) return;
+    // Get current background color from current applied state. During
+    // Louvain mode this is the community color; in type mode it's _baseColor.
+    // We peek at the node's current "color" since that's what applyColors set.
+    const current = n.color && n.color.background ? n.color.background : n._baseColor;
+    const isKeep = keep.has(n.id);
+    const bg = isKeep ? current : hexToRgba(current, DIM_NODE_OPACITY);
+    const border = isKeep ? current + "ff" : hexToRgba(current, DIM_NODE_OPACITY * 0.8);
+    nodeUpdates.push({
+      id: n.id,
+      color: {
+        background: bg,
+        border: border,
+        highlight: { background: bg, border: "#d4a574" },
+        hover: { background: bg, border: "#e8c59a" }
+      },
+      // For image-shape nodes, also regenerate the icon with faded color
+      image: n.shape === "image"
+        ? (isKeep ? makeIconDataUrl(n._type, current) : makeFadedIconDataUrl(n._type, current, DIM_NODE_OPACITY))
+        : undefined,
+      font: {
+        color: isKeep ? "#e4e8ee" : hexToRgba(0xe4e8ee === 0xe4e8ee ? "#e4e8ee" : "#e4e8ee", DIM_NODE_OPACITY * 2),
+        face: '"Manrope", system-ui, sans-serif',
+        size: 13,
+        strokeWidth: 3,
+        strokeColor: "rgba(10, 14, 20, 0.9)"
+      }
+    });
+  });
+  nodes.update(nodeUpdates);
+
+  const edgeUpdates = [];
+  edges.forEach(e => {
+    const touches = (e.from === hoveredId) || (e.to === hoveredId);
+    edgeUpdates.push({
+      id: e.id,
+      color: {
+        color: touches ? `rgba(212, 165, 116, ${FOCUS_EDGE_OPACITY})` : `rgba(228, 232, 238, ${DIM_EDGE_OPACITY})`,
+        highlight: "#d4a574",
+        hover: "#e8c59a",
+        opacity: touches ? FOCUS_EDGE_OPACITY : DIM_EDGE_OPACITY
+      },
+      width: touches ? 1.8 : 0.6
+    });
+  });
+  edges.update(edgeUpdates);
+}
+
+function exitHoverFocus() {
+  if (!hoverActive) return;
+  hoverActive = false;
+  // Full restore via applyColors — this respects current colorMode + hidden types.
+  applyColors();
+  // Restore default edge styling too.
+  const edgeUpdates = [];
+  edges.forEach(e => {
+    edgeUpdates.push({
+      id: e.id,
+      color: { color: "rgba(228, 232, 238, 0.28)", highlight: "#d4a574", hover: "#e8c59a" },
+      width: 0.8
+    });
+  });
+  edges.update(edgeUpdates);
+}
+
+// Faded icon for image-shape nodes — same SVG as makeIconDataUrl but the color
+// is already pre-faded via rgba.
+function makeFadedIconDataUrl(type, baseHex, alpha) {
+  const faded = hexToRgba(baseHex, alpha);
+  let body;
+  if (type === "Publication") {
+    body = `<rect x="6" y="3" width="28" height="34" rx="2" fill="${faded}" stroke="${faded}" stroke-width="1"/>
+            <line x1="11" y1="11" x2="29" y2="11" stroke="#0a0e14" stroke-width="2.2" opacity="${alpha}"/>
+            <line x1="11" y1="18" x2="29" y2="18" stroke="#0a0e14" stroke-width="2.2" opacity="${alpha}"/>
+            <line x1="11" y1="25" x2="29" y2="25" stroke="#0a0e14" stroke-width="2.2" opacity="${alpha}"/>
+            <line x1="11" y1="32" x2="22" y2="32" stroke="#0a0e14" stroke-width="2.2" opacity="${alpha}"/>`;
+  } else if (type === "Standard") {
+    body = `<circle cx="20" cy="20" r="16" fill="${faded}" stroke="${faded}" stroke-width="1"/>
+            <path d="M12 20 L17 25 L28 14" fill="none" stroke="#0a0e14" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="${alpha}"/>`;
+  } else if (type === "Dataset") {
+    body = `<ellipse cx="20" cy="8" rx="13" ry="4" fill="${faded}"/>
+            <path d="M7 8 L7 30 Q7 34 20 34 Q33 34 33 30 L33 8" fill="${faded}"/>
+            <ellipse cx="20" cy="8" rx="13" ry="4" fill="none" stroke="#0a0e14" stroke-width="1.5" opacity="${alpha}"/>
+            <path d="M7 18 Q7 22 20 22 Q33 22 33 18" fill="none" stroke="#0a0e14" stroke-width="1.5" opacity="${alpha}"/>`;
+  } else {
+    body = `<circle cx="20" cy="20" r="16" fill="${faded}"/>`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">${body}</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+network.on("hoverNode", (params) => {
+  enterHoverFocus(params.node);
+});
+network.on("blurNode", () => {
+  exitHoverFocus();
 });
 
 // ─── Coloring modes ─────────────────────────────────────────────────────
