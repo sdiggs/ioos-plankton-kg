@@ -1,0 +1,2023 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IOOS Plankton Community KG — v0.7</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg: #0a0e14;
+  --bg-grad: radial-gradient(ellipse at 30% 10%, #111823 0%, #0a0e14 55%, #05080c 100%);
+  --surface: #121821;
+  --surface-2: #0e141c;
+  --border: #1f2630;
+  --border-strong: #2c3543;
+  --text: #e4e8ee;
+  --text-dim: #8690a0;
+  --text-faint: #545c6b;
+  --accent: #d4a574;
+  --accent-hot: #e8c59a;
+
+  --type-person: #fbbf24;
+  --type-organization: #60a5fa;
+  --type-project: #c084fc;
+  --type-committee: #4ade80;
+  --type-program: #f472b6;
+  --type-award: #facc15;
+  --type-technology: #fb7185;
+  --type-community: #22d3ee;
+  --type-publication: #fb923c;
+  --type-standard: #94a3b8;
+  --type-dataset: #2dd4bf;
+
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg-grad);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  opacity: .035;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 280px 1fr 360px;
+  grid-template-areas:
+    "head head head"
+    "left main right"
+    "foot foot foot";
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+header.head {
+  grid-area: head;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 22px 13px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  background: rgba(10, 14, 20, .6);
+  backdrop-filter: blur(8px);
+}
+header .title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+header .title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+header .version {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-faint);
+  border: 1px solid var(--border-strong);
+  padding: 3px 7px;
+  border-radius: 3px;
+}
+header .stats {
+  margin-left: auto;
+  display: flex;
+  gap: 22px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+header .stats b {
+  color: var(--text);
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+aside.left, aside.right {
+  background: var(--surface-2);
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+}
+aside.right { border-right: none; border-left: 1px solid var(--border); grid-area: right; }
+aside.left { grid-area: left; }
+
+.panel {
+  padding: 18px 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.panel h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: .02em;
+  color: var(--text);
+}
+.panel h3 .hint {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-faint);
+  margin-left: 8px;
+}
+
+input.search {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 8px 11px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  outline: none;
+  transition: border-color .15s;
+}
+input.search:focus { border-color: var(--accent); }
+input.search::placeholder { color: var(--text-faint); font-style: italic; }
+
+.search-results {
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+.search-result {
+  padding: 7px 9px;
+  font-size: 12px;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border-bottom: 1px solid var(--border);
+}
+.search-result:last-child { border-bottom: none; }
+.search-result:hover { background: rgba(255,255,255,.03); color: var(--text); }
+.search-result .sw { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.search-result .sub {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-faint);
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.toggle-group {
+  display: flex;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 3px;
+  margin-bottom: 12px;
+}
+.toggle-group button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  padding: 7px 8px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all .15s;
+}
+.toggle-group button.active {
+  background: var(--accent);
+  color: #1a1308;
+}
+.toggle-group button:not(.active):hover {
+  color: var(--text);
+  background: rgba(255,255,255,.03);
+}
+
+.slider-row {
+  margin-top: 10px;
+  opacity: .4;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.slider-row.active { opacity: 1; pointer-events: auto; }
+.slider-row label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+}
+.slider-row label span { color: var(--accent); }
+.slider-row input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.btn-ghost {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all .15s;
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  transition: background .12s;
+}
+.legend-item:hover { background: rgba(255,255,255,.025); color: var(--text); }
+.legend-item.off { opacity: .35; }
+.legend-item .sw {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+}
+.legend-item .count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+main.graph {
+  grid-area: main;
+  position: relative;
+  background: transparent;
+}
+#vis-mount {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.overlay-hint {
+  position: absolute;
+  left: 16px; bottom: 16px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-faint);
+  pointer-events: none;
+  letter-spacing: .02em;
+  z-index: 5;
+}
+.overlay-hint kbd {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+#loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+#loading-overlay > div {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+#error-pane {
+  position: absolute;
+  top: 16px; left: 16px; right: 16px;
+  display: none;
+  padding: 14px 16px;
+  background: #2a1418;
+  border: 1px solid #7f1d1d;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: #fecaca;
+  max-height: 60%;
+  overflow: auto;
+  white-space: pre-wrap;
+  line-height: 1.55;
+  z-index: 20;
+}
+
+.detail-empty {
+  color: var(--text-faint);
+  font-size: 12.5px;
+  font-style: italic;
+  font-family: var(--font-display);
+}
+.detail-type {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border-strong);
+  margin-bottom: 10px;
+}
+.detail-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 4px;
+}
+.detail-desc {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.55;
+}
+.detail-kv {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 3px 10px;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+.detail-kv dt {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding-top: 2px;
+}
+.detail-kv dd { margin: 0; color: var(--text-dim); word-break: break-word; }
+
+.detail-neighbors h4 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--text-faint);
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+.neighbor-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 0;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+.neighbor-row:hover { color: var(--text); }
+.neighbor-row:last-child { border-bottom: none; }
+.neighbor-row .sw {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.neighbor-row .edge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-faint);
+  text-transform: lowercase;
+  margin-left: auto;
+}
+
+footer.foot {
+  grid-area: foot;
+  border-top: 1px solid var(--border);
+  padding: 9px 22px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-faint);
+  display: flex;
+  justify-content: space-between;
+  background: rgba(10, 14, 20, .6);
+  backdrop-filter: blur(8px);
+}
+
+.community-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-left: 8px;
+  color: #0a0e14;
+  font-weight: 600;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+@media (max-width: 1200px) {
+  .app { grid-template-columns: 240px 1fr 300px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header class="head">
+    <div class="title">IOOS Plankton Community <em>Knowledge Graph</em></div>
+    <div class="version">v0.7 · operational</div>
+    <div class="stats">
+      <div><b id="stat-nodes">—</b>nodes</div>
+      <div><b id="stat-edges">—</b>edges</div>
+      <div><b id="stat-comm">—</b>communities</div>
+    </div>
+  </header>
+
+  <aside class="left">
+
+    <div class="panel">
+      <h3>Search</h3>
+      <input type="text" class="search" id="search-input" placeholder="find person, org, project…" autocomplete="off" />
+      <div class="search-results" id="search-results"></div>
+    </div>
+
+    <div class="panel">
+      <h3>Coloring</h3>
+      <div class="toggle-group" id="color-mode">
+        <button class="active" data-mode="type">By type</button>
+        <button data-mode="louvain">Louvain</button>
+      </div>
+      <div class="slider-row" id="res-row">
+        <label>Resolution <span id="res-val">1.00</span></label>
+        <input type="range" id="res-slider" min="0.4" max="2.0" step="0.05" value="1.0" />
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Node types <span class="hint">click to filter</span></h3>
+      <div id="legend"></div>
+    </div>
+
+    <div class="panel">
+      <h3>Display</h3>
+      <button class="btn-ghost" id="labels-btn">Hide labels</button>
+      <button class="btn-ghost" id="physics-btn">Pause physics</button>
+    </div>
+
+    <div class="panel">
+      <h3>Actions <span class="hint">drag nodes freely</span></h3>
+      <button class="btn-ghost" id="relayout-btn">Re-run layout</button>
+      <button class="btn-ghost" id="fit-btn">Fit to view</button>
+      <button class="btn-ghost" id="clear-btn">Clear selection</button>
+    </div>
+
+  </aside>
+
+  <main class="graph">
+    <div id="vis-mount"></div>
+    <div id="loading-overlay"><div>Loading graph…</div></div>
+    <div id="error-pane"></div>
+    <div class="overlay-hint">
+      <kbd>drag</kbd> node · <kbd>click</kbd> select · <kbd>wheel</kbd> zoom · <kbd>drag bg</kbd> pan
+    </div>
+  </main>
+
+  <aside class="right">
+    <div class="panel" id="detail-panel">
+      <div class="detail-empty">Select a node to view details, incident edges, and provenance.</div>
+    </div>
+  </aside>
+
+  <footer class="foot">
+    <div>Sources: Hillyer v6 · Anderson v6 · Leinen v5 · MLDN DMAC 2025 · Plankton Data Flow · OPO Best Practices v1.0.0 · NHABON SC · HABDAC / PCMHAB · ioosassociation.org/data-portals · esipfed.org</div>
+    <div>IOOS Plankton KG · KCF / CO-DAN</div>
+  </footer>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- Knowledge Graph data (v6 schema, public tier)                            -->
+<!-- Sources:                                                                 -->
+<!--   [S1] Gabby Hillyer v6 KG record (supplied)                             -->
+<!--   [S2] IOOS Marine Life Data Network, DMAC 2025                          -->
+<!--        Biddle, Brenskelle, Canonico — zenodo.15304225                    -->
+<!--   [S3] Connecting the Plankton People: Review of Existing Resources      -->
+<!--        Anderson, Montoyka, Farrugia                                      -->
+<!--   [S4] NHABON Steering Committee 2023–2025 (ioosassociation.org)         -->
+<!--   [S5] MBON map — marinebon.org                                          -->
+<!--   [S6] OCB OPO / Phytoplankton Taxonomy WG page                          -->
+<!--   [S7] Clayton, Neeley, Poulton et al. 2026 — doi 10.25607/OBP-2059      -->
+<!--   [S8] Clarissa R. Anderson v6 KG record (supplied)                      -->
+<!--   [S9] ESIP Biological Data Standards Cluster                            -->
+<!--        www.esipfed.org/collaboration-areas/biological-data-standards/    -->
+<!--   [S10] Margaret S. Leinen v5 KG record (supplied)                       -->
+<!--   [S11] Meenakshi Wadhwa record (via Leinen transition, supplied)        -->
+<!--   [S12] Plankton Data Flow Diagram (supplied PDF)                        -->
+<!--   [S13] IOOS Association Data Portals — ioosassociation.org/data-portals -->
+<!--   [S14] HABDAC / PCMHAB 2020 project — hab.whoi.edu + habdac.portal.axds -->
+<!--   [S15] OPO Best Practices v1.0.0 summary (10 pages) + author list       -->
+<!--   [S16] IOOS Plankton Workshop — RA Input deck (8 RAs reporting)         -->
+<!--        AOOS, CeNCOOS, GCOOS, GLOS, NANOOS, MARACOOS, NERACOOS, PacIOOS, SCCOOS -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<script id="kg-data" type="application/json">
+{
+  "nodes": [
+    { "id": "person_gabrielle_hillyer", "label": "Gabby Hillyer", "type": "Person", "subtype": "IOOS Pan-Regional Coordinator", "affiliation": "IOOS Association", "role": "Program Specialist for Pan-Regional Collaborations", "description": "Central navigational anchor for this KG. Coordinates pan-regional IOOS work including IRA Topic 2 ecosystem observations and water level data management across all 11 Regional Associations. The structural position that makes her a natural bridge into the Plankton Community of Practice.", "privacy": "public", "sources": ["S1"] },
+    { "id": "person_anna_barboza", "label": "Anna Barboza", "type": "Person", "subtype": "Co-Program Specialist", "affiliation": "IOOS Association", "description": "Parallel Program Specialist under shared-responsibility model; identified successor in Gabby's continuity plan.", "privacy": "public", "sources": ["S1"] },
+    { "id": "person_gabrielle_canonico", "label": "Gabrielle Canonico", "type": "Person", "subtype": "NOAA IOOS Marine Life program manager", "affiliation": "NOAA IOOS", "description": "Long-standing NOAA IOOS program manager for marine life observations. Co-author of the IOOS Marine Life Data Network documentation and co-presenter at DMAC 2025.", "privacy": "public", "sources": ["S2"] },
+    { "id": "person_mathew_biddle", "label": "Mathew Biddle", "type": "Person", "subtype": "Data architect", "affiliation": "NOAA IOOS", "orcid": "0000-0003-4897-1669", "description": "Lead architect of the IOOS Marine Life Data Network. Ocean biogeochemistry and biological data management; maintains MLDN documentation. Contact: Mathew.Biddle@noaa.gov.", "privacy": "public", "sources": ["S2"] },
+    { "id": "person_laura_brenskelle", "label": "Laura Brenskelle", "type": "Person", "subtype": "Marine Life data management", "affiliation": "NOAA IOOS (contractor, to confirm)", "description": "Co-author of the MLDN documentation and the Biddle, Brenskelle, Canonico 2025 Zenodo record. Exact employment arrangement to be confirmed.", "privacy": "public", "sources": ["S2"] },
+    { "id": "person_heidi_sosik", "label": "Heidi Sosik", "type": "Person", "subtype": "Senior scientist / plankton imaging", "affiliation": "WHOI", "description": "Senior scientist at WHOI; co-PI on the OCB Phytoplankton Taxonomy Working Group; long-standing leader on Imaging FlowCytobot-based observation workflows.", "privacy": "public", "sources": ["S6", "S7"] },
+    { "id": "person_christopher_proctor", "label": "Christopher Proctor", "type": "Person", "subtype": "Phytoplankton remote sensing", "affiliation": "NASA GSFC / SSAI", "description": "Co-PI on the OCB Phytoplankton Taxonomy WG. Works on phytoplankton imaging standards for satellite algorithm development and validation.", "privacy": "public", "sources": ["S6"] },
+    { "id": "person_aimee_neeley", "label": "Aimee Neeley", "type": "Person", "subtype": "Ocean optics / phytoplankton", "affiliation": "NASA GSFC / SSAI", "description": "Co-PI on the OCB Phytoplankton Taxonomy WG; co-lead author of the OPO Best Practices (Clayton, Neeley, Poulton et al. 2026).", "privacy": "public", "sources": ["S6", "S7"] },
+    { "id": "person_ivona_cetinic", "label": "Ivona Cetinić", "type": "Person", "subtype": "Ocean biogeochemistry", "affiliation": "NASA GSFC / USRA", "description": "Co-PI on the OCB Phytoplankton Taxonomy WG; phytoplankton biogeochemistry in support of NASA PACE and related ocean color missions.", "privacy": "public", "sources": ["S6"] },
+    { "id": "person_sophie_clayton", "label": "Sophie Clayton", "type": "Person", "subtype": "Biological oceanographer", "affiliation": "National Oceanography Centre, Southampton (UK)", "description": "Co-lead author (with Neeley and Poulton) of the OPO Best Practices (Clayton, Neeley, Poulton et al. 2026).", "privacy": "public", "sources": ["S7", "S15"] },
+    { "id": "person_nicole_poulton", "label": "Nicole Poulton", "type": "Person", "subtype": "Phytoplankton taxonomy", "affiliation": "Bigelow Laboratory", "description": "Co-lead author of the OPO Best Practices; flow cytometry and phytoplankton taxonomy expertise at Bigelow Laboratory.", "privacy": "public", "sources": ["S7"] },
+    { "id": "person_clarissa_anderson", "label": "Clarissa Anderson", "type": "Person", "subtype": "SCCOOS Executive Director / GlobalHAB Chair", "affiliation": "SCCOOS / Scripps (SIO)", "role": "Executive Director, SCCOOS · Director, NOAA CIMEAS · Chair, GlobalHAB SSC", "orcid": "0000-0001-5970-0253", "description": "Executive Director of SCCOOS at Scripps since 2016; Director of NOAA CIMEAS. Chairs the UNESCO IOC-SCOR GlobalHAB Scientific Steering Committee; NHABON Steering Committee Co-chair (2023–2025); member of the UN SCOR WG on Observing Air-Sea Interaction Strategy; California OPC Science Advisory Team. PI of the California IFCB Network (largest IFCB array in the world, co-PIs Kudela, Barton, Kenitz, Send, Chavez, H. Ruhl) and PI of HABDAC (HAB Data Assembly Center, funded by NOAA NCCOS PCMHAB). Leads the California HAB Bulletin co-produced with CeNCOOS. Education: B.A. Integrative Biology & Art History, UC Berkeley 1999; Ph.D. Marine Science, UC Santa Barbara 2007; NRC + NSF postdoc 2007–2016. 25+ years in biological oceanography, plankton ecology, HAB forecasting.", "privacy": "public", "sources": ["S3", "S4", "S8"] },
+    { "id": "person_quay_dortch", "label": "Quay Dortch", "type": "Person", "subtype": "HAB program management", "affiliation": "NOAA NCCOS", "description": "NHABON Steering Committee Co-chair (ex officio) for NOAA NCCOS; longtime federal lead for competitive HAB programs.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_frank_muller_karger", "label": "Frank Muller-Karger", "type": "Person", "subtype": "Biological oceanography / remote sensing", "affiliation": "University of South Florida (IMaRS)", "description": "PI of the Southeast US MBON. Long-standing MBON and biodiversity remote sensing leader at USF IMaRS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_enrique_montes", "label": "Enrique Montes", "type": "Person", "subtype": "Biological oceanographer", "affiliation": "NOAA AOML", "description": "PI of MBON Pole-to-Pole in the Americas. Leads hemispheric marine biodiversity observing coordination at NOAA AOML.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_maria_kavanaugh", "label": "Maria Kavanaugh", "type": "Person", "subtype": "Biological oceanography", "affiliation": "Oregon State University", "description": "PI of the Northern California Current MBON; also listed among the OPO Best Practices author group.", "privacy": "public", "sources": ["S5", "S7"] },
+    { "id": "person_francisco_chavez", "label": "Francisco Chavez", "type": "Person", "subtype": "Biological oceanography", "affiliation": "MBARI", "description": "PI of Central California MBON. Long-standing ocean observing and eDNA leadership at MBARI.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_matt_ogburn", "label": "Matt Ogburn", "type": "Person", "subtype": "Marine ecologist", "affiliation": "Smithsonian SERC", "description": "PI of Mid-Atlantic MBON at Smithsonian Environmental Research Center.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_katrin_iken", "label": "Katrin Iken", "type": "Person", "subtype": "Arctic benthic ecology", "affiliation": "University of Alaska Fairbanks", "description": "PI of Arctic MBON.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_robert_miller", "label": "Robert Miller", "type": "Person", "subtype": "Marine ecologist", "affiliation": "UC Santa Barbara", "description": "PI of the Southern California Bight MBON.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_cassie_glaspie", "label": "Cassie Glaspie", "type": "Person", "subtype": "Estuarine ecologist", "affiliation": "Louisiana State University", "description": "PI of Estuaries MBON.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_jeffrey_runge", "label": "Jeffrey Runge", "type": "Person", "subtype": "Biological oceanographer", "affiliation": "University of Maine", "description": "PI of Gulf of Maine MBON.", "privacy": "public", "sources": ["S5"] },
+    { "id": "person_frederick_bahr", "label": "Frederick Bahr", "type": "Person", "subtype": "CeNCOOS data lead", "affiliation": "CeNCOOS / MBARI", "description": "CeNCOOS data lead; co-developer (with Stace Beaulieu) of the prototype IFCB → Darwin Core → OBIS workflow from the 2024 OBIS IOOS Marine Biological Data Mobilization Workshop.", "privacy": "public", "sources": ["S2"] },
+    { "id": "person_stace_beaulieu", "label": "Stace Beaulieu", "type": "Person", "subtype": "Data manager / biologist", "affiliation": "WHOI", "description": "WHOI data manager; co-developer of the CeNCOOS IFCB prototype with Frederick Bahr; active in SMBD and OCB OPO.", "privacy": "public", "sources": ["S2", "S6"] },
+    { "id": "person_abby_benson", "label": "Abby Benson", "type": "Person", "subtype": "Biodiversity informatics", "affiliation": "USGS / OBIS-USA", "description": "USGS biodiversity informaticist; operates OBIS-USA; contributor to IOOS H3 indicator development.", "privacy": "public", "sources": ["S2"] },
+    { "id": "person_tiffany_vance", "label": "Tiffany Vance", "type": "Person", "subtype": "Federal program management", "affiliation": "NOAA IOOS", "description": "NOAA IOOS; NHABON Steering Committee ex-officio.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_hassan_moustahfid", "label": "Hassan Moustahfid", "type": "Person", "subtype": "IOOS program specialist", "affiliation": "NOAA IOOS", "description": "NOAA IOOS; H3 biodiversity indicators code sprint team; MBON support.", "privacy": "public", "sources": ["S2"] },
+    { "id": "person_josie_quintrell", "label": "Josie Quintrell", "type": "Person", "subtype": "Executive director", "affiliation": "IOOS Association", "description": "Long-standing IOOS Association leadership; NHABON staff support.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_masha_edmondson", "label": "Masha Edmondson", "type": "Person", "subtype": "Program manager", "affiliation": "IOOS Association", "description": "IOOS Association program manager; NHABON staff.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_thomas_farrugia", "label": "Thomas Farrugia", "type": "Person", "subtype": "HAB program coordinator", "affiliation": "AHAB / AOOS", "description": "Alaska HAB (AHAB) program at AOOS; NHABON Steering Committee member; co-author of the Connecting the Plankton People review.", "privacy": "public", "sources": ["S3", "S4"] },
+
+    { "id": "person_raphael_kudela", "label": "Raphael Kudela", "type": "Person", "subtype": "HAB ecology / phytoplankton", "affiliation": "UC Santa Cruz", "description": "UCSC professor; NHABON Steering Committee member; co-PI of the California IFCB Network with Anderson. Long-standing HAB ecology leader on the U.S. West Coast.", "privacy": "public", "sources": ["S4", "S8"] },
+    { "id": "person_andrew_barton", "label": "Andrew Barton", "type": "Person", "subtype": "Plankton ecology", "affiliation": "Scripps (SIO / UCSD)", "description": "SIO plankton ecologist; co-PI of the California IFCB Network with Anderson.", "privacy": "public", "sources": ["S8"] },
+    { "id": "person_kasia_kenitz", "label": "Kasia Kenitz", "type": "Person", "subtype": "Plankton data science", "affiliation": "Scripps (SIO / UCSD)", "description": "Co-PI of the California IFCB Network with Anderson. Also on the OCB OPO Best Practices author group.", "privacy": "public", "sources": ["S7", "S8"] },
+    { "id": "person_uwe_send", "label": "Uwe Send", "type": "Person", "subtype": "Physical oceanography / autonomous platforms", "affiliation": "Scripps (SIO / UCSD)", "description": "SIO physical oceanographer; autonomous observing platforms; co-PI of the California IFCB Network with Anderson.", "privacy": "public", "sources": ["S8"] },
+    { "id": "person_henry_ruhl", "label": "Henry Ruhl", "type": "Person", "subtype": "Ocean observing leadership", "affiliation": "MBARI / CeNCOOS", "description": "MBARI; former CeNCOOS leadership; co-PI of the California IFCB Network with Anderson.", "privacy": "public", "sources": ["S8"] },
+
+    { "id": "person_mike_brosnahan", "label": "Mike Brosnahan", "type": "Person", "subtype": "HAB biology", "affiliation": "WHOI", "description": "WHOI; NHABON Steering Committee member (voting, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_jayme_smith", "label": "Jayme Smith", "type": "Person", "subtype": "HAB research", "affiliation": "SCCWRP", "description": "Southern California Coastal Water Research Project; NHABON Steering Committee member (voting, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_misty_peacock", "label": "Misty Peacock", "type": "Person", "subtype": "Tribal HAB monitoring", "affiliation": "Northwest Indian College", "description": "Northwest Indian College; NHABON Steering Committee member (voting, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_barb_kirkpatrick", "label": "Barb Kirkpatrick", "type": "Person", "subtype": "Gulf HAB observing leadership", "affiliation": "GCOOS", "description": "Gulf of Mexico Coastal Ocean Observing System; NHABON Steering Committee member (voting, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_beckye_stanton", "label": "Beckye Stanton", "type": "Person", "subtype": "State HAB management", "affiliation": "California EPA", "description": "California Environmental Protection Agency; NHABON Steering Committee member (voting, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_matt_garrett", "label": "Matt Garrett", "type": "Person", "subtype": "State HAB monitoring", "affiliation": "FL FWRI", "description": "Florida Fish and Wildlife Research Institute; NHABON Steering Committee member (voting, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+
+    { "id": "person_greg_doucette", "label": "Greg Doucette", "type": "Person", "subtype": "HAB toxins / federal research", "affiliation": "NOAA NCCOS", "description": "NOAA NCCOS; NHABON Steering Committee ex officio.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_marc_suddleson", "label": "Marc Suddleson", "type": "Person", "subtype": "Federal HAB program", "affiliation": "NOAA NCCOS", "description": "NOAA NCCOS; NHABON Steering Committee ex officio.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_vera_trainer", "label": "Vera Trainer", "type": "Person", "subtype": "HAB ecology / federal research", "affiliation": "NOAA NMFS", "description": "NOAA Fisheries; NHABON Steering Committee ex officio.", "privacy": "public", "sources": ["S4"] },
+    { "id": "person_shelly_tomlinson", "label": "Shelly Tomlinson", "type": "Person", "subtype": "HAB forecasting", "affiliation": "NOAA NCCOS", "description": "NOAA NCCOS; NHABON Steering Committee ex officio.", "privacy": "public", "sources": ["S4"] },
+
+    { "id": "org_ioos_association", "label": "IOOS Association", "type": "Organization", "subtype": "Non-profit partner to NOAA IOOS", "description": "Non-profit partner supporting NOAA's U.S. Integrated Ocean Observing System and the 11 Regional Associations.", "privacy": "public", "url": "https://ioosassociation.org" },
+    { "id": "org_noaa_ioos", "label": "NOAA IOOS", "type": "Organization", "subtype": "Federal program office", "description": "NOAA's U.S. Integrated Ocean Observing System, overseeing 11 Regional Associations and the national Marine Life program.", "privacy": "public", "url": "https://ioos.noaa.gov" },
+    { "id": "org_noaa_oar", "label": "NOAA OAR", "type": "Organization", "subtype": "Federal research line office", "description": "NOAA Oceanic and Atmospheric Research. Hosted Gabby's 2024 Knauss placement.", "privacy": "public" },
+    { "id": "org_noaa_nccos", "label": "NOAA NCCOS", "type": "Organization", "subtype": "NOAA line office", "description": "National Centers for Coastal Ocean Science. Runs competitive HAB programs and hosts multiple NHABON ex-officio roles.", "privacy": "public" },
+    { "id": "org_noaa_aoml", "label": "NOAA AOML", "type": "Organization", "subtype": "NOAA laboratory", "description": "Atlantic Oceanographic and Meteorological Laboratory. Home of MBON Pole-to-Pole.", "privacy": "public" },
+    { "id": "org_noaa_nmfs", "label": "NOAA NMFS", "type": "Organization", "subtype": "NOAA line office", "description": "NOAA Fisheries. Runs the Changing Ecosystems and Fisheries Initiative (CEFI).", "privacy": "public" },
+    { "id": "org_nasa_gsfc", "label": "NASA Goddard", "type": "Organization", "subtype": "NASA center", "description": "Goddard Space Flight Center. Home for multiple OPO co-PIs supporting satellite ocean-color missions including PACE.", "privacy": "public" },
+    { "id": "org_whoi", "label": "WHOI", "type": "Organization", "subtype": "Research institution", "description": "Woods Hole Oceanographic Institution. Hosts Heidi Sosik, Stace Beaulieu; long-standing IFCB and plankton-imaging work.", "privacy": "public" },
+    { "id": "org_mbari", "label": "MBARI", "type": "Organization", "subtype": "Research institution", "description": "Monterey Bay Aquarium Research Institute. Hosts Central California MBON and CeNCOOS IFCB work.", "privacy": "public" },
+    { "id": "org_usf_imars", "label": "USF IMaRS", "type": "Organization", "subtype": "Academic research lab", "description": "University of South Florida Institute for Marine Remote Sensing. Hosts Southeast US MBON and H3 indicators work.", "privacy": "public" },
+    { "id": "org_oregon_state_u", "label": "Oregon State University", "type": "Organization", "subtype": "Academic institution", "description": "Home institution of Maria Kavanaugh and Northern California Current MBON.", "privacy": "public" },
+    { "id": "org_uaf", "label": "U. Alaska Fairbanks", "type": "Organization", "subtype": "Academic institution", "description": "Home of Arctic MBON PI Katrin Iken.", "privacy": "public" },
+    { "id": "org_sio_ucsd", "label": "Scripps (SIO / UCSD)", "type": "Organization", "subtype": "Academic research institution", "description": "Scripps Institution of Oceanography at UC San Diego. Hosts SCCOOS and many oceanographic programs.", "privacy": "public" },
+    { "id": "org_sccwrp", "label": "SCCWRP", "type": "Organization", "subtype": "Regional research authority", "description": "Southern California Coastal Water Research Project; NHABON representative Jayme Smith.", "privacy": "public" },
+    { "id": "org_serc", "label": "Smithsonian SERC", "type": "Organization", "subtype": "Federal research center", "description": "Smithsonian Environmental Research Center. Home of Mid-Atlantic MBON PI Matt Ogburn.", "privacy": "public" },
+    { "id": "org_lsu", "label": "Louisiana State University", "type": "Organization", "subtype": "Academic institution", "description": "Home of Estuaries MBON PI Cassie Glaspie.", "privacy": "public" },
+    { "id": "org_ucsb", "label": "UC Santa Barbara", "type": "Organization", "subtype": "Academic institution", "description": "Home of Southern California Bight MBON PI Robert Miller. Also Clarissa Anderson's Ph.D. institution (Marine Science, 2007).", "privacy": "public", "sources": ["S5", "S8"] },
+    { "id": "org_bigelow", "label": "Bigelow Laboratory", "type": "Organization", "subtype": "Research institution", "description": "Bigelow Laboratory for Ocean Sciences; home of Nicole Poulton.", "privacy": "public" },
+    { "id": "org_usgs", "label": "USGS", "type": "Organization", "subtype": "Federal agency", "description": "U.S. Geological Survey. Hosts OBIS-USA.", "privacy": "public" },
+    { "id": "org_maine_sea_grant", "label": "Maine Sea Grant", "type": "Organization", "subtype": "Sea Grant program", "description": "Hosted Gabby's graduate research and Knauss fellowship nomination.", "privacy": "public" },
+    { "id": "org_university_of_maine", "label": "University of Maine", "type": "Organization", "subtype": "Academic institution", "description": "Granted Gabby's Ph.D. in Ecology and Environmental Sciences (2023) and dual M.S. Also home of Gulf of Maine MBON PI Jeffrey Runge.", "privacy": "public" },
+
+    { "id": "org_noaa_cimeas", "label": "NOAA CIMEAS", "type": "Organization", "subtype": "NOAA cooperative institute", "description": "NOAA Cooperative Institute for Marine, Earth, and Atmospheric Systems. Clarissa Anderson is current Director. Joint partnership between NOAA and Scripps Institution of Oceanography.", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_ca_opc", "label": "California OPC", "type": "Organization", "subtype": "State agency / funder", "description": "California Ocean Protection Council. Funds the California IFCB Network (award P01-3-03). Anderson serves on the OPC Science Advisory Team.", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_ucsc", "label": "UC Santa Cruz", "type": "Organization", "subtype": "Academic institution", "description": "Home of Raphael Kudela (NHABON SC, CA IFCB co-PI). Formerly hosted Clarissa Anderson as a research scientist prior to her 2016 SCCOOS appointment.", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_nw_indian_college", "label": "Northwest Indian College", "type": "Organization", "subtype": "Tribal college", "description": "Home of Misty Peacock (NHABON SC voting member, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "org_cal_epa", "label": "California EPA", "type": "Organization", "subtype": "State environmental agency", "description": "California Environmental Protection Agency. Home of Beckye Stanton (NHABON SC voting member, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "org_fl_fwri", "label": "FL FWRI", "type": "Organization", "subtype": "State research institute", "description": "Florida Fish and Wildlife Research Institute. Home of Matt Garrett (NHABON SC voting member, 2023–2025).", "privacy": "public", "sources": ["S4"] },
+    { "id": "org_esip", "label": "ESIP", "type": "Organization", "subtype": "Partnership / data standards federation", "description": "Earth Science Information Partners. Federation of partner organizations sponsored by NASA, NOAA, and USGS. Hosts multiple collaboration areas including the Biological Data Standards Cluster and the BRIDGE initiative (formerly EDIJ).", "privacy": "public", "url": "https://www.esipfed.org", "sources": ["S3", "S9"] },
+
+    { "id": "ra_aoos", "label": "AOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Alaska Ocean Observing System. Hosts AHAB (Alaska HAB program) and Arctic MBON linkage. Plankton observing: IFCB deployments on vessel and on-shore since 2024; community sampling with many partners; hyperspectral imagery from satellite and plane/drone platforms with NOAA PMEL and Bigelow. Modeling: hyperspectral processing to develop dinoflagellate index (Bigelow). Data highlight: real-time IFCB monitoring in partnership with WHOI and the IFCB Dashboard.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_nanoos", "label": "NANOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Northwest Association of Networked Ocean Observing Systems (Pacific Northwest). Plankton observing: NHABON sampling by tribes (Makah/Quinault/Quileute area) and state on beach and offshore for PNW HAB Bulletin (Chaʼba & CB-06 buoys); Community Fisheries Research using IFCB analysis from fisher water-grab sampling (OR, spreading to WA); Lightfish toxin sampling; SoundToxins network in WA; IFCB monitoring OR and WA. Modeling: LiveOcean 72-hour forecasting; J-SCOPE seasonal forecasting. Data highlight: Pacific Northwest HAB Bulletin synthesizing shore + buoy + ESP + HFR + IFCB + Lightfish data for state and tribal health officials.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_cencoos", "label": "CeNCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Central and Northern California Ocean Observing System. Home of the IFCB → OBIS prototype workflow (Bahr / Beaulieu). Plankton observing (jointly with SCCOOS): IFCB HAB/phytoplankton, HABMAP net sampling, ADCP backscatter for zooplankton, eDNA from vessels and shore, Planktivore/LRAUV evaluation in the Synchro project. Modeling: West Coast ROMS NEMURO NPZ/BGC outputs with large/small phytoplankton and zooplankton classes; C-HARM (set up with SCCOOS). Data highlight: HABDAC and companion Streamlit dashboards.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_sccoos", "label": "SCCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Southern California Coastal Ocean Observing System, hosted at Scripps. Executive Director: Clarissa Anderson (also NHABON SC co-chair). Plankton observing: CalHABMAP weekly HAB & toxin monitoring at 9 shore stations (jointly with CeNCOOS); CA IFCB Network real-time automated plankton monitoring with 6 coastal + 2 offshore IFCBs plus cruise deployments with CalCOFI, Plumes & Blooms, and SF Bay; eDNA sampling at Scripps Pier and Cal Poly. Modeling: C-HARM integrating satellite + WCOFS for Pseudo-nitzschia / domoic acid forecasts; hyperspectral satellite modelling for dinoflagellate blooms. Data highlights: Streamlit-powered HAB Manager Dashboard, HAB alerts in development, HABDAC, California HAB Bulletin, zooplankton abundance index from glider ADCP + CalCOFI net + acoustic data.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_pacioos", "label": "PacIOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Pacific Islands Ocean Observing System. Distinct from mainland HAB focus: this region's public-health issue is ciguatera fish poisoning. Plankton observing: collection of Gambierdiscus spp. (epiphytic dinoflagellates) from benthic algae in Hawaiʻi, American Samoa, and the Marshall Islands; microscopy (distribution & abundance) and metabarcoding (diversity); expanding molecular tools. Modeling: beginning to examine environmental drivers of Gambierdiscus. Community-engaged data collection; new post-bac fellowship piloting ciguatera monitoring integration as a model for other Pacific Islands.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_gcoos", "label": "GCOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Gulf of Mexico Coastal Ocean Observing System (also branded Gulf of America). Plankton observing: funding 2 groups with IFCBs at 3 Texas locations — Port Aransas (since 2012), Surfside Beach (since 2017), Galveston (pending deployment); pending new award for 4 more instruments at Corpus Christi; remote sensing of red tides (K. brevis blooms). Data highlight: cell counts for 100+ species on ERDDAP (gcoos4.geos.tamu.edu); automated HAB warning emails to state health officials; Sargassum Watch.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_secoora", "label": "SECOORA", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Southeast Coastal Ocean Observing Regional Association.", "privacy": "public" },
+    { "id": "ra_maracoos", "label": "MARACOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Mid-Atlantic Regional Association Coastal Ocean Observing System. Plankton observing: MERHAB IFCB and Planktoscope Network for Monitoring HABs in Chesapeake Bay; glider deployments for phytoplankton biomass + biogeochemistry. Modeling: Chesapeake Bay Environmental Forecast System (CBEFS) HAB-risk nowcasts and forecasts, expanding to Doppio region + coastal shelf. Data highlight: Chesapeake Bay HABs data portal on OceansMap integrating satellite imagery, in-situ sampling, community science data, and forecasts; Mid-Atlantic Phytoplankton Imaging Libraries; OceansMap Insights for Charter Captains & Anglers.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_neracoos", "label": "NERACOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Northeastern Regional Association of Coastal Ocean Observing Systems. Plankton observing: multitrophic plankton time series (ichthyoplankton + zooplankton + pico-/nano-/microplankton) via microscopy, eDNA, and imaging; trial of Wirewalker x Shadowgraph in-situ imaging moored profiler; NEFSC Continuous Plankton Recorder monthly transect; 3 IFCBs (1 on SeaTrac USV, 2 coastal). Modeling: coupled hydrodynamic models with Lagrangian experiments; foraging habitat suitability; lipidscape and seascape analysis. Data highlight: Western Gulf of Maine Zooplankton Sentinel Indicators — climatologies from time-series stations.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_glos", "label": "GLOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Great Lakes Observing System. Plankton observing: plankton-pigment fluorescence time series (fixed and mobile); related biogeochemical monitoring; near real-time microcystin measurements; hyperspectral flyovers for phycocyanin detection; lightweight microscopy with HABs AI; mesocosm for detection algorithm development. Modeling: data provision for the Lake Erie HABs Operational Forecast Model. Data highlight: real-time customized alerting through Seagull for water-treatment plant managers.", "privacy": "public", "sources": ["S16"] },
+    { "id": "ra_caricoos", "label": "CARICOOS", "type": "Organization", "subtype": "IOOS Regional Association", "description": "Caribbean Coastal Ocean Observing System.", "privacy": "public" },
+
+    { "id": "repo_obis", "label": "OBIS", "type": "Organization", "subtype": "Data repository", "description": "Ocean Biodiversity Information System. IOC-UNESCO-coordinated global marine biodiversity data network. Terminal sink for marine life observations after Darwin Core alignment.", "privacy": "public", "url": "https://obis.org" },
+    { "id": "repo_obis_usa", "label": "OBIS-USA", "type": "Organization", "subtype": "Data repository", "description": "U.S. node of OBIS, hosted by USGS. Uses the Integrated Publishing Toolkit (IPT) for publishing that then feeds OBIS and GBIF.", "privacy": "public" },
+    { "id": "repo_gbif", "label": "GBIF", "type": "Organization", "subtype": "Data repository", "description": "Global Biodiversity Information Facility. Terminal discovery layer for biodiversity observations; 41 MBON dataset DOIs; 3,120+ citations tracked.", "privacy": "public", "url": "https://www.gbif.org" },
+    { "id": "repo_ncei", "label": "NOAA NCEI", "type": "Organization", "subtype": "Federal data archive", "description": "National Centers for Environmental Information. Authoritative archive for PAM, ATN satellite telemetry, and other marine life data products.", "privacy": "public" },
+    { "id": "repo_ioos_data_catalog", "label": "IOOS Data Catalog", "type": "Organization", "subtype": "Metadata catalog", "description": "data.ioos.us. Metadata-only catalog of IOOS-network datasets.", "privacy": "public" },
+
+    { "id": "community_ioos_plankton", "label": "IOOS Plankton Observation Community", "type": "Community", "subtype": "Nested CoP", "description": "The plankton-focused subset of the broader IOOS Marine Life Data Network. Anchored by the DMAC Tech Webinar 'Identifying Challenges and Solutions for Advancing IOOS Plankton Observation Data' and intersecting OPO, NHABON, and MBON.", "privacy": "public", "sources": ["S2", "S3"] },
+    { "id": "community_mldn", "label": "IOOS Marine Life Data Network", "type": "Community", "subtype": "IOOS DMAC-anchored data community", "description": "MLDN. IOOS-wide community of practice for marine life data spanning plankton, fish, marine mammals, habitat-formers, telemetry, PAM, and eDNA.", "privacy": "public", "url": "https://ioos.github.io/marine_life_data_network/", "sources": ["S2"] },
+    { "id": "community_mbon", "label": "MBON (national)", "type": "Community", "subtype": "Observation network", "description": "Marine Biodiversity Observation Network. 10+ regional MBON projects, 9 Sanctuaries, many additional efforts. More than 1.62M occurrence records aggregated to OBIS.", "privacy": "public", "url": "http://marinebon.org", "sources": ["S2", "S5"] },
+    { "id": "community_nhabon", "label": "NHABON", "type": "Community", "subtype": "Observation network", "description": "National Harmful Algal Bloom Observing Network. Community of HAB observing experts, system operators, manufacturers, data managers, and stakeholders.", "privacy": "public", "sources": ["S3", "S4"] },
+    { "id": "community_obon", "label": "OBON", "type": "Community", "subtype": "Biomolecular network", "description": "Ocean Biomolecular Observing Network.", "privacy": "public", "sources": ["S3"] },
+    { "id": "community_globalhab", "label": "GlobalHAB", "type": "Community", "subtype": "International program", "description": "International program on harmful algal blooms. Scientific Steering Committee developed a ten-year Science and Implementation Plan (2026–2036).", "privacy": "public", "sources": ["S3"] },
+    { "id": "community_goos", "label": "GOOS", "type": "Community", "subtype": "International observing system", "description": "Global Ocean Observing System. Defines Essential Ocean Variables (EOVs) and Essential Biological Variables (EBVs) relevant to plankton observing.", "privacy": "public", "sources": ["S3"] },
+    { "id": "community_ocb", "label": "OCB", "type": "Community", "subtype": "U.S. research coordination", "description": "Ocean Carbon & Biogeochemistry. Hosts the Operational Phytoplankton Observations / Phytoplankton Taxonomy Working Group.", "privacy": "public", "sources": ["S3", "S6"] },
+    { "id": "community_esip_bds", "label": "ESIP BDS Cluster", "type": "Community", "subtype": "Data standards community", "description": "ESIP Biological Data Standards Cluster. Active ESIP collaboration area, established 2020. Builds community, guidance, and documentation for the U.S. biological data community; engages with TDWG to align U.S. approaches with the global Biodiversity Information Standards community. Produces the Biological Data Standards Primer and primer guidelines. Meets first Thursday of each month, 2pm ET. Listed in the Connecting the Plankton People review as a relevant CoP for biological data standards alignment.", "privacy": "public", "url": "https://www.esipfed.org/collaboration-areas/biological-data-standards/", "sources": ["S3"] },
+    { "id": "community_esip_bridge", "label": "ESIP BRIDGE", "type": "Community", "subtype": "Equity / inclusion initiative", "description": "ESIP BRIDGE (rebranded from EDIJ — Equity, Diversity, Inclusion, and Justice). Collaboration area chaired by Stephen Diggs. Distinct from the Biological Data Standards Cluster. Included for completeness of SC's ESIP context; not a plankton-community CoP per se.", "privacy": "public", "sources": ["S9"] },
+    { "id": "community_atn", "label": "ATN", "type": "Community", "subtype": "IOOS Data Assembly Center", "description": "Animal Telemetry Network. Satellite telemetry data flow via ATN to NCEI, OBIS-USA, NDBC, and the IOOS Data Catalog.", "privacy": "public", "url": "https://atn.ioos.us", "sources": ["S2"] },
+    { "id": "community_otn", "label": "OTN", "type": "Community", "subtype": "International telemetry network", "description": "Ocean Tracking Network. Acoustic telemetry data flow via six regional Nodes (FACT, ACT, iTAG, PIRAT, GLATOS, N-PAcT).", "privacy": "public", "sources": ["S2"] },
+
+    { "id": "committee_ioos_dmac", "label": "IOOS DMAC", "type": "Committee", "subtype": "Governance committee", "description": "Data Management and Cyberinfrastructure committee for IOOS. Houses IRA Topic 2 working groups.", "privacy": "public", "sources": ["S1", "S2"] },
+    { "id": "wg_smbd", "label": "SMBD Working Group", "type": "Committee", "subtype": "Data standards WG", "description": "Standardizing Marine Biological Data Working Group. Established by IOOS Marine Life program managers to align marine biological data to Darwin Core for sharing to OBIS.", "privacy": "public", "sources": ["S2", "S3"] },
+    { "id": "wg_opo", "label": "OCB OPO / Phytoplankton Taxonomy WG", "type": "Committee", "subtype": "Scientific working group", "description": "Operational Phytoplankton Observations / Phytoplankton Taxonomy Working Group under OCB. Co-PIs: Sosik (WHOI), Proctor (NASA GSFC/SSAI), Neeley (NASA GSFC/SSAI), Cetinić (NASA GSFC/USRA).", "privacy": "public", "sources": ["S3", "S6", "S7"] },
+    { "id": "wg_nhabon_sc", "label": "NHABON Steering Committee", "type": "Committee", "subtype": "Observing network governance", "description": "Steering Committee 2023–2025: Anderson (co-chair, SCCOOS/SIO), Brosnahan (WHOI), Smith (SCCWRP), Peacock (NW Indian College), Farrugia (AHAB/AOOS), Kirkpatrick (GCOOS), Stanton (Cal/EPA), Garrett (FL FWRI), Kudela (UCSC). Ex officio: Dortch (NCCOS co-chair), Doucette, Vance (IOOS), Suddleson, Trainer (NMFS), Tomlinson.", "privacy": "public", "sources": ["S4"] },
+    { "id": "wg_mbon_dmac", "label": "MBON DMAC Working Group", "type": "Committee", "subtype": "Data management WG", "description": "MBON data-management working group coordinating standards and workflows across regional MBON projects.", "privacy": "public", "sources": ["S2"] },
+    { "id": "wg_iphab", "label": "IPHAB-IOC", "type": "Committee", "subtype": "International panel", "description": "Intergovernmental Panel on Harmful Algal Blooms (IOC-UNESCO). Reviewed the draft GlobalHAB Science & Implementation Plan in Paris, March 2024.", "privacy": "public", "sources": ["S3"] },
+
+    { "id": "project_ira_topic2_ecoobs", "label": "IRA Topic 2 · Ecosystem Observations", "type": "Project", "subtype": "Inflation Reduction Act funded", "description": "Cross-regional ecosystem observation program. Gabby Hillyer is Project Overview Lead; presented at IOOS DMAC.", "privacy": "public", "sources": ["S1"] },
+    { "id": "project_ira_topic2_www", "label": "IRA Topic 2 · Water Level (WWW)", "type": "Project", "subtype": "Inflation Reduction Act funded", "description": "Water level data management consistency across IOOS regions.", "privacy": "public", "sources": ["S1"] },
+    { "id": "project_mbon_arctic", "label": "Arctic MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Katrin Iken (U. Alaska Fairbanks). Regional host: AOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_gulf_of_maine", "label": "Gulf of Maine MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Jeffrey Runge (University of Maine). Regional host: NERACOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_northern_cal_current", "label": "Northern California Current MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Maria Kavanaugh (Oregon State U.). Regional host: NANOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_central_california", "label": "Central California MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Francisco Chavez (MBARI). Regional host: CeNCOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_mid_atlantic", "label": "Mid-Atlantic MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Matt Ogburn (Smithsonian SERC). Regional host: MARACOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_southeast_us", "label": "Southeast US MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Frank Muller-Karger (USF IMaRS). Regional hosts: SECOORA, GCOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_southern_cal_bight", "label": "Southern California Bight MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Robert Miller (UC Santa Barbara). Regional host: SCCOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_estuaries", "label": "Estuaries MBON", "type": "Project", "subtype": "MBON regional project", "description": "PI: Cassie Glaspie (Louisiana State U.). Regional host: GCOOS.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_mbon_pole_to_pole", "label": "MBON Pole to Pole", "type": "Project", "subtype": "MBON hemispheric project", "description": "PI: Enrique Montes (NOAA AOML). Hemispheric coordination with MarineGEO.", "privacy": "public", "sources": ["S5"] },
+    { "id": "project_ifcb_prototype", "label": "CeNCOOS IFCB → OBIS prototype", "type": "Project", "subtype": "Data workflow prototype", "description": "Prototype OBIS-ENV-Data package from Santa Cruz Municipal Wharf IFCB data. Bahr (CeNCOOS) + Beaulieu (WHOI), 2024. Sponsored by NOAA PCMHAB20.", "privacy": "public", "sources": ["S2"] },
+    { "id": "project_h3_indicators", "label": "H3 Biodiversity Indicators", "type": "Project", "subtype": "IOOS Code Sprint 2022", "description": "Open-source biodiversity indicator development from OBIS data. Team: Tylar Murray, Ben Best, Sonja Giardina, Hassan Moustahfid, Abby Benson.", "privacy": "public", "sources": ["S2"] },
+    { "id": "project_ca_ifcb_network", "label": "California IFCB Network", "type": "Project", "subtype": "Statewide observing network", "description": "Statewide network of automated in situ robotic microscopes (Imaging FlowCytobots) providing real-time hourly phytoplankton community composition along the California coast. The world's largest IFCB array. PI: Clarissa Anderson. Co-PIs: Kudela (UCSC), Barton, Kenitz, Send (SIO), Chavez (MBARI), Ruhl (MBARI). Funded by IOOS core + California OPC (award P01-3-03). Feeds the California HAB Bulletin.", "privacy": "public", "url": "https://sccoos.org/ifcb/", "sources": ["S8"] },
+    { "id": "otn_fact", "label": "OTN · FACT", "type": "Project", "subtype": "OTN regional node", "description": "Florida Atlantic Coast Telemetry; SECOORA region.", "privacy": "public", "sources": ["S2"] },
+    { "id": "otn_act", "label": "OTN · ACT", "type": "Project", "subtype": "OTN regional node", "description": "Atlantic Cooperative Telemetry Network.", "privacy": "public", "sources": ["S2"] },
+    { "id": "otn_itag", "label": "OTN · iTAG", "type": "Project", "subtype": "OTN regional node", "description": "Integrated Tracking of Aquatic Animals in the Gulf of Mexico.", "privacy": "public", "sources": ["S2"] },
+    { "id": "otn_pirat", "label": "OTN · PIRAT", "type": "Project", "subtype": "OTN regional node", "description": "Pacific Islands Regional Acoustic Telemetry.", "privacy": "public", "sources": ["S2"] },
+    { "id": "otn_glatos", "label": "OTN · GLATOS", "type": "Project", "subtype": "OTN regional node", "description": "Great Lakes Acoustic Telemetry Observation System.", "privacy": "public", "sources": ["S2"] },
+    { "id": "otn_npact", "label": "OTN · N-PAcT", "type": "Project", "subtype": "OTN regional node", "description": "Northeast Pacific Acoustic Telemetry.", "privacy": "public", "sources": ["S2"] },
+
+    { "id": "program_knauss_fellowship", "label": "Knauss Marine Policy Fellowship", "type": "Program", "subtype": "Federal fellowship", "description": "NOAA Sea Grant fellowship. Gabby: 2024 cohort.", "privacy": "public", "sources": ["S1"] },
+    { "id": "program_maine_shellfish_network", "label": "Maine Shellfish Learning Network", "type": "Program", "subtype": "Community science network", "description": "Community-based shellfish research network. Gabby: co-developer.", "privacy": "public", "sources": ["S1"] },
+    { "id": "program_cefi", "label": "CEFI", "type": "Program", "subtype": "NMFS initiative", "description": "Changing Ecosystems and Fisheries Initiative at NOAA NMFS.", "privacy": "public", "sources": ["S3"] },
+    { "id": "program_nasa_pace", "label": "NASA PACE", "type": "Program", "subtype": "NASA satellite mission", "description": "Plankton, Aerosol, Cloud, ocean Ecosystem mission.", "privacy": "public", "sources": ["S3"] },
+    { "id": "program_mbdmw", "label": "MBON / OBIS Data Mobilization Workshop", "type": "Program", "subtype": "Training workshop series", "description": "Workshop series run by SMBD; 2024 edition produced the CeNCOOS IFCB prototype.", "privacy": "public", "sources": ["S2"] },
+
+    { "id": "tech_drifter_bucket", "label": "Drifter Bucket", "type": "Technology", "subtype": "Estuarine monitoring instrument", "description": "Low-cost drifter instrument co-developed by Gabby at UMaine.", "privacy": "public", "sources": ["S1"] },
+    { "id": "tech_ifcb", "label": "Imaging FlowCytobot (IFCB)", "type": "Technology", "subtype": "Imaging flow cytometer", "description": "Submersible imaging flow cytometer. Central to CeNCOOS prototype and OPO Best Practices. Imaging flow cytometer class per OPO guide.", "privacy": "public", "sources": ["S2", "S7"] },
+    { "id": "tech_flowcam", "label": "FlowCAM", "type": "Technology", "subtype": "Imaging flow cytometer", "description": "Benchtop imaging particle analyzer in the OPO Best Practices. Imaging flow cytometer class per OPO guide. Manufactured by Yokogawa Fluid Imaging Technologies (formerly Fluid Imaging Technologies).", "privacy": "public", "sources": ["S7"] },
+    { "id": "tech_uvp", "label": "Underwater Vision Profiler (UVP)", "type": "Technology", "subtype": "Open-path imager", "description": "Profiling underwater imaging instrument for plankton and particle observations. Open-path imager class per OPO guide.", "privacy": "public", "sources": ["S7"] },
+    { "id": "tech_cpr", "label": "Continuous Plankton Recorder (CPR)", "type": "Technology", "subtype": "Towed plankton sampler", "description": "Long-standing towed plankton sampling instrument.", "privacy": "public" },
+    { "id": "tech_edna", "label": "Environmental DNA (eDNA)", "type": "Technology", "subtype": "Observing method / 'Omics", "description": "Water-sample DNA workflow. MLDN references NOAA Omics Data Management Guide and FAIR eDNA.", "privacy": "public", "sources": ["S2"] },
+    { "id": "tech_erddap", "label": "ERDDAP", "type": "Technology", "subtype": "Data server", "description": "NOAA-developed data server. Core raw-data access layer in the MLDN data flow.", "privacy": "public", "sources": ["S2"] },
+    { "id": "tech_ipt", "label": "GBIF IPT", "type": "Technology", "subtype": "Publishing platform", "description": "Integrated Publishing Toolkit used by OBIS-USA and OTN.", "privacy": "public", "sources": ["S2"] },
+
+    { "id": "standard_darwin_core", "label": "Darwin Core (TDWG)", "type": "Standard", "subtype": "Biodiversity data standard", "description": "Biodiversity Information Standards (TDWG) Darwin Core. Alignment target for all marine life data sharing to OBIS and GBIF.", "privacy": "public", "url": "https://www.tdwg.org/community/", "sources": ["S2"] },
+    { "id": "standard_fair_edna", "label": "FAIR eDNA", "type": "Standard", "subtype": "eDNA metadata standard", "description": "Metadata checklist for eDNA workflows.", "privacy": "public", "sources": ["S2"] },
+    { "id": "standard_mldn_rec", "label": "MLDN Recommendations", "type": "Standard", "subtype": "Community recommendations", "description": "IOOS Marine Life Data Network Recommendations. Biddle, Brenskelle, Canonico 2025. doi:10.5281/zenodo.15304225.", "privacy": "public", "url": "https://ioos.github.io/marine_life_data_network/", "sources": ["S2"] },
+
+    { "id": "pub_opo_best_practices", "label": "OPO Best Practices", "type": "Publication", "subtype": "Technical guide · v1.0.0 Feb 2026", "description": "Clayton, Neeley, Poulton et al. 2026. Operational Phytoplankton Observations Best Practices: a guide for using imaging technologies for routine monitoring of phytoplankton communities. Version 1.0.0, February 2026. DOI 10.25607/OBP-2059. Central community reference for phytoplankton imaging. Covers two instrument classes (imaging flow cytometers & microscopes: FlowCAM, CytoSense/CytoSub, IFCB, PlanktoScope, ImageStream Mk II; open-path imagers: LISST-Holo2, UVP, VPR). Introduces a five-level data hierarchy (L0 full frames → L1A ROIs → L1B ROI-level data → L2 sample-level → L3 aggregated products), treats uncertainty at every stage, grounds phytoplankton observing in GOOS EOVs/EBVs, and prescribes FAIR data sharing via Darwin Core, SeaBASS, OBIS, BCO-DMO, and MBON. 20 co-authors across NOC Southampton, NASA GSFC, Bigelow, Scripps, WHOI, OSU, Plymouth Marine Lab, Harbor Branch, Yokogawa FIT, UH Manoa, U. Oldenburg ICBM, UCAR/NOAA OAP, Texas A&M, St Mary's Maryland, U. Geneva, Boston U., FL FWC.", "privacy": "public", "url": "https://doi.org/10.25607/OBP-2059", "sources": ["S7", "S15"] },
+    { "id": "pub_nhabon_implementation", "label": "NHABON IS 2021", "type": "Publication", "subtype": "Implementation strategy", "description": "Implementation Strategy for a National Harmful Algal Bloom Observing Network (February 2021). Foundational document for the current NHABON governance.", "privacy": "public", "sources": ["S4"] },
+    { "id": "pub_globalhab_sip", "label": "GlobalHAB SIP", "type": "Publication", "subtype": "Science & Implementation Plan", "description": "Draft GlobalHAB Science and Implementation Plan 2026–2036.", "privacy": "public", "sources": ["S3"] },
+    { "id": "pub_ca_hab_bulletin", "label": "CA HAB Bulletin", "type": "Publication", "subtype": "Recurring synthesis", "description": "California HAB Bulletin. Monthly synthesis of HAB model output, near-real-time observations, and public health alerts for the California coast. Co-produced by SCCOOS and CeNCOOS. Lead: Clarissa Anderson.", "privacy": "public", "sources": ["S8"] },
+
+    { "id": "person_margaret_leinen", "label": "Margaret Leinen", "type": "Person", "subtype": "Scripps Director Emerita / OBON lead", "affiliation": "Scripps (SIO / UCSD)", "role": "Professor; Vice Chancellor Emerita; Director Emerita, Scripps", "orcid": "0000-0002-7982-3661", "description": "Paleoceanographer and science-policy leader. 11th Director of Scripps (through Sept 2025) and former UCSD Vice Chancellor for Marine Sciences. Lead contact / chair-level figure for the Ocean Biomolecular Observing Network (OBON). Past President of AGU and of The Oceanography Society; US Science Envoy for the Oceans; Co-chair of the UN Decade of Ocean Science for Sustainable Development Advisory Board. Succeeded at Scripps by Meenakshi Wadhwa.", "privacy": "public", "sources": ["S10"] },
+    { "id": "person_meenakshi_wadhwa", "label": "Meena Wadhwa", "type": "Person", "subtype": "Scripps Director / VC Marine Sciences UCSD", "affiliation": "Scripps (SIO / UCSD)", "role": "Director, Scripps Institution of Oceanography; Vice Chancellor for Marine Sciences, UCSD; Dean, School of Marine, Earth and Atmospheric Sciences", "orcid": "0000-0001-9187-1255", "description": "Director of Scripps Institution of Oceanography and Vice Chancellor for Marine Sciences at UC San Diego. Succeeded Margaret Leinen in 2025. Planetary scientist / cosmochemist by training — institutional anchor for SIO-hosted ocean observing programs including SCCOOS, CA IFCB Network, and SIO-affiliated researchers across this graph. Approved SC's Visiting Scholar appointment at SIO.", "privacy": "public", "sources": ["S10", "S11"] },
+
+    { "id": "person_emily_brownlee", "label": "Emily Brownlee", "type": "Person", "subtype": "Plankton imaging", "affiliation": "St Mary's College of Maryland", "description": "Biology Department, St Mary's College of Maryland. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_marco_corrales", "label": "Marco Corrales", "type": "Person", "subtype": "Phytoplankton imaging", "affiliation": "Oregon State University", "description": "Oregon State University. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_mathilde_dugenne", "label": "Mathilde Dugenne", "type": "Person", "subtype": "Phytoplankton ecology", "affiliation": "University of Geneva (Switzerland)", "description": "University of Geneva. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_darren_henrichs", "label": "Darren Henrichs", "type": "Person", "subtype": "HAB / imaging workflows", "affiliation": "Texas A&M University", "description": "Texas A&M University. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_julie_koester", "label": "Julie Koester", "type": "Person", "subtype": "HAB monitoring", "affiliation": "Florida Fish and Wildlife Conservation Commission (FWC)", "description": "FWC, St Petersburg FL. Co-author of the OPO Best Practices (2026). Note: FWC is the parent agency; FWRI (Matt Garrett's affiliation) is a research division within FWC.", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_sasha_kramer", "label": "Sasha Kramer", "type": "Person", "subtype": "Phytoplankton / bio-optics", "affiliation": "Boston University", "description": "Department of Earth & Environment, Boston University. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_laura_lubelczyk", "label": "Laura Lubelczyk", "type": "Person", "subtype": "Plankton imaging / taxonomy", "affiliation": "Bigelow Laboratory", "description": "Bigelow Laboratory for Ocean Sciences. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_malcolm_mcfarland", "label": "Malcolm McFarland", "type": "Person", "subtype": "Plankton imaging / HAB", "affiliation": "Harbor Branch Oceanographic Institute / FAU", "description": "Harbor Branch Oceanographic Institute, Florida Atlantic University. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_saskia_ruhl", "label": "Saskia Rühl", "type": "Person", "subtype": "Plankton imaging", "affiliation": "Plymouth Marine Laboratory (UK)", "description": "Plymouth Marine Laboratory, UK. Co-author of the OPO Best Practices (2026). Distinct from Henry Ruhl (MBARI / CA IFCB co-PI).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_savannah_stresser", "label": "Savannah Stresser", "type": "Person", "subtype": "Instrument manufacturer / imaging", "affiliation": "Yokogawa Fluid Imaging Technologies", "description": "Yokogawa Fluid Imaging Technologies, Scarborough ME (the FlowCAM manufacturer, formerly Fluid Imaging Technologies). Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_angelicque_white", "label": "Angelicque White", "type": "Person", "subtype": "Biological oceanographer", "affiliation": "University of Hawaii Manoa (SOEST)", "description": "School of Ocean and Earth Science and Technology, University of Hawaii Manoa. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_jochen_wollschlager", "label": "Jochen Wollschläger", "type": "Person", "subtype": "Phytoplankton / remote sensing", "affiliation": "ICBM, University of Oldenburg (Germany)", "description": "Institute for Chemistry and Biology of the Marine Environment, University of Oldenburg. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_liza_wright_fairbanks", "label": "Liza Wright-Fairbanks", "type": "Person", "subtype": "Ocean acidification / imaging", "affiliation": "UCAR → NOAA Ocean Acidification Program", "description": "UCAR, on contract to the NOAA Ocean Acidification Program in Silver Spring MD. Co-author of the OPO Best Practices (2026).", "privacy": "public", "sources": ["S15"] },
+    { "id": "person_rob_bochenek", "label": "Rob Bochenek", "type": "Person", "subtype": "Ocean data infrastructure / CEO", "affiliation": "Axiom Data Science", "description": "Axiom Data Science. Co-PI on HABDAC (HAB Data Assembly Center) with Anderson, Sosik, Beaulieu, Kudela, H. Ruhl. Axiom builds and operates many IOOS regional data portals.", "privacy": "public", "sources": ["S14"] },
+
+    { "id": "org_axiom_data_science", "label": "Axiom Data Science", "type": "Organization", "subtype": "Commercial data-infrastructure partner", "description": "Alaska-based data-infrastructure company. Operates HABDAC portal (habdac.portal.axds.co), builds IOOS regional data portals, contributor to many ocean-data-pipeline projects.", "privacy": "public", "url": "https://www.axiomdatascience.com", "sources": ["S14"] },
+    { "id": "org_uc_berkeley", "label": "UC Berkeley", "type": "Organization", "subtype": "Academic institution", "description": "Clarissa Anderson's undergraduate institution (B.A. Integrative Biology & Art History, 1999).", "privacy": "public", "sources": ["S8"] },
+    { "id": "org_agu", "label": "AGU", "type": "Organization", "subtype": "Professional society", "description": "American Geophysical Union. Margaret Leinen is a past President.", "privacy": "public", "url": "https://www.agu.org", "sources": ["S10"] },
+    { "id": "org_oceanography_society", "label": "The Oceanography Society", "type": "Organization", "subtype": "Professional society", "description": "The Oceanography Society (TOS). Margaret Leinen is a past President.", "privacy": "public", "url": "https://tos.org", "sources": ["S10"] },
+    { "id": "org_noc_southampton", "label": "NOC Southampton", "type": "Organization", "subtype": "Academic research center (UK)", "description": "National Oceanography Centre, Southampton UK. Home of Sophie Clayton (OPO Best Practices co-lead).", "privacy": "public", "url": "https://noc.ac.uk", "sources": ["S15"] },
+    { "id": "org_stmarys_maryland", "label": "St Mary's College of Maryland", "type": "Organization", "subtype": "Academic institution", "description": "Biology Department. Home of Emily Brownlee.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_u_geneva", "label": "University of Geneva", "type": "Organization", "subtype": "Academic institution (Switzerland)", "description": "Home of Mathilde Dugenne.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_texas_am", "label": "Texas A&M University", "type": "Organization", "subtype": "Academic institution", "description": "Home of Darren Henrichs.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_fl_fwc", "label": "FL FWC", "type": "Organization", "subtype": "State agency (parent of FWRI)", "description": "Florida Fish and Wildlife Conservation Commission. Parent agency; the Florida Fish and Wildlife Research Institute (FWRI) is its research arm. Home of Julie Koester.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_boston_u", "label": "Boston University", "type": "Organization", "subtype": "Academic institution", "description": "Department of Earth & Environment. Home of Sasha Kramer.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_harbor_branch_fau", "label": "Harbor Branch / FAU", "type": "Organization", "subtype": "Academic research institute", "description": "Harbor Branch Oceanographic Institute, Florida Atlantic University. Home of Malcolm McFarland.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_plymouth_marine_lab", "label": "Plymouth Marine Lab", "type": "Organization", "subtype": "Research institution (UK)", "description": "Plymouth Marine Laboratory. Home of Saskia Rühl.", "privacy": "public", "url": "https://www.pml.ac.uk", "sources": ["S15"] },
+    { "id": "org_yokogawa_fit", "label": "Yokogawa FIT", "type": "Organization", "subtype": "Commercial instrument manufacturer / OPO contributor", "description": "Yokogawa Fluid Imaging Technologies (formerly Fluid Imaging Technologies). FlowCAM manufacturer. Named co-author on OPO Best Practices — participates in community standards work, not just instrument sales.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_uh_manoa_soest", "label": "U. Hawaii Manoa (SOEST)", "type": "Organization", "subtype": "Academic institution", "description": "School of Ocean and Earth Science and Technology. Home of Angelicque White.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_u_oldenburg_icbm", "label": "U. Oldenburg (ICBM)", "type": "Organization", "subtype": "Academic institution (Germany)", "description": "Institute for Chemistry and Biology of the Marine Environment. Home of Jochen Wollschläger.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_ucar", "label": "UCAR", "type": "Organization", "subtype": "Research consortium / federal contractor", "description": "University Corporation for Atmospheric Research, Boulder CO. Employs Liza Wright-Fairbanks on contract to NOAA OAP.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_noaa_oap", "label": "NOAA OAP", "type": "Organization", "subtype": "NOAA program", "description": "NOAA Ocean Acidification Program, Silver Spring MD. Contracting agency for Liza Wright-Fairbanks via UCAR.", "privacy": "public", "sources": ["S15"] },
+    { "id": "org_seabass", "label": "SeaBASS", "type": "Organization", "subtype": "Data repository (NASA ocean bio-optics)", "description": "SeaWiFS Bio-optical Archive and Storage System. NASA Ocean Biology Processing Group repository; canonical archive for ocean bio-optics and ocean color validation data. Referenced in OPO Best Practices as a recommended repository.", "privacy": "public", "url": "https://seabass.gsfc.nasa.gov", "sources": ["S7", "S15"] },
+    { "id": "org_bco_dmo", "label": "BCO-DMO", "type": "Organization", "subtype": "Data repository (NSF OCE)", "description": "Biological and Chemical Oceanography Data Management Office, hosted at WHOI. Canonical repository for NSF-funded biological and chemical oceanographic data. Referenced in OPO Best Practices.", "privacy": "public", "url": "https://www.bco-dmo.org", "sources": ["S7", "S15"] },
+
+    { "id": "committee_un_scor_airseawg", "label": "UN SCOR Air-Sea WG", "type": "Committee", "subtype": "International working group", "description": "UN SCOR Working Group on Observing Air-Sea Interaction Strategy. Clarissa Anderson is a member.", "privacy": "public", "sources": ["S8"] },
+    { "id": "committee_un_ocean_decade_ab", "label": "UN Ocean Decade Advisory Board", "type": "Committee", "subtype": "International governance", "description": "Advisory Board for the UN Decade of Ocean Science for Sustainable Development (2021–2030). Margaret Leinen co-chairs.", "privacy": "public", "sources": ["S10"] },
+
+    { "id": "project_habdac", "label": "HABDAC", "type": "Project", "subtype": "National cyberinfrastructure hub", "description": "Harmful Algal Bloom Data Assembly Center. Centralized cyberinfrastructure for HAB data products, real-time imagery/sampling pipelines, machine learning models, and shared training datasets. PI: Clarissa Anderson; co-PIs Bochenek (Axiom), Sosik (WHOI), Beaulieu (WHOI), Kudela (UCSC), H. Ruhl (MBARI). Funded by NOAA NCCOS PCMHAB. Central hub: CA IFCB Network data flows into HABDAC, which powers the CA HAB Bulletin and feeds downstream HAB forecasting.", "privacy": "public", "url": "https://habdac.portal.axds.co/", "sources": ["S14"] },
+    { "id": "project_cal_habmap", "label": "California HABMAP", "type": "Project", "subtype": "Statewide HAB monitoring program", "description": "California Harmful Algal Bloom Monitoring and Alert Program. Formed 2008 as ad-hoc consortium; since 2011 sustained by SCCOOS + CeNCOOS. Weekly pier-station sampling at 9–10 sites from San Diego to Humboldt for HAB species and domoic acid. Feeds validation of the C-HARM model and the CA HAB Bulletin.", "privacy": "public", "sources": ["S14"] },
+
+    { "id": "tech_planktoscope", "label": "PlanktoScope", "type": "Technology", "subtype": "Imaging flow cytometer", "description": "Open-source benchtop imaging flow cytometer. Imaging flow cytometer class per OPO guide. Sibling to IFCB in the Plankton Data Flow diagram.", "privacy": "public", "sources": ["S7", "S12"] },
+    { "id": "tech_cytosense", "label": "CytoSense / CytoSub", "type": "Technology", "subtype": "Imaging flow cytometer", "description": "Imaging flow cytometer by Cytobuoy B.V. Imaging flow cytometer class per OPO guide.", "privacy": "public", "sources": ["S7", "S15"] },
+    { "id": "tech_imagestream", "label": "ImageStream Mk II", "type": "Technology", "subtype": "Imaging flow cytometer (benchtop)", "description": "Cytek Amnis ImageStream Mk II. Benchtop imaging flow cytometer. Imaging flow cytometer class per OPO guide.", "privacy": "public", "sources": ["S7", "S15"] },
+    { "id": "tech_lisst_holo2", "label": "LISST-Holo2", "type": "Technology", "subtype": "Open-path imager (holographic)", "description": "Sequoia Scientific LISST-Holo2. Open-path holographic imaging instrument. Open-path imager class per OPO guide.", "privacy": "public", "sources": ["S7", "S15"] },
+    { "id": "tech_vpr", "label": "Video Plankton Recorder (VPR)", "type": "Technology", "subtype": "Open-path imager", "description": "Video Plankton Recorder. Long-established open-path plankton imaging system. Open-path imager class per OPO guide.", "privacy": "public", "sources": ["S7", "S15"] },
+    { "id": "tech_esp", "label": "Environmental Sample Processor (ESP)", "type": "Technology", "subtype": "In-situ molecular sampler", "description": "Laboratory-in-a-can. Deployable in situ molecular sampler capable of rapid Pseudo-nitzschia and domoic acid measurements. Referenced in the NHABON Implementation Strategy as a key early-warning tool on the US West Coast.", "privacy": "public", "sources": ["S4"] },
+
+    { "id": "standard_phyto_eov", "label": "Phytoplankton Biomass & Diversity EOV", "type": "Standard", "subtype": "GOOS Essential Ocean Variable", "description": "Essential Ocean Variable for phytoplankton biomass and diversity defined by GOOS. One of the key biological EOVs that OPO observing programs are designed to measure.", "privacy": "public", "sources": ["S7", "S15"] },
+    { "id": "standard_marine_biodiversity_ebv", "label": "Marine Biodiversity EBV", "type": "Standard", "subtype": "Essential Biodiversity Variable", "description": "Essential Biodiversity Variable for marine biodiversity. Framework standard that plankton imaging observations contribute to.", "privacy": "public", "sources": ["S7", "S15"] },
+
+    { "id": "dataset_ca_ifcb_imagery", "label": "CA IFCB imagery", "type": "Dataset", "subtype": "Real-time phytoplankton imagery", "description": "Hourly phytoplankton community imagery from the California IFCB Network. Real-time delivery. Collection hosted at UCSD Library Digital Collections. Produced by the CA IFCB Network, fed into HABDAC, used in the California HAB Bulletin.", "privacy": "public", "url": "https://library.ucsd.edu/dc/collection/bb38016322", "sources": ["S8"] },
+    { "id": "dataset_sccoos_rt_obs", "label": "SCCOOS RT Obs", "type": "Dataset", "subtype": "Real-time coastal observations", "description": "SCCOOS Real-Time Coastal Observations: moorings, piers, HF Radar. System steward: Clarissa Anderson.", "privacy": "public", "sources": ["S8"] },
+    { "id": "dataset_habsos", "label": "HABSOS", "type": "Dataset", "subtype": "Gulf HAB archive", "description": "Harmful Algal BloomS Observing System. Database of HAB observations submitted by partner state agencies (TX, LA, FL), operated by NOAA NCEI since 1953. Karenia brevis cell counts + environmental data for the Gulf of Mexico via interactive map and archive.", "privacy": "public", "url": "https://habsos.noaa.gov", "sources": ["S12"] },
+    { "id": "dataset_obon_biomol", "label": "OBON Biomolecular Obs", "type": "Dataset", "subtype": "Global biomolecular data portfolio", "description": "Ocean Biomolecular Observations Network data portfolio. Global-scale biomolecular observations coordinated under OBON. Led by Margaret Leinen.", "privacy": "public", "sources": ["S10"] },
+
+    { "id": "dataset_caloos_portal", "label": "CalOOS Data Portal", "type": "Dataset", "subtype": "Shared RA data portal (CeNCOOS + SCCOOS)", "description": "Shared data portal for CeNCOOS and SCCOOS. Real-time California coastal observations including IFCB outputs. Distinct from the per-RA portals — co-operated by both California RAs.", "privacy": "public", "url": "https://data.caloos.org/", "sources": ["S13"] },
+    { "id": "dataset_aoos_portal", "label": "AOOS Ocean Data Explorer", "type": "Dataset", "subtype": "Regional data portal", "description": "Alaska Ocean Observing System data portal.", "privacy": "public", "url": "https://portal.aoos.org/#map", "sources": ["S13"] },
+    { "id": "dataset_caricoos_portal", "label": "CARICOOS Data Portal", "type": "Dataset", "subtype": "Regional data portal", "description": "Caribbean Coastal Ocean Observing System data portal.", "privacy": "public", "url": "https://www.caricoos.org/", "sources": ["S13"] },
+    { "id": "dataset_gcoos_portal", "label": "GCOOS Data Portal", "type": "Dataset", "subtype": "Regional data portal", "description": "Gulf Coastal Ocean Observing System data portal.", "privacy": "public", "url": "https://data.gcoos.org/", "sources": ["S13"] },
+    { "id": "dataset_glos_seagull", "label": "GLOS Seagull", "type": "Dataset", "subtype": "Regional data portal", "description": "Great Lakes Observing System Seagull data portal.", "privacy": "public", "url": "https://seagull.glos.org/", "sources": ["S13"] },
+    { "id": "dataset_maracoos_oceansmap", "label": "MARACOOS OceansMap", "type": "Dataset", "subtype": "Regional data portal", "description": "Mid-Atlantic Regional Association Coastal Ocean Observing System OceansMap portal.", "privacy": "public", "url": "https://oceansmap.maracoos.org/", "sources": ["S13"] },
+    { "id": "dataset_nanoos_nvs", "label": "NANOOS NVS", "type": "Dataset", "subtype": "Regional data portal", "description": "NANOOS NVS Data Explorer.", "privacy": "public", "url": "https://nvs.nanoos.org/Explorer", "sources": ["S13"] },
+    { "id": "dataset_neracoos_mariners", "label": "NERACOOS Mariners' Dashboard", "type": "Dataset", "subtype": "Regional data portal", "description": "Northeastern Regional Association of Coastal Ocean Observing Systems Mariners' Dashboard.", "privacy": "public", "url": "https://mariners.neracoos.org/", "sources": ["S13"] },
+    { "id": "dataset_pacioos_voyager", "label": "PacIOOS Voyager", "type": "Dataset", "subtype": "Regional data portal", "description": "Pacific Islands Ocean Observing System Voyager data portal.", "privacy": "public", "url": "https://www.pacioos.hawaii.edu/voyager/", "sources": ["S13"] },
+    { "id": "dataset_secoora_portal", "label": "SECOORA Data Portal", "type": "Dataset", "subtype": "Regional data portal", "description": "Southeast Coastal Ocean Observing Regional Association data portal.", "privacy": "public", "url": "https://portal.secoora.org/#map", "sources": ["S13"] },
+
+    { "id": "program_merhab", "label": "MERHAB", "type": "Program", "subtype": "NOAA NCCOS HAB funding program", "description": "Monitoring and Event Response for Harmful Algal Blooms. NOAA NCCOS program. Funds the MARACOOS IFCB + Planktoscope network in Chesapeake Bay and comparable regional HAB monitoring infrastructure.", "privacy": "public", "sources": ["S16"] },
+    { "id": "program_pcmhab", "label": "PCMHAB", "type": "Program", "subtype": "NOAA NCCOS HAB funding program", "description": "Prevention, Control, and Mitigation of Harmful Algal Blooms. NOAA NCCOS program. Primary funder of HABDAC (HAB Data Assembly Center) — award PCMHAB20 to Anderson, Bochenek, Sosik, Beaulieu, Kudela, H. Ruhl.", "privacy": "public", "sources": ["S14"] },
+    { "id": "program_ecohab", "label": "ECOHAB", "type": "Program", "subtype": "NOAA NCCOS HAB funding program", "description": "Ecology and Oceanography of Harmful Algal Blooms. NOAA NCCOS program. One of three federal funders of the California IFCB Network deployment (with CA OPC and NOAA IOOS).", "privacy": "public", "sources": ["S14"] },
+
+    { "id": "project_c_harm", "label": "C-HARM", "type": "Project", "subtype": "Operational forecast model", "description": "California Harmful Algae Risk Mapping. NOAA-developed (NCCOS + NASA Applied Sciences) and operationally set up by SCCOOS + CeNCOOS. Integrates satellite products and WCOFS to forecast Pseudo-nitzschia occurrence and domoic acid events. Validated against CalHABMAP weekly pier-station data.", "privacy": "public", "sources": ["S14", "S16"] },
+    { "id": "project_liveocean", "label": "LiveOcean", "type": "Project", "subtype": "Operational forecast model", "description": "NANOOS 72-hour forecasting system. Forecasts phytoplankton alongside physical and biogeochemical variables and particle trajectories across the Pacific Northwest domain. Supports the PNW HAB Bulletin.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_jscope", "label": "J-SCOPE", "type": "Project", "subtype": "Operational forecast model", "description": "NANOOS seasonal forecasting system. Forecasts hypoxia, phytoplankton blooms, and ocean acidification on seasonal timescales.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_cbefs", "label": "CBEFS", "type": "Project", "subtype": "Operational forecast model", "description": "Chesapeake Bay Environmental Forecast System. MARACOOS operational modeling. HAB-risk nowcasts and forecasts for Chesapeake Bay; biogeochemical modeling expanding to the Doppio region and coastal shelf.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_wc_roms_nemuro", "label": "West Coast ROMS NEMURO", "type": "Project", "subtype": "Operational forecast model", "description": "West Coast Regional Ocean Modeling System with NEMURO NPZ/BGC coupling. Produces outputs for Large and Small Phytoplankton and for Small, Large, and Predatory Zooplankton. CeNCOOS modeling.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_lake_erie_habofs", "label": "Lake Erie HABs OFS", "type": "Project", "subtype": "Operational forecast model", "description": "Lake Erie HABs Operational Forecast Model. Receives data provision from GLOS for plankton-pigment fluorescence, microcystin, and phycocyanin observations.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_merhab_chesapeake", "label": "MERHAB Chesapeake IFCB+Planktoscope", "type": "Project", "subtype": "Regional HAB monitoring network", "description": "MERHAB-funded IFCB + Planktoscope network for monitoring HABs in Chesapeake Bay. MARACOOS-hosted.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_pnw_hab_bulletin", "label": "PNW HAB Bulletin", "type": "Project", "subtype": "Operational bulletin product", "description": "Pacific Northwest Harmful Algal Blooms Bulletin. NANOOS operational product. Combines shore sampling, buoy data (including ESP outputs), HF Radar, IFCB from community samplers (fishers), and Lightfish toxin samples to produce HAB risk assessments used by state and tribal resource managers and health officials.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_soundtoxins", "label": "SoundToxins", "type": "Project", "subtype": "Volunteer phytoplankton monitoring network", "description": "Washington State phytoplankton monitoring network of volunteer samplers tracking multiple HAB species. Feeds the Pacific Northwest HAB Bulletin.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_calcofi", "label": "CalCOFI", "type": "Program", "subtype": "Long-running observing program", "description": "California Cooperative Oceanic Fisheries Investigations. Longest-running oceanographic + plankton time series in California. Provides zooplankton net samples that feed the SCCOOS zooplankton abundance index; hosts occasional CA IFCB Network cruise deployments.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_community_fisheries_research", "label": "Community Fisheries Research", "type": "Project", "subtype": "Community-science observing network", "description": "NANOOS program engaging commercial fishers in water-grab sampling for IFCB analysis. Started in Oregon, spreading to Washington. Feeds the PNW HAB Bulletin and regional IFCB dashboard.", "privacy": "public", "sources": ["S16"] },
+    { "id": "project_synchro_planktivore", "label": "Synchro / Planktivore LRAUV", "type": "Project", "subtype": "Technology trial", "description": "CeNCOOS Synchro project — evaluation of MBARI's Planktivore long-range autonomous underwater vehicle (LRAUV) for plankton imaging.", "privacy": "public", "sources": ["S16"] },
+
+    { "id": "dataset_pnw_hab_bulletin", "label": "PNW HAB Bulletin (data)", "type": "Dataset", "subtype": "Bulletin product", "description": "Data product underlying the Pacific Northwest HAB Bulletin. Integrates NHABON tribal + state shore sampling, buoy + ESP outputs, HFR, IFCB, and Lightfish toxin measurements. NANOOS.", "privacy": "public", "sources": ["S16"] },
+    { "id": "dataset_gcoos_phyto_erddap", "label": "GCOOS Phyto ERDDAP (Surfside)", "type": "Dataset", "subtype": "ERDDAP phytoplankton cell counts", "description": "Cell counts for 100+ phytoplankton species/classes from Surfside Beach, Texas. Delivered via ERDDAP at gcoos4.geos.tamu.edu. Drives automated warning emails to state health officials.", "privacy": "public", "url": "https://gcoos4.geos.tamu.edu/erddap/tabledap/phytoplankton_surfside.html", "sources": ["S16"] },
+    { "id": "dataset_chesapeake_habs_portal", "label": "Chesapeake Bay HABs portal", "type": "Dataset", "subtype": "Regional HAB data portal (in development)", "description": "Chesapeake Bay HABs data portal on MARACOOS OceansMap. Integrates satellite imagery, in-situ sampling, community science data, and forecast products for managers.", "privacy": "public", "sources": ["S16"] },
+    { "id": "dataset_mid_atlantic_phyto_imaging", "label": "Mid-Atlantic Phyto Imaging Libraries", "type": "Dataset", "subtype": "Imaging library", "description": "Mid-Atlantic Phytoplankton Imaging Libraries. MARACOOS.", "privacy": "public", "sources": ["S16"] },
+    { "id": "dataset_hab_manager_dashboard", "label": "HAB Manager Dashboard", "type": "Dataset", "subtype": "Streamlit custom visualization", "description": "Streamlit-powered custom visualization of IFCB data products. SCCOOS. Sibling to HABDAC's streamlit view at habdac-streamlit.srv.axds.co.", "privacy": "public", "sources": ["S16"] },
+    { "id": "dataset_wgom_zoo_sentinel", "label": "WGoM Zooplankton Sentinel Indicators", "type": "Dataset", "subtype": "Regularly-updated climatologies", "description": "Western Gulf of Maine Zooplankton Sentinel Indicators. Regularly updated suite of climatologies from NERACOOS time-series stations. The graph's first substantive zooplankton-dataset anchor.", "privacy": "public", "sources": ["S16"] },
+    { "id": "dataset_ifcb_dashboard", "label": "IFCB Dashboard (WHOI)", "type": "Dataset", "subtype": "Shared imaging-data infrastructure", "description": "WHOI-operated IFCB Dashboard. Shared visualization and data access infrastructure used by multiple RAs — explicitly named as the AOOS real-time IFCB data partner, and underpinning dashboards at other sites.", "privacy": "public", "sources": ["S16"] },
+
+    { "id": "tech_lightfish", "label": "Lightfish", "type": "Technology", "subtype": "Toxin sampler", "description": "Washington-developed toxin sampler. Tested in WA, now being deployed in Oregon. Feeds the PNW HAB Bulletin.", "privacy": "public", "sources": ["S16"] },
+    { "id": "tech_wirewalker_shadowgraph", "label": "Wirewalker × Shadowgraph", "type": "Technology", "subtype": "In-situ imaging moored profiler", "description": "Wirewalker profiler combined with a Shadowgraph imaging system — in-situ imaging moored profiler. On trial in NERACOOS.", "privacy": "public", "sources": ["S16"] },
+    { "id": "tech_planktivore_lrauv", "label": "Planktivore LRAUV", "type": "Technology", "subtype": "Autonomous underwater vehicle with imaging", "description": "MBARI Planktivore — a Long-Range Autonomous Underwater Vehicle configured for plankton imaging. Under evaluation in CeNCOOS Synchro project.", "privacy": "public", "sources": ["S16"] },
+    { "id": "tech_seatrac_usv", "label": "SeaTrac USV", "type": "Technology", "subtype": "Uncrewed surface vehicle", "description": "Uncrewed surface vehicle platform. NERACOOS operates one SeaTrac USV with an IFCB payload.", "privacy": "public", "sources": ["S16"] },
+    { "id": "tech_hyperspectral", "label": "Hyperspectral imagery", "type": "Technology", "subtype": "Remote sensing method", "description": "Hyperspectral imagery from satellite and aerial platforms (plane / drone). Used by AOOS (partnership with NOAA PMEL + Bigelow for a dinoflagellate index), GLOS (phycocyanin flyovers), and SCCOOS (dinoflagellate bloom detection).", "privacy": "public", "sources": ["S16"] },
+
+    { "id": "org_noaa_pmel", "label": "NOAA PMEL", "type": "Organization", "subtype": "NOAA research laboratory", "description": "NOAA Pacific Marine Environmental Laboratory, Seattle. Partner with AOOS and Bigelow on hyperspectral imagery for HAB detection in Alaska. PMEL has lost substantial staff through retirements and RIFs in recent years.", "privacy": "public", "url": "https://www.pmel.noaa.gov", "sources": ["S16"] },
+    { "id": "org_cal_poly", "label": "Cal Poly", "type": "Organization", "subtype": "Academic institution", "description": "California Polytechnic State University (San Luis Obispo context). Site of SCCOOS eDNA sampling program.", "privacy": "public", "sources": ["S16"] },
+    { "id": "org_nefsc", "label": "NOAA NEFSC", "type": "Organization", "subtype": "NOAA Fisheries science center", "description": "NOAA Northeast Fisheries Science Center. Operates the Continuous Plankton Recorder (CPR) monthly transect in the NERACOOS region.", "privacy": "public", "url": "https://www.fisheries.noaa.gov/about/northeast-fisheries-science-center", "sources": ["S16"] },
+
+    { "id": "award_brookie", "label": "Brookie Award", "type": "Award", "subtype": "Community research recognition", "description": "Recognition for community-based coastal research leadership. Awarded to Gabby.", "privacy": "public", "sources": ["S1"] }
+  ],
+
+  "edges": [
+    { "source": "person_gabrielle_hillyer", "target": "org_ioos_association",         "type": "employed_by", "label": "Program Specialist, Pan-Regional (2025–)" },
+    { "source": "person_gabrielle_hillyer", "target": "community_ioos_plankton",      "type": "coordinates" },
+    { "source": "person_gabrielle_hillyer", "target": "project_ira_topic2_ecoobs",    "type": "leads" },
+    { "source": "person_gabrielle_hillyer", "target": "project_ira_topic2_www",       "type": "leads" },
+    { "source": "person_gabrielle_hillyer", "target": "committee_ioos_dmac",          "type": "serves_on" },
+    { "source": "person_gabrielle_hillyer", "target": "person_anna_barboza",          "type": "succession_partner" },
+    { "source": "person_gabrielle_hillyer", "target": "org_noaa_oar",                 "type": "past_affiliation", "label": "Knauss 2024" },
+    { "source": "person_gabrielle_hillyer", "target": "org_maine_sea_grant",          "type": "past_affiliation" },
+    { "source": "person_gabrielle_hillyer", "target": "org_university_of_maine",      "type": "educated_at" },
+    { "source": "person_gabrielle_hillyer", "target": "program_knauss_fellowship",    "type": "received" },
+    { "source": "person_gabrielle_hillyer", "target": "award_brookie",                "type": "received" },
+    { "source": "person_gabrielle_hillyer", "target": "tech_drifter_bucket",          "type": "co_developed" },
+    { "source": "person_gabrielle_hillyer", "target": "program_maine_shellfish_network","type": "co_developed" },
+
+    { "source": "person_anna_barboza", "target": "org_ioos_association", "type": "employed_by" },
+    { "source": "person_josie_quintrell", "target": "org_ioos_association", "type": "employed_by" },
+    { "source": "person_masha_edmondson", "target": "org_ioos_association", "type": "employed_by" },
+
+    { "source": "org_ioos_association", "target": "org_noaa_ioos", "type": "partners_with" },
+    { "source": "committee_ioos_dmac", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "community_ioos_plankton", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "community_mldn", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "community_atn", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "community_mbon", "target": "org_noaa_ioos", "type": "supported_by" },
+    { "source": "community_nhabon", "target": "org_noaa_ioos", "type": "supported_by" },
+    { "source": "community_nhabon", "target": "org_ioos_association", "type": "hosted_by" },
+
+    { "source": "person_mathew_biddle", "target": "org_noaa_ioos", "type": "employed_by" },
+    { "source": "person_gabrielle_canonico", "target": "org_noaa_ioos", "type": "employed_by" },
+    { "source": "person_laura_brenskelle", "target": "org_noaa_ioos", "type": "employed_by" },
+    { "source": "person_tiffany_vance", "target": "org_noaa_ioos", "type": "employed_by" },
+    { "source": "person_hassan_moustahfid", "target": "org_noaa_ioos", "type": "employed_by" },
+
+    { "source": "person_mathew_biddle", "target": "community_mldn", "type": "leads", "label": "lead architect" },
+    { "source": "person_gabrielle_canonico", "target": "community_mldn", "type": "leads" },
+    { "source": "person_laura_brenskelle", "target": "community_mldn", "type": "leads" },
+    { "source": "community_mldn", "target": "committee_ioos_dmac", "type": "reports_to" },
+    { "source": "community_mldn", "target": "standard_mldn_rec", "type": "produced" },
+    { "source": "community_mldn", "target": "standard_darwin_core", "type": "aligns_to" },
+    { "source": "community_mldn", "target": "tech_erddap", "type": "uses" },
+    { "source": "community_mldn", "target": "repo_obis", "type": "feeds" },
+    { "source": "community_mldn", "target": "repo_gbif", "type": "feeds" },
+    { "source": "community_mldn", "target": "repo_ncei", "type": "feeds" },
+    { "source": "community_mldn", "target": "repo_ioos_data_catalog", "type": "feeds" },
+    { "source": "community_mldn", "target": "wg_smbd", "type": "coordinates_with" },
+    { "source": "community_mldn", "target": "community_atn", "type": "includes" },
+    { "source": "community_mldn", "target": "community_otn", "type": "coordinates_with" },
+    { "source": "community_mldn", "target": "community_mbon", "type": "includes" },
+    { "source": "community_mldn", "target": "community_nhabon", "type": "includes" },
+    { "source": "community_mldn", "target": "community_ioos_plankton", "type": "includes" },
+
+    { "source": "community_ioos_plankton", "target": "wg_opo", "type": "aligned_with" },
+    { "source": "community_ioos_plankton", "target": "community_nhabon", "type": "overlaps" },
+    { "source": "community_ioos_plankton", "target": "community_obon", "type": "overlaps" },
+    { "source": "community_ioos_plankton", "target": "community_mbon", "type": "overlaps" },
+    { "source": "community_ioos_plankton", "target": "program_nasa_pace", "type": "aligned_with" },
+    { "source": "community_ioos_plankton", "target": "tech_ifcb", "type": "uses" },
+    { "source": "community_ioos_plankton", "target": "tech_flowcam", "type": "uses" },
+    { "source": "community_ioos_plankton", "target": "tech_uvp", "type": "uses" },
+    { "source": "community_ioos_plankton", "target": "tech_cpr", "type": "uses" },
+
+    { "source": "wg_opo", "target": "community_ocb", "type": "part_of" },
+    { "source": "person_heidi_sosik", "target": "wg_opo", "type": "co_pi" },
+    { "source": "person_christopher_proctor", "target": "wg_opo", "type": "co_pi" },
+    { "source": "person_aimee_neeley", "target": "wg_opo", "type": "co_pi" },
+    { "source": "person_ivona_cetinic", "target": "wg_opo", "type": "co_pi" },
+    { "source": "person_sophie_clayton", "target": "wg_opo", "type": "author" },
+    { "source": "person_nicole_poulton", "target": "wg_opo", "type": "co_author" },
+    { "source": "person_stace_beaulieu", "target": "wg_opo", "type": "member" },
+    { "source": "person_maria_kavanaugh", "target": "wg_opo", "type": "author" },
+    { "source": "wg_opo", "target": "pub_opo_best_practices", "type": "produced" },
+    { "source": "pub_opo_best_practices", "target": "tech_ifcb", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "tech_flowcam", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "tech_uvp", "type": "documents" },
+
+    { "source": "person_heidi_sosik", "target": "org_whoi", "type": "employed_by" },
+    { "source": "person_stace_beaulieu", "target": "org_whoi", "type": "employed_by" },
+    { "source": "person_christopher_proctor", "target": "org_nasa_gsfc", "type": "employed_by" },
+    { "source": "person_aimee_neeley", "target": "org_nasa_gsfc", "type": "employed_by" },
+    { "source": "person_ivona_cetinic", "target": "org_nasa_gsfc", "type": "employed_by" },
+    { "source": "person_nicole_poulton", "target": "org_bigelow", "type": "employed_by" },
+    { "source": "program_nasa_pace", "target": "org_nasa_gsfc", "type": "hosted_by" },
+
+    { "source": "wg_nhabon_sc", "target": "community_nhabon", "type": "governs" },
+    { "source": "person_clarissa_anderson", "target": "wg_nhabon_sc", "type": "co_chairs" },
+    { "source": "person_quay_dortch", "target": "wg_nhabon_sc", "type": "co_chairs", "label": "ex officio co-chair" },
+    { "source": "person_tiffany_vance", "target": "wg_nhabon_sc", "type": "ex_officio" },
+    { "source": "person_thomas_farrugia", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_josie_quintrell", "target": "wg_nhabon_sc", "type": "staff" },
+    { "source": "person_masha_edmondson", "target": "wg_nhabon_sc", "type": "staff" },
+    { "source": "community_nhabon", "target": "pub_nhabon_implementation", "type": "published" },
+    { "source": "person_clarissa_anderson", "target": "ra_sccoos", "type": "employed_by", "label": "Executive Director" },
+    { "source": "person_clarissa_anderson", "target": "community_globalhab", "type": "chairs", "label": "SSC Chair" },
+    { "source": "community_globalhab", "target": "pub_globalhab_sip", "type": "published" },
+    { "source": "community_globalhab", "target": "wg_iphab", "type": "reports_to" },
+    { "source": "person_quay_dortch", "target": "org_noaa_nccos", "type": "employed_by" },
+    { "source": "org_noaa_nccos", "target": "community_nhabon", "type": "co_leads" },
+    { "source": "person_thomas_farrugia", "target": "ra_aoos", "type": "employed_by" },
+    { "source": "ra_sccoos", "target": "org_sio_ucsd", "type": "hosted_by" },
+
+    { "source": "community_mbon", "target": "repo_obis", "type": "feeds", "label": "1.62M+ occurrences" },
+    { "source": "community_mbon", "target": "repo_gbif", "type": "feeds", "label": "41 DOIs · 3,120 cites" },
+    { "source": "community_mbon", "target": "wg_mbon_dmac", "type": "governs_data" },
+    { "source": "wg_mbon_dmac", "target": "committee_ioos_dmac", "type": "part_of" },
+
+    { "source": "project_mbon_arctic", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_gulf_of_maine", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_northern_cal_current", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_central_california", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_mid_atlantic", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_southeast_us", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_southern_cal_bight", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_estuaries", "target": "community_mbon", "type": "part_of" },
+    { "source": "project_mbon_pole_to_pole", "target": "community_mbon", "type": "part_of" },
+
+    { "source": "person_katrin_iken", "target": "project_mbon_arctic", "type": "pi" },
+    { "source": "person_jeffrey_runge", "target": "project_mbon_gulf_of_maine", "type": "pi" },
+    { "source": "person_maria_kavanaugh", "target": "project_mbon_northern_cal_current", "type": "pi" },
+    { "source": "person_francisco_chavez", "target": "project_mbon_central_california", "type": "pi" },
+    { "source": "person_matt_ogburn", "target": "project_mbon_mid_atlantic", "type": "pi" },
+    { "source": "person_frank_muller_karger", "target": "project_mbon_southeast_us", "type": "pi" },
+    { "source": "person_robert_miller", "target": "project_mbon_southern_cal_bight", "type": "pi" },
+    { "source": "person_cassie_glaspie", "target": "project_mbon_estuaries", "type": "pi" },
+    { "source": "person_enrique_montes", "target": "project_mbon_pole_to_pole", "type": "pi" },
+
+    { "source": "project_mbon_arctic", "target": "ra_aoos", "type": "hosted_by" },
+    { "source": "project_mbon_gulf_of_maine", "target": "ra_neracoos", "type": "hosted_by" },
+    { "source": "project_mbon_northern_cal_current", "target": "ra_nanoos", "type": "hosted_by" },
+    { "source": "project_mbon_central_california", "target": "ra_cencoos", "type": "hosted_by" },
+    { "source": "project_mbon_mid_atlantic", "target": "ra_maracoos", "type": "hosted_by" },
+    { "source": "project_mbon_southeast_us", "target": "ra_secoora", "type": "hosted_by" },
+    { "source": "project_mbon_southern_cal_bight", "target": "ra_sccoos", "type": "hosted_by" },
+    { "source": "project_mbon_estuaries", "target": "ra_gcoos", "type": "hosted_by" },
+    { "source": "project_mbon_pole_to_pole", "target": "org_noaa_aoml", "type": "hosted_by" },
+
+    { "source": "person_katrin_iken", "target": "org_uaf", "type": "employed_by" },
+    { "source": "person_jeffrey_runge", "target": "org_university_of_maine", "type": "employed_by" },
+    { "source": "person_maria_kavanaugh", "target": "org_oregon_state_u", "type": "employed_by" },
+    { "source": "person_francisco_chavez", "target": "org_mbari", "type": "employed_by" },
+    { "source": "person_matt_ogburn", "target": "org_serc", "type": "employed_by" },
+    { "source": "person_frank_muller_karger", "target": "org_usf_imars", "type": "employed_by" },
+    { "source": "person_robert_miller", "target": "org_ucsb", "type": "employed_by" },
+    { "source": "person_cassie_glaspie", "target": "org_lsu", "type": "employed_by" },
+    { "source": "person_enrique_montes", "target": "org_noaa_aoml", "type": "employed_by" },
+
+    { "source": "ra_aoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_nanoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_cencoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_sccoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_pacioos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_gcoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_secoora", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_maracoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_neracoos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_glos", "target": "org_noaa_ioos", "type": "part_of" },
+    { "source": "ra_caricoos", "target": "org_noaa_ioos", "type": "part_of" },
+
+    { "source": "person_frederick_bahr", "target": "ra_cencoos", "type": "employed_by" },
+    { "source": "person_frederick_bahr", "target": "project_ifcb_prototype", "type": "co_developed" },
+    { "source": "person_stace_beaulieu", "target": "project_ifcb_prototype", "type": "co_developed" },
+    { "source": "project_ifcb_prototype", "target": "tech_ifcb", "type": "uses" },
+    { "source": "project_ifcb_prototype", "target": "standard_darwin_core", "type": "aligns_to" },
+    { "source": "project_ifcb_prototype", "target": "repo_obis", "type": "feeds" },
+    { "source": "project_ifcb_prototype", "target": "community_ioos_plankton", "type": "prototype_for" },
+
+    { "source": "project_h3_indicators", "target": "community_mbon", "type": "uses_data" },
+    { "source": "project_h3_indicators", "target": "repo_obis", "type": "uses_data" },
+    { "source": "person_hassan_moustahfid", "target": "project_h3_indicators", "type": "contributor" },
+    { "source": "person_abby_benson", "target": "project_h3_indicators", "type": "contributor" },
+
+    { "source": "person_abby_benson", "target": "repo_obis_usa", "type": "operates" },
+    { "source": "repo_obis_usa", "target": "org_usgs", "type": "hosted_by" },
+    { "source": "repo_obis_usa", "target": "repo_obis", "type": "part_of", "label": "U.S. node" },
+    { "source": "repo_obis_usa", "target": "tech_ipt", "type": "uses" },
+
+    { "source": "community_otn", "target": "otn_fact", "type": "includes" },
+    { "source": "community_otn", "target": "otn_act", "type": "includes" },
+    { "source": "community_otn", "target": "otn_itag", "type": "includes" },
+    { "source": "community_otn", "target": "otn_pirat", "type": "includes" },
+    { "source": "community_otn", "target": "otn_glatos", "type": "includes" },
+    { "source": "community_otn", "target": "otn_npact", "type": "includes" },
+    { "source": "otn_fact", "target": "ra_secoora", "type": "regional_host" },
+    { "source": "otn_act", "target": "ra_maracoos", "type": "regional_host" },
+    { "source": "otn_itag", "target": "ra_gcoos", "type": "regional_host" },
+    { "source": "otn_pirat", "target": "ra_pacioos", "type": "regional_host" },
+    { "source": "otn_glatos", "target": "ra_glos", "type": "regional_host" },
+    { "source": "otn_npact", "target": "ra_aoos", "type": "regional_host" },
+    { "source": "community_otn", "target": "repo_obis", "type": "feeds" },
+
+    { "source": "community_atn", "target": "repo_ncei", "type": "feeds" },
+    { "source": "community_atn", "target": "repo_ioos_data_catalog", "type": "feeds" },
+    { "source": "community_atn", "target": "standard_darwin_core", "type": "aligns_to" },
+
+    { "source": "tech_edna", "target": "standard_fair_edna", "type": "standardized_by" },
+    { "source": "tech_edna", "target": "repo_obis", "type": "feeds" },
+    { "source": "community_obon", "target": "tech_edna", "type": "uses" },
+
+    { "source": "wg_smbd", "target": "committee_ioos_dmac", "type": "part_of" },
+    { "source": "wg_smbd", "target": "standard_darwin_core", "type": "promotes" },
+    { "source": "wg_smbd", "target": "program_mbdmw", "type": "runs" },
+    { "source": "program_mbdmw", "target": "project_ifcb_prototype", "type": "produced_at_2024_edition" },
+    { "source": "person_stace_beaulieu", "target": "wg_smbd", "type": "member" },
+
+    { "source": "community_esip_bds", "target": "standard_darwin_core", "type": "aligns_with" },
+    { "source": "community_esip_bds", "target": "wg_smbd", "type": "adjacent_to" },
+
+    { "source": "community_ocb", "target": "program_nasa_pace", "type": "coordinates_with" },
+    { "source": "community_ocb", "target": "community_goos", "type": "aligns_with" },
+    { "source": "community_goos", "target": "community_ioos_plankton", "type": "provides_framework" },
+
+    { "source": "program_cefi", "target": "org_noaa_nmfs", "type": "hosted_by" },
+    { "source": "program_cefi", "target": "community_ioos_plankton", "type": "consumes_data" },
+
+    { "source": "program_maine_shellfish_network", "target": "org_university_of_maine", "type": "hosted_by" },
+    { "source": "tech_drifter_bucket", "target": "org_university_of_maine", "type": "developed_at" },
+    { "source": "org_maine_sea_grant", "target": "org_university_of_maine", "type": "hosted_by" },
+    { "source": "program_knauss_fellowship", "target": "org_noaa_oar", "type": "hosted_agency", "label": "Gabby's 2024 placement" },
+
+    { "source": "project_ca_ifcb_network", "target": "ra_sccoos", "type": "hosted_by", "label": "statewide, SCCOOS-led" },
+    { "source": "project_ca_ifcb_network", "target": "ra_cencoos", "type": "hosted_by", "label": "northern half" },
+    { "source": "person_clarissa_anderson", "target": "project_ca_ifcb_network", "type": "pi" },
+    { "source": "person_raphael_kudela", "target": "project_ca_ifcb_network", "type": "co_pi" },
+    { "source": "person_andrew_barton", "target": "project_ca_ifcb_network", "type": "co_pi" },
+    { "source": "person_kasia_kenitz", "target": "project_ca_ifcb_network", "type": "co_pi" },
+    { "source": "person_uwe_send", "target": "project_ca_ifcb_network", "type": "co_pi" },
+    { "source": "person_francisco_chavez", "target": "project_ca_ifcb_network", "type": "co_pi" },
+    { "source": "person_henry_ruhl", "target": "project_ca_ifcb_network", "type": "co_pi" },
+    { "source": "project_ca_ifcb_network", "target": "tech_ifcb", "type": "uses" },
+    { "source": "project_ca_ifcb_network", "target": "org_ca_opc", "type": "funded_by", "label": "award P01-3-03" },
+    { "source": "project_ca_ifcb_network", "target": "org_noaa_ioos", "type": "funded_by" },
+    { "source": "project_ca_ifcb_network", "target": "pub_ca_hab_bulletin", "type": "feeds" },
+    { "source": "project_ca_ifcb_network", "target": "community_ioos_plankton", "type": "prototype_for", "label": "largest IFCB array" },
+    { "source": "pub_ca_hab_bulletin", "target": "ra_sccoos", "type": "published_by" },
+    { "source": "pub_ca_hab_bulletin", "target": "ra_cencoos", "type": "co_published_by" },
+
+    { "source": "person_clarissa_anderson", "target": "org_noaa_cimeas", "type": "directs", "label": "Director, CIMEAS" },
+    { "source": "org_noaa_cimeas", "target": "org_sio_ucsd", "type": "hosted_by", "label": "joint with Scripps" },
+    { "source": "org_noaa_cimeas", "target": "org_noaa_ioos", "type": "partners_with", "label": "NOAA cooperative institute" },
+    { "source": "person_clarissa_anderson", "target": "org_ca_opc", "type": "serves_on", "label": "Science Advisory Team" },
+
+    { "source": "person_raphael_kudela", "target": "org_ucsc", "type": "employed_by" },
+    { "source": "person_raphael_kudela", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_andrew_barton", "target": "org_sio_ucsd", "type": "employed_by" },
+    { "source": "person_kasia_kenitz", "target": "org_sio_ucsd", "type": "employed_by" },
+    { "source": "person_uwe_send", "target": "org_sio_ucsd", "type": "employed_by" },
+    { "source": "person_henry_ruhl", "target": "org_mbari", "type": "employed_by" },
+
+    { "source": "person_mike_brosnahan", "target": "org_whoi", "type": "employed_by" },
+    { "source": "person_mike_brosnahan", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_jayme_smith", "target": "org_sccwrp", "type": "employed_by" },
+    { "source": "person_jayme_smith", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_misty_peacock", "target": "org_nw_indian_college", "type": "employed_by" },
+    { "source": "person_misty_peacock", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_barb_kirkpatrick", "target": "ra_gcoos", "type": "employed_by" },
+    { "source": "person_barb_kirkpatrick", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_beckye_stanton", "target": "org_cal_epa", "type": "employed_by" },
+    { "source": "person_beckye_stanton", "target": "wg_nhabon_sc", "type": "member" },
+    { "source": "person_matt_garrett", "target": "org_fl_fwri", "type": "employed_by" },
+    { "source": "person_matt_garrett", "target": "wg_nhabon_sc", "type": "member" },
+
+    { "source": "person_greg_doucette", "target": "org_noaa_nccos", "type": "employed_by" },
+    { "source": "person_greg_doucette", "target": "wg_nhabon_sc", "type": "ex_officio" },
+    { "source": "person_marc_suddleson", "target": "org_noaa_nccos", "type": "employed_by" },
+    { "source": "person_marc_suddleson", "target": "wg_nhabon_sc", "type": "ex_officio" },
+    { "source": "person_vera_trainer", "target": "org_noaa_nmfs", "type": "employed_by" },
+    { "source": "person_vera_trainer", "target": "wg_nhabon_sc", "type": "ex_officio" },
+    { "source": "person_shelly_tomlinson", "target": "org_noaa_nccos", "type": "employed_by" },
+    { "source": "person_shelly_tomlinson", "target": "wg_nhabon_sc", "type": "ex_officio" },
+
+    { "source": "community_esip_bds", "target": "org_esip", "type": "part_of" },
+    { "source": "community_esip_bridge", "target": "org_esip", "type": "part_of" },
+
+    { "source": "person_margaret_leinen", "target": "org_sio_ucsd", "type": "past_director", "label": "11th Director, through Sept 2025" },
+    { "source": "person_margaret_leinen", "target": "community_obon", "type": "leads", "label": "OBON lead contact" },
+    { "source": "person_margaret_leinen", "target": "org_agu", "type": "past_president" },
+    { "source": "person_margaret_leinen", "target": "org_oceanography_society", "type": "past_president" },
+    { "source": "person_margaret_leinen", "target": "committee_un_ocean_decade_ab", "type": "co_chairs" },
+    { "source": "person_margaret_leinen", "target": "person_meenakshi_wadhwa", "type": "succeeded_by" },
+    { "source": "person_meenakshi_wadhwa", "target": "org_sio_ucsd", "type": "directs", "label": "Director, VC Marine Sciences" },
+    { "source": "person_clarissa_anderson", "target": "committee_un_scor_airseawg", "type": "member" },
+    { "source": "person_clarissa_anderson", "target": "org_uc_berkeley", "type": "educated_at", "label": "B.A. 1999" },
+    { "source": "person_clarissa_anderson", "target": "org_ucsb", "type": "educated_at", "label": "Ph.D. Marine Science 2007" },
+
+    { "source": "person_emily_brownlee", "target": "org_stmarys_maryland", "type": "employed_by" },
+    { "source": "person_marco_corrales", "target": "org_oregon_state_u", "type": "employed_by" },
+    { "source": "person_mathilde_dugenne", "target": "org_u_geneva", "type": "employed_by" },
+    { "source": "person_darren_henrichs", "target": "org_texas_am", "type": "employed_by" },
+    { "source": "person_julie_koester", "target": "org_fl_fwc", "type": "employed_by" },
+    { "source": "person_sasha_kramer", "target": "org_boston_u", "type": "employed_by" },
+    { "source": "person_laura_lubelczyk", "target": "org_bigelow", "type": "employed_by" },
+    { "source": "person_malcolm_mcfarland", "target": "org_harbor_branch_fau", "type": "employed_by" },
+    { "source": "person_saskia_ruhl", "target": "org_plymouth_marine_lab", "type": "employed_by" },
+    { "source": "person_savannah_stresser", "target": "org_yokogawa_fit", "type": "employed_by" },
+    { "source": "person_angelicque_white", "target": "org_uh_manoa_soest", "type": "employed_by" },
+    { "source": "person_jochen_wollschlager", "target": "org_u_oldenburg_icbm", "type": "employed_by" },
+    { "source": "person_liza_wright_fairbanks", "target": "org_ucar", "type": "employed_by" },
+    { "source": "person_liza_wright_fairbanks", "target": "org_noaa_oap", "type": "contract_to" },
+    { "source": "person_sophie_clayton", "target": "org_noc_southampton", "type": "employed_by" },
+
+    { "source": "org_fl_fwri", "target": "org_fl_fwc", "type": "part_of", "label": "FWRI is FWC research arm" },
+
+    { "source": "person_emily_brownlee", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_marco_corrales", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_mathilde_dugenne", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_darren_henrichs", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_julie_koester", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_sasha_kramer", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_laura_lubelczyk", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_malcolm_mcfarland", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_saskia_ruhl", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_savannah_stresser", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_angelicque_white", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_jochen_wollschlager", "target": "pub_opo_best_practices", "type": "co_author" },
+    { "source": "person_liza_wright_fairbanks", "target": "pub_opo_best_practices", "type": "co_author" },
+
+    { "source": "pub_opo_best_practices", "target": "tech_planktoscope", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "tech_cytosense", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "tech_imagestream", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "tech_lisst_holo2", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "tech_vpr", "type": "documents" },
+    { "source": "pub_opo_best_practices", "target": "standard_darwin_core", "type": "references" },
+    { "source": "pub_opo_best_practices", "target": "org_seabass", "type": "references" },
+    { "source": "pub_opo_best_practices", "target": "repo_obis", "type": "references" },
+    { "source": "pub_opo_best_practices", "target": "org_bco_dmo", "type": "references" },
+    { "source": "pub_opo_best_practices", "target": "community_mbon", "type": "references" },
+    { "source": "pub_opo_best_practices", "target": "standard_phyto_eov", "type": "grounds_in" },
+    { "source": "pub_opo_best_practices", "target": "standard_marine_biodiversity_ebv", "type": "grounds_in" },
+
+    { "source": "standard_phyto_eov", "target": "community_goos", "type": "defined_by" },
+    { "source": "standard_marine_biodiversity_ebv", "target": "community_goos", "type": "defined_by" },
+
+    { "source": "tech_flowcam", "target": "org_yokogawa_fit", "type": "manufactured_by" },
+
+    { "source": "org_bco_dmo", "target": "org_whoi", "type": "hosted_by" },
+    { "source": "org_seabass", "target": "org_nasa_gsfc", "type": "hosted_by" },
+
+    { "source": "person_rob_bochenek", "target": "org_axiom_data_science", "type": "employed_by" },
+    { "source": "project_habdac", "target": "org_noaa_nccos", "type": "funded_by", "label": "PCMHAB program" },
+    { "source": "person_clarissa_anderson", "target": "project_habdac", "type": "pi" },
+    { "source": "person_rob_bochenek", "target": "project_habdac", "type": "co_pi" },
+    { "source": "person_heidi_sosik", "target": "project_habdac", "type": "co_pi" },
+    { "source": "person_stace_beaulieu", "target": "project_habdac", "type": "co_pi" },
+    { "source": "person_raphael_kudela", "target": "project_habdac", "type": "co_pi" },
+    { "source": "person_henry_ruhl", "target": "project_habdac", "type": "co_pi" },
+    { "source": "project_ca_ifcb_network", "target": "project_habdac", "type": "feeds", "label": "IFCB imagery → HABDAC" },
+    { "source": "project_habdac", "target": "pub_ca_hab_bulletin", "type": "supports" },
+    { "source": "project_habdac", "target": "community_nhabon", "type": "supports" },
+    { "source": "project_habdac", "target": "org_axiom_data_science", "type": "operated_by" },
+
+    { "source": "project_cal_habmap", "target": "ra_sccoos", "type": "sustained_by" },
+    { "source": "project_cal_habmap", "target": "ra_cencoos", "type": "sustained_by" },
+    { "source": "project_cal_habmap", "target": "pub_ca_hab_bulletin", "type": "feeds" },
+    { "source": "project_cal_habmap", "target": "project_habdac", "type": "feeds" },
+
+    { "source": "project_ca_ifcb_network", "target": "pub_opo_best_practices", "type": "aligned_with" },
+    { "source": "project_habdac", "target": "pub_opo_best_practices", "type": "aligned_with" },
+    { "source": "project_ifcb_prototype", "target": "pub_opo_best_practices", "type": "aligned_with" },
+    { "source": "wg_smbd", "target": "pub_opo_best_practices", "type": "references" },
+
+    { "source": "dataset_ca_ifcb_imagery", "target": "project_ca_ifcb_network", "type": "produced_by" },
+    { "source": "dataset_ca_ifcb_imagery", "target": "tech_ifcb", "type": "produced_with" },
+    { "source": "dataset_ca_ifcb_imagery", "target": "project_habdac", "type": "feeds" },
+    { "source": "dataset_sccoos_rt_obs", "target": "ra_sccoos", "type": "produced_by" },
+    { "source": "person_clarissa_anderson", "target": "dataset_sccoos_rt_obs", "type": "steward" },
+    { "source": "dataset_habsos", "target": "repo_ncei", "type": "archived_at" },
+    { "source": "dataset_habsos", "target": "community_nhabon", "type": "supports" },
+    { "source": "dataset_obon_biomol", "target": "community_obon", "type": "produced_by" },
+    { "source": "person_margaret_leinen", "target": "dataset_obon_biomol", "type": "leads" },
+
+    { "source": "dataset_caloos_portal", "target": "ra_cencoos", "type": "hosted_by", "label": "shared with SCCOOS" },
+    { "source": "dataset_caloos_portal", "target": "ra_sccoos", "type": "hosted_by", "label": "shared with CeNCOOS" },
+    { "source": "dataset_caloos_portal", "target": "dataset_ca_ifcb_imagery", "type": "aggregates" },
+    { "source": "dataset_aoos_portal", "target": "ra_aoos", "type": "hosted_by" },
+    { "source": "dataset_caricoos_portal", "target": "ra_caricoos", "type": "hosted_by" },
+    { "source": "dataset_gcoos_portal", "target": "ra_gcoos", "type": "hosted_by" },
+    { "source": "dataset_glos_seagull", "target": "ra_glos", "type": "hosted_by" },
+    { "source": "dataset_maracoos_oceansmap", "target": "ra_maracoos", "type": "hosted_by" },
+    { "source": "dataset_nanoos_nvs", "target": "ra_nanoos", "type": "hosted_by" },
+    { "source": "dataset_neracoos_mariners", "target": "ra_neracoos", "type": "hosted_by" },
+    { "source": "dataset_pacioos_voyager", "target": "ra_pacioos", "type": "hosted_by" },
+    { "source": "dataset_secoora_portal", "target": "ra_secoora", "type": "hosted_by" },
+
+    { "source": "ra_aoos", "target": "tech_ifcb", "type": "uses", "label": "vessel + on-shore since 2024" },
+    { "source": "ra_gcoos", "target": "tech_ifcb", "type": "uses", "label": "Port Aransas 2012, Surfside 2017, Galveston pending" },
+    { "source": "ra_nanoos", "target": "tech_ifcb", "type": "uses", "label": "OR + WA, incl. community samplers" },
+    { "source": "ra_maracoos", "target": "tech_ifcb", "type": "uses", "label": "MERHAB Chesapeake network" },
+    { "source": "ra_neracoos", "target": "tech_ifcb", "type": "uses", "label": "3 instruments: 1 SeaTrac USV, 2 coastal" },
+
+    { "source": "ra_aoos", "target": "tech_hyperspectral", "type": "uses", "label": "with PMEL + Bigelow for dinoflagellate index" },
+    { "source": "ra_glos", "target": "tech_hyperspectral", "type": "uses", "label": "phycocyanin flyovers" },
+    { "source": "ra_sccoos", "target": "tech_hyperspectral", "type": "uses", "label": "dinoflagellate bloom detection" },
+
+    { "source": "ra_aoos", "target": "org_noaa_pmel", "type": "partners_with", "label": "hyperspectral imagery" },
+    { "source": "ra_aoos", "target": "org_bigelow", "type": "partners_with", "label": "dinoflagellate index" },
+    { "source": "ra_aoos", "target": "dataset_ifcb_dashboard", "type": "uses", "label": "AOOS real-time partnership" },
+    { "source": "dataset_ifcb_dashboard", "target": "org_whoi", "type": "hosted_by" },
+
+    { "source": "ra_cencoos", "target": "tech_edna", "type": "uses" },
+    { "source": "ra_sccoos", "target": "tech_edna", "type": "uses", "label": "Scripps Pier + Cal Poly" },
+    { "source": "ra_neracoos", "target": "tech_edna", "type": "uses", "label": "multitrophic time series" },
+    { "source": "ra_pacioos", "target": "tech_edna", "type": "uses", "label": "metabarcoding for Gambierdiscus" },
+
+    { "source": "ra_neracoos", "target": "tech_cpr", "type": "uses", "label": "NEFSC-operated monthly transect" },
+    { "source": "tech_cpr", "target": "org_nefsc", "type": "operated_by" },
+    { "source": "org_nefsc", "target": "org_noaa_nmfs", "type": "part_of" },
+
+    { "source": "ra_cencoos", "target": "project_wc_roms_nemuro", "type": "runs" },
+    { "source": "ra_cencoos", "target": "project_c_harm", "type": "co_developed", "label": "with SCCOOS" },
+    { "source": "ra_sccoos", "target": "project_c_harm", "type": "co_developed", "label": "with CeNCOOS" },
+    { "source": "project_c_harm", "target": "org_noaa_nccos", "type": "hosted_by" },
+
+    { "source": "ra_nanoos", "target": "project_liveocean", "type": "runs" },
+    { "source": "ra_nanoos", "target": "project_jscope", "type": "runs" },
+    { "source": "ra_nanoos", "target": "project_pnw_hab_bulletin", "type": "produces" },
+    { "source": "ra_nanoos", "target": "project_soundtoxins", "type": "partners_with" },
+    { "source": "ra_nanoos", "target": "project_community_fisheries_research", "type": "runs" },
+    { "source": "ra_nanoos", "target": "community_nhabon", "type": "regional_host", "label": "tribal + state sampling" },
+    { "source": "project_community_fisheries_research", "target": "tech_ifcb", "type": "uses" },
+    { "source": "project_soundtoxins", "target": "project_pnw_hab_bulletin", "type": "feeds" },
+    { "source": "project_liveocean", "target": "project_pnw_hab_bulletin", "type": "feeds" },
+    { "source": "project_pnw_hab_bulletin", "target": "dataset_pnw_hab_bulletin", "type": "produces" },
+    { "source": "project_pnw_hab_bulletin", "target": "tech_lightfish", "type": "uses" },
+    { "source": "project_pnw_hab_bulletin", "target": "tech_esp", "type": "uses" },
+
+    { "source": "ra_maracoos", "target": "project_cbefs", "type": "runs" },
+    { "source": "ra_maracoos", "target": "project_merhab_chesapeake", "type": "hosts" },
+    { "source": "project_merhab_chesapeake", "target": "program_merhab", "type": "funded_by" },
+    { "source": "project_merhab_chesapeake", "target": "tech_ifcb", "type": "uses" },
+    { "source": "project_merhab_chesapeake", "target": "tech_planktoscope", "type": "uses" },
+    { "source": "program_merhab", "target": "org_noaa_nccos", "type": "hosted_by" },
+    { "source": "ra_maracoos", "target": "dataset_chesapeake_habs_portal", "type": "produces" },
+    { "source": "ra_maracoos", "target": "dataset_mid_atlantic_phyto_imaging", "type": "produces" },
+
+    { "source": "ra_glos", "target": "project_lake_erie_habofs", "type": "provides_data_to" },
+    { "source": "project_lake_erie_habofs", "target": "org_noaa_nccos", "type": "hosted_by" },
+
+    { "source": "ra_sccoos", "target": "dataset_hab_manager_dashboard", "type": "produces" },
+    { "source": "ra_sccoos", "target": "project_calcofi", "type": "partners_with", "label": "cruise deployments + zooplankton index" },
+    { "source": "project_calcofi", "target": "org_sio_ucsd", "type": "hosted_by" },
+    { "source": "ra_sccoos", "target": "org_cal_poly", "type": "partners_with", "label": "eDNA sampling" },
+
+    { "source": "ra_cencoos", "target": "project_synchro_planktivore", "type": "hosts" },
+    { "source": "project_synchro_planktivore", "target": "tech_planktivore_lrauv", "type": "evaluates" },
+    { "source": "project_synchro_planktivore", "target": "org_mbari", "type": "partners_with" },
+    { "source": "tech_planktivore_lrauv", "target": "org_mbari", "type": "developed_at" },
+
+    { "source": "ra_neracoos", "target": "tech_wirewalker_shadowgraph", "type": "trials" },
+    { "source": "ra_neracoos", "target": "tech_seatrac_usv", "type": "uses", "label": "IFCB payload" },
+    { "source": "ra_neracoos", "target": "dataset_wgom_zoo_sentinel", "type": "produces" },
+
+    { "source": "project_habdac", "target": "program_pcmhab", "type": "funded_by", "label": "PCMHAB20 award" },
+    { "source": "program_pcmhab", "target": "org_noaa_nccos", "type": "hosted_by" },
+    { "source": "project_ca_ifcb_network", "target": "program_ecohab", "type": "funded_by", "label": "with CA OPC + NOAA IOOS" },
+    { "source": "program_ecohab", "target": "org_noaa_nccos", "type": "hosted_by" },
+
+    { "source": "ra_gcoos", "target": "dataset_gcoos_phyto_erddap", "type": "produces" },
+    { "source": "dataset_gcoos_phyto_erddap", "target": "tech_ifcb", "type": "produced_with" },
+    { "source": "dataset_gcoos_phyto_erddap", "target": "tech_erddap", "type": "delivered_via" },
+
+    { "source": "project_wc_roms_nemuro", "target": "project_c_harm", "type": "feeds", "label": "WCOFS physics input" },
+    { "source": "project_ca_ifcb_network", "target": "project_c_harm", "type": "feeds", "label": "via CalHABMAP validation" },
+    { "source": "project_cal_habmap", "target": "project_c_harm", "type": "validates" }
+  ]
+}
+</script>
+
+<!-- Shim missing console methods before any library loads. Some sandboxed
+     preview contexts (including claude.ai's artifact preview) strip
+     console.info/debug/trace; vis-network calls console.info internally
+     during setData and throws. Real browsers already have these methods,
+     so the stub is a no-op there. -->
+<script>
+for (const m of ['info','debug','trace','warn','log']) {
+  if (typeof console[m] !== 'function') console[m] = (console.log || function(){}).bind(console);
+}
+</script>
+
+<!-- vis-network UMD from jsdelivr. Exposes window.vis. -->
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+
+<!-- Top-level error surfaces -->
+<script>
+window.addEventListener("error", (ev) => {
+  const pane = document.getElementById("error-pane");
+  if (pane) {
+    pane.style.display = "block";
+    pane.textContent = "JavaScript error:\n\n" + (ev.message || "unknown") +
+      (ev.filename ? "\n\nAt: " + ev.filename + ":" + ev.lineno + ":" + ev.colno : "") +
+      (ev.error && ev.error.stack ? "\n\nStack:\n" + ev.error.stack : "");
+  }
+});
+window.addEventListener("unhandledrejection", (ev) => {
+  const pane = document.getElementById("error-pane");
+  if (pane) {
+    pane.style.display = "block";
+    pane.textContent = "Promise rejection:\n\n" + (ev.reason && ev.reason.message ? ev.reason.message : ev.reason) +
+      (ev.reason && ev.reason.stack ? "\n\nStack:\n" + ev.reason.stack : "");
+  }
+});
+setTimeout(() => {
+  const loading = document.getElementById("loading-overlay");
+  if (loading && loading.style.display !== "none") {
+    loading.querySelector("div").textContent = "Still loading… (check console if this persists)";
+  }
+}, 12000);
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- Graph rendering (vis-network)                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<script type="module">
+
+const showError = (label, err) => {
+  const pane = document.getElementById("error-pane");
+  const loading = document.getElementById("loading-overlay");
+  if (loading) loading.style.display = "none";
+  if (pane) {
+    pane.style.display = "block";
+    pane.textContent = label + "\n\n" + (err && err.message ? err.message : String(err)) +
+      (err && err.stack ? "\n\nStack:\n" + err.stack : "");
+  }
+  console.error(label, err);
+};
+
+try {
+
+if (!window.vis || !window.vis.Network) {
+  throw new Error("vis-network did not load. Check CDN access.");
+}
+
+// Louvain (small graphology dependency, only for community coloring)
+let louvain = null;
+try {
+  const louvainMod = await import("https://cdn.jsdelivr.net/npm/graphology-communities-louvain@2.0.1/+esm");
+  const graphologyMod = await import("https://cdn.jsdelivr.net/npm/graphology@0.25.4/+esm");
+  louvain = louvainMod.default && louvainMod.default.detailed ? louvainMod.default
+          : louvainMod.detailed ? louvainMod
+          : (louvainMod.default && louvainMod.default.default && louvainMod.default.default.detailed) ? louvainMod.default.default
+          : null;
+  var Graph = graphologyMod.default || (graphologyMod.default && graphologyMod.default.default) || graphologyMod.Graph;
+  if (!louvain || !Graph) {
+    console.warn("Louvain deps failed to resolve — Louvain toggle will be disabled.");
+    louvain = null;
+  }
+} catch (e) {
+  console.warn("Louvain unavailable:", e);
+}
+
+const kg = JSON.parse(document.getElementById("kg-data").textContent);
+
+const TYPE_COLORS = {
+  Person:       "#fbbf24",
+  Organization: "#60a5fa",
+  Project:      "#c084fc",
+  Committee:    "#4ade80",
+  Program:      "#f472b6",
+  Award:        "#facc15",
+  Technology:   "#fb7185",
+  Community:    "#22d3ee",
+  Publication:  "#fb923c",
+  Standard:     "#94a3b8",
+  Dataset:      "#2dd4bf"
+};
+
+// Shape per node type. Person and Organization share the "dot" shape
+// (filled circle, label below) but Organization uses a much larger base
+// size so institutions visually dominate over individuals. Other types
+// get distinct shapes so you can read the type at a glance even when
+// Louvain coloring overrides the type palette.
+const TYPE_SHAPES = {
+  Person:       "dot",           // small circle
+  Organization: "dot",           // same shape, bigger — see TYPE_BASE_SIZE
+  Project:      "diamond",       // discrete, bounded efforts
+  Committee:    "square",        // formal governance, boxy
+  Program:      "triangleDown",  // directional, ongoing delivery
+  Award:        "star",          // recognition
+  Technology:   "hexagon",       // instruments / tools
+  Community:    "triangle",      // collective, aspirational
+  Publication:  "image",         // inline SVG document icon — see makeIconDataUrl
+  Standard:     "image",         // inline SVG checkmark badge — see makeIconDataUrl
+  Dataset:      "image"          // inline SVG cylinder (data-lake icon) — see makeIconDataUrl
+};
+
+// Base size per type (before degree bonus). For image-shape nodes, size
+// is the pixel half-extent — kept small so these don't dominate the layout.
+const TYPE_BASE_SIZE = {
+  Person:       8,
+  Organization: 16,   // ~2x person so institutions dominate
+  Project:      11,
+  Committee:    11,
+  Program:      11,
+  Award:        13,
+  Technology:   11,
+  Community:    13,
+  Publication:  11,   // image-shape; small by design
+  Standard:     11,   // image-shape; small by design
+  Dataset:      11    // image-shape; small by design
+};
+
+// Small inline SVG for each type's legend swatch so the legend actually
+// previews the shape you'll see in the graph. Publication, Standard, and
+// Dataset icons here match the data-URL icons rendered in the network.
+const TYPE_SVG_PATHS = {
+  Person:       '<circle cx="8" cy="8" r="4" fill="{c}"/>',
+  Organization: '<circle cx="8" cy="8" r="6.5" fill="{c}"/>',
+  Project:      '<path d="M8 2 L14 8 L8 14 L2 8 Z" fill="{c}"/>',
+  Committee:    '<rect x="3" y="3" width="10" height="10" fill="{c}"/>',
+  Program:      '<path d="M2 4 L14 4 L8 14 Z" fill="{c}"/>',
+  Award:        '<path d="M8 1 L9.9 5.9 L15 6.2 L11.1 9.4 L12.4 14.3 L8 11.5 L3.6 14.3 L4.9 9.4 L1 6.2 L6.1 5.9 Z" fill="{c}"/>',
+  Technology:   '<path d="M4 2 L12 2 L14.5 8 L12 14 L4 14 L1.5 8 Z" fill="{c}"/>',
+  Community:    '<path d="M8 2 L14 13 L2 13 Z" fill="{c}"/>',
+  Publication:  '<rect x="3" y="1.5" width="10" height="13" rx="0.8" fill="{c}"/><line x1="5" y1="5" x2="11" y2="5" stroke="#0a0e14" stroke-width="0.9"/><line x1="5" y1="8" x2="11" y2="8" stroke="#0a0e14" stroke-width="0.9"/><line x1="5" y1="11" x2="9" y2="11" stroke="#0a0e14" stroke-width="0.9"/>',
+  Standard:     '<circle cx="8" cy="8" r="6.5" fill="{c}"/><path d="M5 8 L7 10.2 L11 5.8" stroke="#0a0e14" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+  Dataset:      '<ellipse cx="8" cy="3.5" rx="5" ry="1.6" fill="{c}"/><path d="M3 3.5 L3 12 Q3 13.6 8 13.6 Q13 13.6 13 12 L13 3.5" fill="{c}"/><ellipse cx="8" cy="3.5" rx="5" ry="1.6" fill="none" stroke="#0a0e14" stroke-width="0.6"/><path d="M3 7.5 Q3 9.1 8 9.1 Q13 9.1 13 7.5" fill="none" stroke="#0a0e14" stroke-width="0.6"/>'
+};
+
+function shapeSvg(type, color) {
+  const path = (TYPE_SVG_PATHS[type] || TYPE_SVG_PATHS.Person).replace(/\{c\}/g, color);
+  return `<svg width="16" height="16" viewBox="0 0 16 16" style="flex-shrink:0;filter:drop-shadow(0 0 3px ${color}55)">${path}</svg>`;
+}
+
+// Inline-SVG data-URL icons for image-shape nodes. These render INSIDE the
+// vis-network canvas at a size controlled by the node's size property —
+// which is what finally makes Publication and Standard small and well-behaved.
+function makeIconDataUrl(type, color) {
+  let body;
+  if (type === "Publication") {
+    // Document/page with text lines
+    body = `<rect x="6" y="3" width="28" height="34" rx="2" fill="${color}" stroke="${color}" stroke-width="1"/>
+            <line x1="11" y1="11" x2="29" y2="11" stroke="#0a0e14" stroke-width="2.2"/>
+            <line x1="11" y1="18" x2="29" y2="18" stroke="#0a0e14" stroke-width="2.2"/>
+            <line x1="11" y1="25" x2="29" y2="25" stroke="#0a0e14" stroke-width="2.2"/>
+            <line x1="11" y1="32" x2="22" y2="32" stroke="#0a0e14" stroke-width="2.2"/>`;
+  } else if (type === "Standard") {
+    // Checkmark badge
+    body = `<circle cx="20" cy="20" r="16" fill="${color}" stroke="${color}" stroke-width="1"/>
+            <path d="M12 20 L17 25 L28 14" fill="none" stroke="#0a0e14" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  } else if (type === "Dataset") {
+    // Canonical data-lake cylinder (matches Plankton Data Flow PDF convention)
+    body = `<ellipse cx="20" cy="8" rx="13" ry="4" fill="${color}"/>
+            <path d="M7 8 L7 30 Q7 34 20 34 Q33 34 33 30 L33 8" fill="${color}"/>
+            <ellipse cx="20" cy="8" rx="13" ry="4" fill="none" stroke="#0a0e14" stroke-width="1.5"/>
+            <path d="M7 18 Q7 22 20 22 Q33 22 33 18" fill="none" stroke="#0a0e14" stroke-width="1.5"/>`;
+  } else {
+    body = `<circle cx="20" cy="20" r="16" fill="${color}"/>`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">${body}</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+const LOUVAIN_PALETTE = [
+  "#f87171", "#fbbf24", "#34d399", "#60a5fa",
+  "#a78bfa", "#f472b6", "#22d3ee", "#fb923c",
+  "#a3e635", "#f43f5e", "#facc15", "#2dd4bf"
+];
+
+const EDGE_LABEL = {
+  employed_by: "employed by", coordinates: "coordinates", coordinates_with: "coordinates with",
+  leads: "leads", serves_on: "serves on", succession_partner: "succession partner",
+  past_affiliation: "past affiliation", educated_at: "educated at", received: "received",
+  co_developed: "co-developed", partners_with: "partners with", part_of: "part of",
+  governed_by: "governed by", governs: "governs", governs_data: "governs data for",
+  hosted_by: "hosted by", hosted_agency: "hosted by agency", developed_at: "developed at",
+  reports_to: "reports to", produced: "produced", published: "published", uses: "uses",
+  uses_data: "uses data from", aligns_to: "aligns to", aligns_with: "aligns with",
+  aligned_with: "aligned with", promotes: "promotes", feeds: "feeds", co_pi: "co-PI on",
+  pi: "PI of", author: "author of", co_author: "co-author of", co_chairs: "co-chairs",
+  chairs: "chairs", ex_officio: "ex officio on", member: "member of", member_of: "member of",
+  staff: "staff for", contributor: "contributor to", includes: "includes", overlaps: "overlaps",
+  operates: "operates", regional_host: "regional host", co_leads: "co-leads",
+  standardized_by: "standardized by", documents: "documents", prototype_for: "prototype for",
+  produced_at_2024_edition: "produced at 2024 edition", supported_by: "supported by",
+  provides_framework: "provides framework for", consumes_data: "consumes data from",
+  adjacent_to: "adjacent to", runs: "runs",
+  past_director: "past director of", past_president: "past president of",
+  succeeded_by: "succeeded by", directs: "directs", funded_by: "funded by",
+  co_published_by: "co-published by", published_by: "published by",
+  steward: "stewards", archived_at: "archived at", aggregates: "aggregates",
+  produced_by: "produced by", produced_with: "produced with",
+  references: "references", grounds_in: "grounds in", defined_by: "defined by",
+  manufactured_by: "manufactured by", operated_by: "operated by",
+  sustained_by: "sustained by", supports: "supports", feeds: "feeds",
+  contract_to: "on contract to", aligned_with: "aligned with", serves_on: "serves on",
+  produces: "produces", hosts: "hosts", trials: "trials", evaluates: "evaluates",
+  provides_data_to: "provides data to", delivered_via: "delivered via",
+  validates: "validates"
+};
+
+// Build vis DataSets — vis-network uses {id, label} for nodes and {from, to} for edges.
+const nodeData = kg.nodes.map(n => {
+  const baseColor = TYPE_COLORS[n.type] || "#888";
+  const shape = TYPE_SHAPES[n.type] || "dot";
+  const baseSize = TYPE_BASE_SIZE[n.type] || 10;
+  // Publication and Standard render as inline-SVG icons. For image-shape
+  // nodes the label sits below the icon (just like dot/diamond/star), so
+  // no widthConstraint or label-inside gymnastics are needed.
+  const isImage = (shape === "image");
+  return {
+    id: n.id,
+    label: n.label,
+    _originalLabel: n.label, // preserved for show/hide toggle
+    // Stash full record on the node for detail panel
+    _type: n.type,
+    _subtype: n.subtype || "",
+    _description: n.description || "",
+    _affiliation: n.affiliation || "",
+    _role: n.role || "",
+    _orcid: n.orcid || "",
+    _sources: n.sources || [],
+    _url: n.url || "",
+    _privacy: n.privacy || "public",
+    _baseColor: baseColor,
+    _baseSize: baseSize,
+    shape: shape,
+    size: baseSize,
+    image: isImage ? makeIconDataUrl(n.type, baseColor) : undefined,
+    borderWidth: isImage ? 0 : 1.5,
+    borderWidthSelected: isImage ? 2 : 3,
+    color: {
+      background: baseColor,
+      border: baseColor + "99",
+      highlight: { background: baseColor, border: "#d4a574" },
+      hover: { background: baseColor, border: "#e8c59a" }
+    },
+    font: {
+      color: "#e4e8ee",
+      face: '"Manrope", system-ui, sans-serif',
+      size: 13,
+      strokeWidth: 3,
+      strokeColor: "rgba(10, 14, 20, 0.9)"
+    }
+  };
+});
+
+const edgeData = kg.edges
+  .filter(e => kg.nodes.some(n => n.id === e.source) && kg.nodes.some(n => n.id === e.target))
+  .map((e, i) => ({
+    id: "e" + i,
+    from: e.source,
+    to: e.target,
+    _type: e.type,
+    _label: e.label || EDGE_LABEL[e.type] || e.type,
+    title: EDGE_LABEL[e.type] || e.type, // tooltip on hover
+    color: {
+      color: "rgba(200, 210, 225, 0.22)",
+      highlight: "#d4a574",
+      hover: "#e8c59a",
+      opacity: 1
+    },
+    width: 1,
+    selectionWidth: 2.5,
+    hoverWidth: 2,
+    smooth: { enabled: true, type: "continuous", roundness: 0.2 }
+  }));
+
+const nodes = new vis.DataSet(nodeData);
+const edges = new vis.DataSet(edgeData);
+
+const container = document.getElementById("vis-mount");
+
+// Physics options — forceAtlas2Based gives the settle-and-respond behavior
+// that matches the Argo explorer. These values are tuned for ~120-node graphs.
+const options = {
+  autoResize: true,
+  locale: "en",
+  nodes: {
+    shape: "dot",
+    scaling: { min: 8, max: 28 }
+  },
+  edges: {
+    smooth: { enabled: true, type: "continuous", roundness: 0.2 },
+    font: { size: 0 }, // labels off by default; tooltips show them
+    selectionWidth: 2.5
+  },
+  physics: {
+    enabled: true,
+    solver: "forceAtlas2Based",
+    forceAtlas2Based: {
+      theta: 0.5,
+      gravitationalConstant: -80,   // stronger repulsion — 240 nodes need more space
+      centralGravity: 0.008,        // softer pull to center, so nodes spread naturally
+      springConstant: 0.05,         // softer springs — less aggressive snap-together
+      springLength: 120,            // slightly longer ideal edge length
+      damping: 0.3,                 // less damping = more visible bounce
+      avoidOverlap: 0.45
+    },
+    // Stabilization off — we want the user to SEE the bouncy force-directed
+    // layout play out from random initial positions, matching the Argo explorer's
+    // intro. Auto-fit fires on the "stabilized" event below once physics converges.
+    stabilization: false,
+    timestep: 0.4,
+    minVelocity: 0.75
+  },
+  interaction: {
+    hover: true,
+    hoverConnectedEdges: true,
+    selectConnectedEdges: true,
+    tooltipDelay: 300,
+    dragNodes: true,
+    dragView: true,
+    zoomView: true,
+    navigationButtons: false,
+    multiselect: false
+  },
+  layout: {
+    improvedLayout: true,
+    randomSeed: 7
+  }
+};
+
+const network = new vis.Network(container, { nodes, edges }, options);
+
+// Size nodes by degree — additive bonus on top of each type's base size,
+// so highly-connected nodes get bigger while preserving type hierarchy.
+const degree = {};
+edgeData.forEach(e => { degree[e.from] = (degree[e.from] || 0) + 1; degree[e.to] = (degree[e.to] || 0) + 1; });
+nodes.forEach(n => {
+  const d = degree[n.id] || 0;
+  const newSize = n._baseSize + Math.sqrt(d) * 1.8;
+  nodes.update({ id: n.id, size: newSize });
+});
+
+// Louvain community detection — only if deps loaded
+let communityMap = {};
+let communityCount = 0;
+if (louvain && Graph) {
+  try {
+    const g = new Graph({ multi: false, type: "undirected" });
+    nodeData.forEach(n => g.addNode(n.id));
+    edgeData.forEach(e => {
+      if (!g.hasEdge(e.from, e.to) && !g.hasEdge(e.to, e.from) && e.from !== e.to) {
+        g.addEdge(e.from, e.to);
+      }
+    });
+    function recomputeLouvain(resolution) {
+      const details = louvain.detailed(g, { resolution });
+      communityMap = details.communities;
+      communityCount = details.count;
+      document.getElementById("stat-comm").textContent = communityCount;
+    }
+    window._recomputeLouvain = recomputeLouvain;
+    recomputeLouvain(1.0);
+  } catch (e) {
+    console.warn("Louvain computation failed:", e);
+    document.getElementById("stat-comm").textContent = "—";
+  }
+}
+
+// Stats
+document.getElementById("stat-nodes").textContent = nodes.length;
+document.getElementById("stat-edges").textContent = edges.length;
+
+// Dismiss loading overlay quickly — physics is now live immediately
+setTimeout(() => {
+  const loading = document.getElementById("loading-overlay");
+  if (loading) loading.style.display = "none";
+}, 800);
+
+// When physics converges, auto-fit so the final layout is well-framed.
+// This fires after the initial bounce settles (typically 3-6 seconds).
+network.once("stabilized", () => {
+  network.fit({ animation: { duration: 800, easingFunction: "easeInOutQuad" } });
+});
+
+// ─── Coloring modes ─────────────────────────────────────────────────────
+let colorMode = "type";
+let hiddenTypes = new Set();
+
+function applyColors() {
+  const updates = [];
+  nodes.forEach(n => {
+    if (hiddenTypes.has(n._type)) {
+      updates.push({ id: n.id, hidden: true });
+      return;
+    }
+    let bg;
+    if (colorMode === "louvain" && communityMap[n.id] !== undefined) {
+      bg = LOUVAIN_PALETTE[communityMap[n.id] % LOUVAIN_PALETTE.length];
+    } else {
+      bg = n._baseColor;
+    }
+    // For image-shape nodes (Publication, Standard), the "color" is baked into
+    // the SVG data URL, so we need to regenerate the image when the color changes.
+    // Color object is still set for the border-on-select highlight.
+    const update = {
+      id: n.id,
+      hidden: false,
+      color: {
+        background: bg,
+        border: bg + "99",
+        highlight: { background: bg, border: "#d4a574" },
+        hover: { background: bg, border: "#e8c59a" }
+      }
+    };
+    if (n.shape === "image") {
+      update.image = makeIconDataUrl(n._type, bg);
+    }
+    updates.push(update);
+  });
+  nodes.update(updates);
+}
+
+// ─── Legend ─────────────────────────────────────────────────────────────
+const legendEl = document.getElementById("legend");
+const typeCounts = {};
+nodeData.forEach(n => { typeCounts[n._type] = (typeCounts[n._type] || 0) + 1; });
+Object.entries(TYPE_COLORS).forEach(([type, color]) => {
+  const count = typeCounts[type] || 0;
+  if (!count) return;
+  const el = document.createElement("div");
+  el.className = "legend-item";
+  el.innerHTML = `${shapeSvg(type, color)}<span>${type}</span><span class="count">${count}</span>`;
+  el.addEventListener("click", () => {
+    if (hiddenTypes.has(type)) hiddenTypes.delete(type);
+    else hiddenTypes.add(type);
+    el.classList.toggle("off", hiddenTypes.has(type));
+    applyColors();
+  });
+  legendEl.appendChild(el);
+});
+
+// ─── Detail panel ───────────────────────────────────────────────────────
+const detailPanel = document.getElementById("detail-panel");
+let selectedNodeId = null;
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+function renderDetail(id) {
+  if (!id) {
+    detailPanel.innerHTML = `<div class="detail-empty">Select a node to view details, incident edges, and provenance.</div>`;
+    return;
+  }
+  const n = nodes.get(id);
+  if (!n) return;
+
+  // Collect incident edges with the other endpoint + label
+  const incidents = [];
+  edges.forEach(e => {
+    if (e.from === id) {
+      const other = nodes.get(e.to);
+      incidents.push({ id: e.to, label: other.label || other._originalLabel, color: other._baseColor, type: other._type, edge: e._label, direction: "→" });
+    } else if (e.to === id) {
+      const other = nodes.get(e.from);
+      incidents.push({ id: e.from, label: other.label || other._originalLabel, color: other._baseColor, type: other._type, edge: e._label, direction: "←" });
+    }
+  });
+
+  // Collect cluster members (same Louvain community) — sorted by degree, excluding self
+  let clusterMembers = [];
+  let commLabel = "";
+  if (colorMode === "louvain" && communityMap[id] !== undefined) {
+    const myComm = communityMap[id];
+    nodes.forEach(m => {
+      if (communityMap[m.id] === myComm) {
+        clusterMembers.push({
+          id: m.id,
+          label: m._originalLabel,
+          color: m._baseColor,
+          type: m._type,
+          degree: degree[m.id] || 0
+        });
+      }
+    });
+    clusterMembers.sort((a, b) => b.degree - a.degree);
+    // Build honest community label from top 2 members
+    const top = clusterMembers.slice(0, 2).map(m => m.label);
+    commLabel = top.join(" + ");
+  }
+
+  const commBadge = colorMode === "louvain" && communityMap[id] !== undefined
+    ? `<span class="community-badge" style="background:${LOUVAIN_PALETTE[communityMap[id] % LOUVAIN_PALETTE.length]}" title="Cluster anchored on: ${escapeHtml(commLabel)}">${escapeHtml(commLabel)}</span>`
+    : "";
+
+  const kvRows = [];
+  if (n._subtype)     kvRows.push(["subtype",     escapeHtml(n._subtype)]);
+  if (n._role)        kvRows.push(["role",        escapeHtml(n._role)]);
+  if (n._affiliation) kvRows.push(["affiliation", escapeHtml(n._affiliation)]);
+  if (n._orcid)       kvRows.push(["orcid",       `<a href="https://orcid.org/${escapeHtml(n._orcid)}" target="_blank" style="color:var(--accent)">${escapeHtml(n._orcid)}</a>`]);
+  if (n._url)         kvRows.push(["url",         `<a href="${escapeHtml(n._url)}" target="_blank" style="color:var(--accent)">${escapeHtml(n._url)}</a>`]);
+  if (n._privacy)     kvRows.push(["privacy",     escapeHtml(n._privacy)]);
+  if (n._sources && n._sources.length) kvRows.push(["sources", n._sources.map(escapeHtml).join(", ")]);
+  kvRows.push(["id", `<code style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint)">${escapeHtml(id)}</code>`]);
+
+  // Cluster-members section (only when Louvain is on)
+  const otherMembers = clusterMembers.filter(m => m.id !== id).slice(0, 10);
+  const clusterSection = (colorMode === "louvain" && otherMembers.length)
+    ? `<div class="detail-neighbors" style="margin-top:20px">
+         <h4>Cluster — ${escapeHtml(commLabel)} (${clusterMembers.length})</h4>
+         ${otherMembers.map(m => `
+           <div class="neighbor-row" data-nid="${escapeHtml(m.id)}">
+             ${shapeSvg(m.type, m.color)}
+             <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(m.label)}</span>
+             <span class="edge">deg ${m.degree}</span>
+           </div>
+         `).join("")}
+         ${clusterMembers.length - 1 > otherMembers.length ? `<div style="font-size:10.5px;color:var(--text-faint);font-family:var(--font-mono);padding-top:6px">+ ${clusterMembers.length - 1 - otherMembers.length} more</div>` : ""}
+       </div>`
+    : "";
+
+  detailPanel.innerHTML = `
+    <div class="detail-type" style="color:${n._baseColor};border-color:${n._baseColor}55">${escapeHtml(n._type)}</div>
+    ${commBadge}
+    <h2 class="detail-name">${escapeHtml(n.label)}</h2>
+    ${n._description ? `<div class="detail-desc">${escapeHtml(n._description)}</div>` : ""}
+    <dl class="detail-kv">
+      ${kvRows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}
+    </dl>
+    <div class="detail-neighbors">
+      <h4>Connections (${incidents.length})</h4>
+      ${incidents.map(nb => `
+        <div class="neighbor-row" data-nid="${escapeHtml(nb.id)}">
+          ${shapeSvg(nb.type, nb.color)}
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(nb.label)}</span>
+          <span class="edge">${nb.direction} ${escapeHtml(nb.edge)}</span>
+        </div>
+      `).join("")}
+    </div>
+    ${clusterSection}
+  `;
+
+  detailPanel.querySelectorAll(".neighbor-row").forEach(row => {
+    row.addEventListener("click", () => {
+      const tid = row.dataset.nid;
+      network.selectNodes([tid]);
+      selectedNodeId = tid;
+      renderDetail(tid);
+    });
+  });
+}
+
+// Initial detail
+selectedNodeId = "person_gabrielle_hillyer";
+renderDetail(selectedNodeId);
+network.once("afterDrawing", () => {
+  try { network.selectNodes([selectedNodeId]); } catch(e) {}
+});
+
+// ─── Events ─────────────────────────────────────────────────────────────
+network.on("click", (params) => {
+  if (params.nodes.length > 0) {
+    selectedNodeId = params.nodes[0];
+    renderDetail(selectedNodeId);
+  } else {
+    selectedNodeId = null;
+    renderDetail(null);
+  }
+});
+
+// ─── Controls ───────────────────────────────────────────────────────────
+const colorModeEl = document.getElementById("color-mode");
+const resRow = document.getElementById("res-row");
+const resSlider = document.getElementById("res-slider");
+const resVal = document.getElementById("res-val");
+
+colorModeEl.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    colorModeEl.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    colorMode = btn.dataset.mode;
+    resRow.classList.toggle("active", colorMode === "louvain");
+    applyColors();
+    if (selectedNodeId) renderDetail(selectedNodeId);
+  });
+});
+
+resSlider.addEventListener("input", () => {
+  const r = parseFloat(resSlider.value);
+  resVal.textContent = r.toFixed(2);
+  if (window._recomputeLouvain) {
+    window._recomputeLouvain(r);
+    if (colorMode === "louvain") applyColors();
+    if (selectedNodeId) renderDetail(selectedNodeId);
+  }
+});
+
+// Physics pause/resume — vis-network's native setOptions handles this natively
+let physicsEnabled = true;
+const physicsBtn = document.getElementById("physics-btn");
+physicsBtn.addEventListener("click", () => {
+  physicsEnabled = !physicsEnabled;
+  network.setOptions({ physics: { enabled: physicsEnabled } });
+  physicsBtn.textContent = physicsEnabled ? "Pause physics" : "Resume physics";
+});
+
+// Re-run layout — restart stabilization
+document.getElementById("relayout-btn").addEventListener("click", () => {
+  // Kick nodes a little to encourage re-layout, then stabilize
+  const nodePositions = network.getPositions();
+  const updates = [];
+  Object.keys(nodePositions).forEach(id => {
+    updates.push({
+      id,
+      x: nodePositions[id].x + (Math.random() - 0.5) * 40,
+      y: nodePositions[id].y + (Math.random() - 0.5) * 40
+    });
+  });
+  nodes.update(updates);
+  network.stabilize(200);
+});
+
+// Fit to view
+document.getElementById("fit-btn").addEventListener("click", () => {
+  network.fit({ animation: { duration: 600, easingFunction: "easeInOutQuad" } });
+});
+
+// Clear selection — deselect any highlighted node and reset the detail panel
+document.getElementById("clear-btn").addEventListener("click", () => {
+  network.unselectAll();
+  selectedNodeId = null;
+  renderDetail(null);
+});
+
+// Labels toggle — show/hide all node labels
+let labelsVisible = true;
+const labelsBtn = document.getElementById("labels-btn");
+labelsBtn.addEventListener("click", () => {
+  labelsVisible = !labelsVisible;
+  const updates = [];
+  nodes.forEach(n => {
+    updates.push({ id: n.id, label: labelsVisible ? n._originalLabel : "" });
+  });
+  nodes.update(updates);
+  labelsBtn.textContent = labelsVisible ? "Hide labels" : "Show labels";
+});
+
+// ─── Search ─────────────────────────────────────────────────────────────
+const searchInput = document.getElementById("search-input");
+const searchResultsEl = document.getElementById("search-results");
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.trim().toLowerCase();
+  searchResultsEl.innerHTML = "";
+  if (!q) return;
+  const matches = [];
+  nodes.forEach(n => {
+    const hay = (n.label + " " + n._subtype + " " + n._affiliation + " " + n._description + " " + n.id).toLowerCase();
+    if (hay.includes(q)) matches.push(n);
+  });
+  matches.slice(0, 20).forEach(n => {
+    const row = document.createElement("div");
+    row.className = "search-result";
+    row.innerHTML = `
+      ${shapeSvg(n._type, n._baseColor)}
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(n.label)}</span>
+      <span class="sub">${escapeHtml(n._type)}</span>
+    `;
+    row.addEventListener("click", () => {
+      network.selectNodes([n.id]);
+      network.focus(n.id, { scale: 1.2, animation: { duration: 500, easingFunction: "easeInOutQuad" } });
+      selectedNodeId = n.id;
+      renderDetail(n.id);
+      searchInput.value = "";
+      searchResultsEl.innerHTML = "";
+    });
+    searchResultsEl.appendChild(row);
+  });
+});
+
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    searchInput.value = "";
+    searchResultsEl.innerHTML = "";
+  }
+});
+
+} catch (e) {
+  showError("Error during graph construction:", e);
+}
+</script>
+
+</body>
+</html>
