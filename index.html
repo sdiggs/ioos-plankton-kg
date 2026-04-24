@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>IOOS Plankton Community KG — v0.8</title>
+<title>IOOS Plankton Community KG — v0.9</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -478,7 +478,7 @@ footer.foot {
 
   <header class="head">
     <div class="title">IOOS Plankton Community <em>Knowledge Graph</em></div>
-    <div class="version">v0.8 · focus</div>
+    <div class="version">v0.9 · contributors</div>
     <div class="stats">
       <div><b id="stat-nodes">—</b>nodes</div>
       <div><b id="stat-edges">—</b>edges</div>
@@ -573,6 +573,9 @@ footer.foot {
 <!--        AOOS, CeNCOOS, GCOOS, GLOS, NANOOS, MARACOOS, NERACOOS, PacIOOS, SCCOOS -->
 <!--   [S17] Nicole J. Poulton full record (supplied JSON)                    -->
 <!--   [S18] Christian S. Reiss NOAA SWFSC record (supplied JSON)             -->
+<!--   [S19] SeaBASS repository description (supplied JSON)                   -->
+<!--   [S20] Shelby Brunner GLOS record (supplied JSON)                       -->
+<!--   [S21] Susanne E. Craig NASA GSFC record (supplied JSON)                -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <script id="kg-data" type="application/json">
 {
@@ -774,7 +777,7 @@ footer.foot {
     { "id": "org_u_oldenburg_icbm", "label": "U. Oldenburg (ICBM)", "type": "Organization", "subtype": "Academic institution (Germany)", "description": "Institute for Chemistry and Biology of the Marine Environment. Home of Jochen Wollschläger.", "privacy": "public", "sources": ["S15"] },
     { "id": "org_ucar", "label": "UCAR", "type": "Organization", "subtype": "Research consortium / federal contractor", "description": "University Corporation for Atmospheric Research, Boulder CO. Employs Liza Wright-Fairbanks on contract to NOAA OAP.", "privacy": "public", "sources": ["S15"] },
     { "id": "org_noaa_oap", "label": "NOAA OAP", "type": "Organization", "subtype": "NOAA program", "description": "NOAA Ocean Acidification Program, Silver Spring MD. Contracting agency for Liza Wright-Fairbanks via UCAR.", "url": "https://oceanacidification.noaa.gov", "privacy": "public", "sources": ["S15"] },
-    { "id": "org_seabass", "label": "SeaBASS", "type": "Organization", "subtype": "Data repository (NASA ocean bio-optics)", "description": "SeaWiFS Bio-optical Archive and Storage System. NASA Ocean Biology Processing Group repository; canonical archive for ocean bio-optics and ocean color validation data. Referenced in OPO Best Practices as a recommended repository.", "privacy": "public", "url": "https://seabass.gsfc.nasa.gov", "sources": ["S7", "S15"] },
+    { "id": "org_seabass", "label": "SeaBASS", "type": "Organization", "subtype": "Data repository (NASA ocean bio-optics)", "description": "SeaWiFS Bio-optical Archive and Storage System. NASA's publicly shared archive of in-situ oceanographic and atmospheric data, maintained by the NASA Ocean Biology Processing Group (OBPG) at Goddard Space Flight Center. Originated with the SeaWiFS era (1990s); supports satellite ocean-color validation, algorithm development, and climate research. Three-tier architecture: ASCII-text files with standardized headers (FCHECK-validated) on a GSFC server, indexed in a relational database, exposed via web search + archive browser + NASA Earthdata Search. Dataset-level DOIs follow 10.5067/SeaBASS/{EXPERIMENT}/DATA001. Policy: public-domain access with 3-year contributor embargo; NASA-funded PIs must submit within 6 months (max 1 year). Data types: apparent + inherent optical properties, phytoplankton pigment concentrations, T/S, fluorescence, aerosol optical thickness, radiometry, SST. Instruments: ships, moorings, profilers, buoys, hand-held, AERONET-OC, MOBY. Related missions: SeaWiFS, MODIS-Aqua/Terra, OCTS, SIMBIOS, PACE, OB.DAAC. re3data r3d100011683. Referenced in OPO Best Practices as a recommended repository.", "privacy": "public", "url": "https://seabass.gsfc.nasa.gov", "sources": ["S7", "S15", "S19"] },
     { "id": "org_bco_dmo", "label": "BCO-DMO", "type": "Organization", "subtype": "Data repository (NSF OCE)", "description": "Biological and Chemical Oceanography Data Management Office, hosted at WHOI. Canonical repository for NSF-funded biological and chemical oceanographic data. Referenced in OPO Best Practices.", "privacy": "public", "url": "https://www.bco-dmo.org", "sources": ["S7", "S15"] },
 
     { "id": "committee_un_scor_airseawg", "label": "UN SCOR Air-Sea WG", "type": "Committee", "subtype": "International working group", "description": "UN SCOR Working Group on Observing Air-Sea Interaction Strategy. Clarissa Anderson is a member.", "privacy": "public", "sources": ["S8"] },
@@ -859,6 +862,44 @@ footer.foot {
     { "id": "committee_ices_wgpme", "label": "ICES WGPME", "type": "Committee", "subtype": "International working group", "description": "ICES Working Group on Phytoplankton and Microbial Ecology. Nicole Poulton is Co-Chair.", "privacy": "public", "url": "https://www.ices.dk/community/groups/Pages/WGPME.aspx", "sources": ["S17"] },
 
     { "id": "committee_isac", "label": "ISAC Board", "type": "Committee", "subtype": "Professional society board", "description": "International Society for the Advancement of Cytometry, Board of Directors. Nicole Poulton is a Councilor.", "privacy": "public", "url": "https://isac-net.org", "sources": ["S17"] },
+
+    { "id": "person_shelby_brunner", "label": "Shelby Brunner", "type": "Person", "subtype": "GLOS Science & Observations Manager", "affiliation": "Great Lakes Observing System (GLOS)", "role": "Science and Observations Manager, GLOS", "orcid": "0000-0002-6243-1469", "description": "Science and Observations Manager at the Great Lakes Observing System since 2020 (also known as Shelby LaBuhn). Focuses on interfacing with data platform operators, tracking observing technology trends, and advancing GLOS's scientific capabilities. Former Knauss Fellow at NOAA's Global Ocean Monitoring and Observing Office (GOMO, formerly OOMD/OCO). Prior research at the University of Wisconsin-Milwaukee's School of Freshwater Sciences. Contact: shelby@glos.org.", "privacy": "public", "sources": ["S20"] },
+
+    { "id": "person_susanne_craig", "label": "Susanne Craig", "type": "Person", "subtype": "Ocean color physicist / PACE Science Lead", "affiliation": "UMBC (at NASA GSFC Ocean Ecology Laboratory)", "role": "Senior Scientist, NASA GSFC Ocean Ecology Laboratory; PACE Science Lead for System Vicarious Calibration", "orcid": "0000-0002-8963-0951", "description": "Physicist and Senior Scientist in the NASA GSFC Ocean Ecology Laboratory (employed through UMBC). Specializes in ocean color algorithm development, radiative transfer, machine learning, and phytoplankton ecology. Serves as the PACE Science Lead for System Vicarious Calibration, and as Project Scientist for NASA NAAMES (North Atlantic Aerosols and Marine Ecosystems Study). Member of the NASA Ocean Biology and Biogeochemistry Proposal Review Panel. Ph.D. from Dalhousie University.", "privacy": "public", "sources": ["S21"] },
+
+    { "id": "org_noaa_gomo", "label": "NOAA GOMO", "type": "Organization", "subtype": "NOAA program office", "description": "NOAA Global Ocean Monitoring and Observing Office (formerly Ocean Observing and Monitoring Division / OOMD, and Ocean Climate Observations / OCO). Responsible for sustained global ocean observations for climate, weather, and environmental services. Hosts Knauss Fellows in the Ocean Climate Observations track.", "privacy": "public", "url": "https://globalocean.noaa.gov/", "sources": ["S20"] },
+
+    { "id": "org_uwm_freshwater", "label": "UWM School of Freshwater Sciences", "type": "Organization", "subtype": "Academic institution", "description": "University of Wisconsin-Milwaukee School of Freshwater Sciences. Shelby Brunner's prior research affiliation.", "privacy": "public", "url": "https://uwm.edu/freshwater/", "sources": ["S20"] },
+
+    { "id": "org_umbc", "label": "UMBC", "type": "Organization", "subtype": "Academic institution", "description": "University of Maryland, Baltimore County. Susanne Craig's formal employer (work performed at NASA GSFC).", "privacy": "public", "url": "https://umbc.edu", "sources": ["S21"] },
+
+    { "id": "org_dalhousie", "label": "Dalhousie University", "type": "Organization", "subtype": "Academic institution", "description": "Dalhousie University, Halifax, Nova Scotia. Susanne Craig's Ph.D. institution.", "privacy": "public", "url": "https://www.dal.ca", "sources": ["S21"] },
+
+    { "id": "org_nasa_obpg", "label": "NASA OBPG", "type": "Organization", "subtype": "NASA data/algorithms team", "description": "NASA Ocean Biology Processing Group, hosted at Goddard Space Flight Center. Operates SeaBASS; produces ocean color algorithm implementations and standard-product data streams for NASA ocean color missions.", "privacy": "public", "sources": ["S19", "S21"] },
+
+    { "id": "org_nasa_obdaac", "label": "NASA OB.DAAC", "type": "Organization", "subtype": "NASA Distributed Active Archive Center", "description": "NASA Ocean Biology Distributed Active Archive Center. Operated by OBPG at GSFC. Canonical public archive for NASA ocean color mission data including SeaWiFS, MODIS-Aqua/Terra, VIIRS, and PACE. Sibling to SeaBASS (which archives in-situ validation data).", "privacy": "public", "sources": ["S19"] },
+
+    { "id": "program_pace", "label": "NASA PACE", "type": "Program", "subtype": "NASA Earth Science mission", "description": "Plankton, Aerosol, Cloud, ocean Ecosystem mission. NASA's hyperspectral ocean color mission (launched February 2024). Provides hyperspectral ocean-color observations from ~340–890 nm (~2.5 nm resolution) plus multi-angle polarimetry. Primary science goals: global phytoplankton community composition, aerosol-cloud-ecosystem interactions, and climate-relevant biogeochemistry. Susanne Craig serves as Science Lead for System Vicarious Calibration.", "privacy": "public", "url": "https://pace.oceansciences.org", "sources": ["S21"] },
+
+    { "id": "project_naames", "label": "NAAMES", "type": "Project", "subtype": "NASA field campaign", "description": "North Atlantic Aerosols and Marine Ecosystems Study. NASA Earth Venture Suborbital-2 field campaign (2015-2018) with four research cruises + airborne observations studying phytoplankton annual cycle dynamics and aerosol-cloud-ocean interactions in the North Atlantic. Craig served as Project Scientist.", "privacy": "public", "url": "https://naames.larc.nasa.gov", "sources": ["S21"] },
+
+    { "id": "committee_nasa_obb_panel", "label": "NASA OBB Proposal Review Panel", "type": "Committee", "subtype": "Federal proposal review panel", "description": "NASA Ocean Biology and Biogeochemistry Proposal Review Panel. Reviews proposals to the NASA OBB program. Susanne Craig serves as a member.", "privacy": "public", "sources": ["S21"] },
+
+    { "id": "dataset_c_harm_output", "label": "C-HARM forecast output", "type": "Dataset", "subtype": "Operational forecast output", "description": "3-day operational forecast of Pseudo-nitzschia bloom occurrence and domoic acid risk. Gridded NetCDF output over the California Current System (WCOFS domain, ~33°N–42°N, coast to ~200 km offshore). Measurements include Pseudo-nitzschia cellular domoic acid probability, particulate DA concentration, gridded chlorophyll, SST, upwelling indices, and WCOFS physics fields. Feeds the CA HAB Bulletin.", "privacy": "public", "url": "https://sccoos.org/california-hab-bulletin/", "sources": ["S8", "S16"] },
+
+    { "id": "dataset_liveocean_output", "label": "LiveOcean forecast output", "type": "Dataset", "subtype": "Operational forecast output (NE Pacific)", "description": "72-hour operational forecast output for the NE Pacific (WA/OR + Salish Sea, ~42°N–50°N, coast to ~127°W). Daily NetCDF fields since ~2014: phytoplankton biomass size classes, nitrate, dissolved oxygen, pH, temperature, salinity, 3D currents, and particle trajectories. Feeds the PNW HAB Bulletin.", "privacy": "public", "url": "https://liveocean.apl.uw.edu/", "sources": ["S16"] },
+
+    { "id": "dataset_jscope_output", "label": "J-SCOPE seasonal output", "type": "Dataset", "subtype": "Seasonal forecast output", "description": "NANOOS seasonal forecasting output. Seasonal outlooks for hypoxia risk, phytoplankton bloom timing, ocean acidification (aragonite saturation state), and temperature across the NE Pacific + California Current.", "privacy": "public", "url": "https://www.nanoos.org/products/j-scope/", "sources": ["S16"] },
+
+    { "id": "dataset_amlr_acoustic", "label": "AMLR Acoustic Data", "type": "Dataset", "subtype": "Antarctic krill acoustic surveys", "description": "Acoustic krill surveys around South Shetland Islands since 1992. Volume backscatter (Sv) and NASC at 38, 70, 120, 200 kHz; krill density estimates; diel vertical migration patterns. Annual vessel surveys with within-survey daily tracking. ~50-200 GB, EK60/EK80 raw + processed.", "privacy": "public", "url": "https://www.fisheries.noaa.gov/inport/item/31075", "sources": ["S18"] },
+
+    { "id": "dataset_amlr_zooplankton", "label": "AMLR Zooplankton", "type": "Dataset", "subtype": "Antarctic zooplankton net tows", "description": "Net tow zooplankton and krill abundance from annual AMLR surveys, 1986-2016/17. IKMT and Bongo net species abundance, length frequency, and krill reproductive stage across the Antarctic Peninsula region. ~10-50 GB.", "privacy": "public", "url": "https://www.fisheries.noaa.gov/inport/item/11426", "sources": ["S18"] },
+
+    { "id": "dataset_amlr_krill_models", "label": "AMLR Krill Models", "type": "Dataset", "subtype": "Integrated population model output", "description": "Integrated age-structured krill population models for CCAMLR Subarea 48.1 management. Model parameters, fits, recruitment estimates, yield projections. Updated on CCAMLR review cycle.", "privacy": "public", "url": "https://catalog.data.gov/dataset/?tags=amlr+krill+models", "sources": ["S18"] },
+
+    { "id": "dataset_pace_toa_synthetic", "label": "PACE ToA Synthetic", "type": "Dataset", "subtype": "Synthetic radiative transfer dataset", "description": "Top-of-Atmosphere hyperspectral synthetic dataset for PACE ocean-color algorithm development. Built from ranges of optical properties grounded in real in-situ data acquired from SeaBASS. Supports atmospheric correction and inversion algorithm testing before/after launch. Craig is PI / first author.", "privacy": "public", "sources": ["S21"] },
+
+    { "id": "dataset_insitu_optical_properties", "label": "In-situ Optical Properties (global compilation)", "type": "Dataset", "subtype": "Hyperspectral IOP/AOP compilation", "description": "Global compilation of in-situ aquatic high-spectral-resolution inherent and apparent optical property data from diverse aquatic environments. Supports remote-sensing applications and PACE synthetic-dataset generation. Craig is a co-author.", "privacy": "public", "sources": ["S21"] },
 
     { "id": "award_brookie", "label": "Brookie Award", "type": "Award", "subtype": "Community research recognition", "description": "Recognition for community-based coastal research leadership. Awarded to Gabby.", "privacy": "public", "sources": ["S1"] }
   ],
@@ -1341,7 +1382,46 @@ footer.foot {
     { "source": "dataset_boothbay_plankton_ts", "target": "org_bigelow", "type": "hosted_by" },
     { "source": "person_nicole_poulton", "target": "committee_ices_wgpme", "type": "co_chairs" },
     { "source": "person_nicole_poulton", "target": "committee_isac", "type": "member", "label": "Councilor" },
-    { "source": "person_nicole_poulton", "target": "wg_opo", "type": "co_chairs", "label": "co-organizer" }
+    { "source": "person_nicole_poulton", "target": "wg_opo", "type": "co_chairs", "label": "co-organizer" },
+
+    { "source": "person_shelby_brunner", "target": "ra_glos", "type": "employed_by", "label": "Science & Observations Manager" },
+    { "source": "person_shelby_brunner", "target": "org_noaa_gomo", "type": "past_affiliation", "label": "Knauss Fellow, Ocean Climate Observations" },
+    { "source": "person_shelby_brunner", "target": "org_uwm_freshwater", "type": "past_affiliation", "label": "prior research" },
+    { "source": "person_shelby_brunner", "target": "program_knauss_fellowship", "type": "received", "label": "Knauss Fellow" },
+    { "source": "org_noaa_gomo", "target": "org_noaa_oar", "type": "part_of" },
+
+    { "source": "person_susanne_craig", "target": "org_umbc", "type": "employed_by", "label": "Senior Scientist via UMBC" },
+    { "source": "person_susanne_craig", "target": "org_nasa_gsfc", "type": "hosted_by", "label": "work performed at Ocean Ecology Laboratory" },
+    { "source": "person_susanne_craig", "target": "org_dalhousie", "type": "educated_at", "label": "Ph.D." },
+    { "source": "person_susanne_craig", "target": "program_pace", "type": "leads", "label": "Science Lead, System Vicarious Calibration" },
+    { "source": "person_susanne_craig", "target": "project_naames", "type": "leads", "label": "Project Scientist" },
+    { "source": "person_susanne_craig", "target": "committee_nasa_obb_panel", "type": "member" },
+    { "source": "person_susanne_craig", "target": "dataset_pace_toa_synthetic", "type": "pi" },
+    { "source": "person_susanne_craig", "target": "dataset_insitu_optical_properties", "type": "co_author" },
+
+    { "source": "program_pace", "target": "org_nasa_gsfc", "type": "hosted_by" },
+    { "source": "program_pace", "target": "org_nasa_obdaac", "type": "archived_at", "label": "standard products" },
+    { "source": "project_naames", "target": "org_nasa_gsfc", "type": "hosted_by" },
+    { "source": "org_nasa_obpg", "target": "org_nasa_gsfc", "type": "hosted_by" },
+    { "source": "org_nasa_obdaac", "target": "org_nasa_obpg", "type": "operated_by" },
+    { "source": "org_seabass", "target": "org_nasa_obpg", "type": "operated_by" },
+    { "source": "dataset_pace_toa_synthetic", "target": "program_pace", "type": "supports" },
+    { "source": "dataset_pace_toa_synthetic", "target": "org_seabass", "type": "references", "label": "synthetic data grounded in SeaBASS in-situ" },
+    { "source": "dataset_insitu_optical_properties", "target": "org_seabass", "type": "aggregates", "label": "global compilation" },
+
+    { "source": "dataset_c_harm_output", "target": "project_c_harm", "type": "produced_by" },
+    { "source": "dataset_c_harm_output", "target": "pub_ca_hab_bulletin", "type": "feeds" },
+    { "source": "dataset_liveocean_output", "target": "project_liveocean", "type": "produced_by" },
+    { "source": "dataset_liveocean_output", "target": "project_pnw_hab_bulletin", "type": "feeds" },
+    { "source": "dataset_jscope_output", "target": "project_jscope", "type": "produced_by" },
+
+    { "source": "dataset_amlr_acoustic", "target": "dataset_amlr_krill", "type": "part_of", "label": "AMLR subset" },
+    { "source": "dataset_amlr_zooplankton", "target": "dataset_amlr_krill", "type": "part_of", "label": "AMLR subset" },
+    { "source": "dataset_amlr_krill_models", "target": "dataset_amlr_krill", "type": "part_of", "label": "AMLR subset" },
+    { "source": "person_christian_reiss", "target": "dataset_amlr_acoustic", "type": "steward" },
+    { "source": "person_christian_reiss", "target": "dataset_amlr_zooplankton", "type": "steward" },
+    { "source": "person_christian_reiss", "target": "dataset_amlr_krill_models", "type": "steward" },
+    { "source": "dataset_amlr_krill_models", "target": "org_ccamlr", "type": "supports", "label": "Subarea 48.1 fishery management" }
   ]
 }
 </script>
@@ -1564,7 +1644,7 @@ const EDGE_LABEL = {
   contract_to: "on contract to", aligned_with: "aligned with", serves_on: "serves on",
   produces: "produces", hosts: "hosts", trials: "trials", evaluates: "evaluates",
   provides_data_to: "provides data to", delivered_via: "delivered via",
-  validates: "validates"
+  validates: "validates", part_of: "part of"
 };
 
 // Build vis DataSets — vis-network uses {id, label} for nodes and {from, to} for edges.
